@@ -12,7 +12,7 @@
         </div>
 
         <div v-if="!loading && dailyForecast.length" class="forecast-list  w-[40%]">
-            <div class="day flex items-center text-xl uppercase font-bold" v-for="(forecast, index) in dailyForecast"
+            <div class="day flex items-center text-sm  uppercase font-bold" v-for="(forecast, index) in dailyForecast"
                 :key="index">
                 <p class=" px-1">{{ forecast.date }}</p>
                 <img :src="'http://openweathermap.org/img/w/' + forecast.icon + '.png'" alt="Weather Icon"

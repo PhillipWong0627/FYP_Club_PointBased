@@ -39,6 +39,10 @@ import Index from "@/views/Index.vue";
 // User View
 import UserMainPage from "@/views/user/userHomepage.vue";
 import UserAboutPage from "@/views/user/userAboutpage.vue";
+import UserFoodPage from "@/views/user/userFoodNBeverage.vue";
+import UserFacilityPage from "@/views/user/userBookFacility.vue";
+import UserEventPage from "@/views/user/userEventNPromotion.vue";
+
 
 // routes
 
@@ -105,18 +109,19 @@ const routes = [
   },
   {
     path: "/foodandbeverage",
-    component: UserAboutPage,
+    component: UserFoodPage,
   },
   {
     path: "/facilities",
-    component: Index,
+    component: UserFacilityPage,
   },
   {
     path: "/eventandpromotion",
-    component: Index,
+    component: UserEventPage,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
+
 
 const router = createRouter({
   history: createWebHistory(),

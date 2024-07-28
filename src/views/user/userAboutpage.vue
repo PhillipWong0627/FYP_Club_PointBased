@@ -1,18 +1,34 @@
 <template>
     <div>
-        About Us
-        <NavBar></NavBar>
+        <Navnavbars></Navnavbars>
+        <UserNavbar></UserNavbar>
+        About
+        <FooterComp></FooterComp>
     </div>
 </template>
 
 <script>
-import NavBar from "@/components/Navbars/AdminNavbar.vue";
+import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
+import FooterComp from "@/components/Footers/Footer.vue";
+import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 
-export default{
-    components:{
-        NavBar
+export default {
+    components: {
+        Navnavbars,
+        FooterComp,
+        UserNavbar,
+    },
+    methods: {
 
+    },
+    data() {
+        return {
+    
+
+        }
     }
 }
 
+
 </script>
+
