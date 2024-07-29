@@ -277,11 +277,6 @@ export default {
     right: 0;
 }
 
-.site-hero-inner {
-    /* height: 100vh;
-    min-height: 700px; */
-}
-
 .site-hero-inner .heading {
     font-size: 60px;
     font-family: "Playfair+Display", times, serif;
