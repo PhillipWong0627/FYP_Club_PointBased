@@ -38,7 +38,7 @@ import Index from "@/views/Index.vue";
 
 // User View
 import UserMainPage from "@/views/user/userHomepage.vue";
-import UserAboutPage from "@/views/user/userAboutpage.vue";
+import UserRewardPage from "@/views/user/userReward.vue";
 import UserFoodPage from "@/views/user/userFoodNBeverage.vue";
 import UserFacilityPage from "@/views/user/userBookFacility.vue";
 import UserEventPage from "@/views/user/userEventNPromotion.vue";
@@ -103,20 +103,23 @@ const routes = [
     component: UserMainPage,
   },
   {
-    path: "/about",
-    name: "about",
-    component: UserAboutPage,
+    path: "/reward",
+    name: "reward",
+    component: UserRewardPage,
   },
   {
     path: "/foodandbeverage",
+    name: "food&beverage",
     component: UserFoodPage,
   },
   {
     path: "/facilities",
+    name: "facilities",
     component: UserFacilityPage,
   },
   {
     path: "/eventandpromotion",
+    name: "event&promotion",
     component: UserEventPage,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },

@@ -1,27 +1,57 @@
 <template>
-    <div>
+    <div class="bg-blueGray-200">
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
-        <!-- Put Svg -->
-        <!-- <div class=" flex justify-center">
-            <img class="w-full h-500-px" src="@/assets/img/team-1-800x800.jpg">
-        </div> -->
-        <section class="site-hero main-section ">
+        <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+            <div class="absolute top-0 w-full h-full bg-center bg-cover main-section">
+                <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+            </div>
+            <div class="container relative mx-auto">
+                <div class="items-center flex flex-wrap">
+                    <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                        <div class="flex site-hero-inner justify-center items-center ">
+                            <div class=" text-center">
+                                <h1 class="heading" data-aos="fade-up">Welcome to <em>Villa</em> resort</h1>
+                                <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Discover our
+                                    world-class
+                                    hotel &amp; restaurant resort.</p>
+                                <p data-aos="fade-up" data-aos-delay="100"><a href="#"
+                                        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Explore
+                                        The
+                                        Beauty</a> <a href="#"
+                                        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Download</a>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+                style="transform: translateZ(0);">
+                <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                    <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+        <!-- <section class="site-hero main-section ">
             <div class="">
                 <div class="flex site-hero-inner justify-center items-center ">
                     <div class=" text-center">
-                        <!-- <h1 class="heading" data-aos="fade-up">Welcome to <em>Villa</em> resort</h1>
+                        <h1 class="heading" data-aos="fade-up">Welcome to <em>Villa</em> resort</h1>
                         <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Discover our world-class
                             hotel &amp; restaurant resort.</p>
                         <p data-aos="fade-up" data-aos-delay="100"><a href="#"
                                 class="btn uppercase btn-primary mr-md-2 mr-0 mb-3 d-sm-inline d-block">Explore The
                                 Beauty</a> <a href="#"
-                                class="btn uppercase btn-outline-light d-sm-inline d-block">Download</a></p> -->
+                                class="btn uppercase btn-outline-light d-sm-inline d-block">Download</a></p>
                     </div>
                 </div>
             </div>
-        </section>
-        <div class="flex justify-center mt-24 mb-24">
+        </section> -->
+        <!-- <div class="flex justify-center  bg-blueGray-200">
             <div class="container flex flex-col items-center ">
                 <div class="">
                     <span>Since 1987</span>
@@ -51,32 +81,41 @@
                     </span>
                 </div>
             </div>
-        </div>
-        <div class="golf-section">
-            <div class="overlayy">
-                <span class="text-3xl font-normal leading-normal text-emerald-200">GOLF</span>
-                <p class="text-4xl font-normal leading-normal text-gray-600">THE LAKES & THE HILLS</p>
-                <p class="pt-2 pl-1 text-justify">
-                    Kelab R5hman Putra Malaysia (KRPM) offers two world-class golf courses, the Lakes and the Hills,
-                    both designed to offer golfers a unique & challenging experience. The courses are set against a
-                    stunning backdrop of lakes & lush greenery, & challenging water hazards, bunkers, & undulating
-                    greens test golfers' precision & skill.
-                </p>
-                <p class="pt-2 pl-1 text-justify">
-                    Overall, KRPM is a top-notch golf destination that offers an unforgettable experience in Malaysia.
-                </p>
-                <div class="pt-12">
-                    <!-- Link to Register Member Page -->
-                    <ButtonPress @click="testButton()" class="">Become Members</ButtonPress>
+        </div> -->
+
+        <div class="container mx-auto px-4 bg-blueGray-200 pt-6">
+
+            <div class="items-center flex flex-wrap">
+                <div class="w-full md:w-6/12 ml-auto mr-auto px-4">
+                    <img alt="..." class="max-w-full rounded-lg shadow-lg" src="@/assets/userMain/golfImage.jpg" />
+                </div>
+                <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
+                    <div class="md:pr-12 ">
+
+                        <h3 class="text-3xl font-semibold">THE LAKES & THE HILLS</h3>
+                        <p class="mt-4 text-lg leading-relaxed text-blueGray-500 text-justify">
+                            Kelab Rahman Putra Malaysia (KRPM) offers two world-class golf courses, the Lakes and the
+                            Hills, both designed to offer golfers a unique & challenging experience. The courses are set
+                            against a stunning backdrop of lakes & lush greenery, & challenging water hazards, bunkers,
+                            & undulating greens test golfers' precision & skill.
+                        </p>
+                        <p class="pt-2 text-justify text-lg leading-relaxed text-blueGray-500">
+                            Overall, KRPM is a top-notch golf destination that offers an unforgettable experience in
+                            Malaysia.
+                        </p>
+                        <div class="pt-6">
+                            <ButtonPress @click="testButton()" class="text-sm">Become Members</ButtonPress>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex flex-wrap items-center mt-32 ">
+
+
+        <div class="container mx-auto flex flex-wrap items-center mt-32 bg-blueGray-200">
             <div class="w-full md:w-5/12 px-4 mr-auto ml-auto">
-                <h3 class="text-3xl mb-2 font-semibold leading-normal">
-                    BANQUET, EVENT & CONFERENCE
-                </h3>
+                <h3 class="text-3xl mb-2 font-semibold leading-normal">BANQUET, EVENT & CONFERENCE</h3>
                 <p class="text-4xl font-normal leading-normal text-gray-600">FOOD & BEVERAGES</p>
 
                 <p class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
@@ -91,18 +130,17 @@
                     </div>
                 </div>
                 <div class="pt-6">
-                    <!-- Link to Register Member Page -->
-                    <ButtonPress @click="testButton()" class="">Discover More</ButtonPress>
+                    <ButtonPress @click="toFoodBeveragePage()" class="text-sm">Discover More</ButtonPress>
                 </div>
             </div>
 
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
-                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-500">
+                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
                     <img alt="..." src="@/assets/userMain/golfImage.jpg" class="w-full align-middle rounded-t-lg" />
                     <blockquote class="relative p-8 mb-4">
                         <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 583 95"
                             class="absolute left-0 w-full block h-95-px -top-94-px">
-                            <polygon points="-30,95 583,95 583,65" class="text-emerald-500 fill-current"></polygon>
+                            <polygon points="-30,95 583,95 583,65" class="text-emerald-300 fill-current"></polygon>
                         </svg>
                         <h4 class="text-xl font-bold text-white">
                             Top Clubs Services
@@ -118,7 +156,7 @@
             </div>
         </div>
 
-        <FooterComp />
+        <FooterComp class="" />
 
 
 
@@ -148,6 +186,14 @@ export default {
             window.location.href = routeData.href;
 
         },
+        toFoodBeveragePage() {
+            const routeData = this.$router.resolve({
+                name: "food&beverage",
+
+            });
+            window.location.href = routeData.href;
+
+        },
     },
     data() {
         return {
@@ -168,34 +214,13 @@ export default {
 
 <style scoped>
 .main-section {
-    background-image: url('@/assets/userMain/hero.png');
+    background-image: url('@/assets/userMain/hero_1.jpg');
     background-size: cover;
     background-position: center;
-    height: 500px;
-    
+
 
 }
 
-.golf-section {
-    position: relative;
-    background-image: url('@/assets/userMain/golfImage.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 500px;
-    display: flex;
-    padding-left: 100px;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 200px;
-}
-
-.overlayy {
-    background: rgba(255, 255, 255, 0.8);
-    /* White background with transparency */
-    padding: 50px;
-    max-width: 600px;
-    text-align: left;
-}
 
 .food-section {
     position: relative;
@@ -240,7 +265,7 @@ export default {
     right: 0;
 }
 
-.overlay{
+.overlay {
     background: rgba(0, 0, 0, 0.45);
     content: "";
     position: absolute;
@@ -253,12 +278,12 @@ export default {
 }
 
 .site-hero-inner {
-    height: 100vh;
-    min-height: 700px;
+    /* height: 100vh;
+    min-height: 700px; */
 }
 
 .site-hero-inner .heading {
-    font-size: 80px;
+    font-size: 60px;
     font-family: "Playfair+Display", times, serif;
     color: #fff;
     line-height: 1;

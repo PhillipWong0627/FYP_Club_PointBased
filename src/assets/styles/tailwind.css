@@ -1534,6 +1534,12 @@ select {
   border-color: rgba(255, 255, 255, var(--tw-border-opacity));
 }
 
+.border-red-500{
+  --tw-border-opacity: 1;
+  border-color: rgba(239, 68, 68, var(--tw-border-opacity));
+
+}
+
 .border-emerald-700 {
   --tw-border-opacity: 1;
   border-color: rgba(4, 120, 87, var(--tw-border-opacity));

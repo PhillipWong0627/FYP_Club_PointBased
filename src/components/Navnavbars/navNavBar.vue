@@ -3,7 +3,7 @@
         <div class="flex  w[30%] ">
             <img style="width: 16px; height: 16px;" class="mt-2" src="@/assets/navBar/location.png" alt="Location Icon">
             <span
-                class="hover:text-blueGray-500 text-blueGray-700 px-3 py-2 items-center text-sm uppercase font-bold flex">Club
+                class="hover:text-blueGray-500 text-blueGray-700 px-3 py-2 items-center text-xs uppercase font-bold flex">Club
                 Management System</span>
         </div>
 
@@ -14,7 +14,7 @@
         <div v-if="!loading && dailyForecast.length" class="forecast-list  w-[40%]">
             <div class="day flex items-center text-sm  uppercase font-bold" v-for="(forecast, index) in dailyForecast"
                 :key="index">
-                <p class=" px-1">{{ forecast.date }}</p>
+                <p class="px-1 lg:block hidden text-xs">{{ forecast.date }}</p>
                 <img :src="'http://openweathermap.org/img/w/' + forecast.icon + '.png'" alt="Weather Icon"
                     class="weather-icon" />
                 <p class="px-1 ">{{ forecast.temp_max }} °C</p>
@@ -337,8 +337,8 @@ tp://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&ap
     }
 
     .weather-icon {
-        width: 100px;
-        height: 100px;
+        width: 20px;
+        height: 20px;
     }
 
     .temperature {

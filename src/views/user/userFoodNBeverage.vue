@@ -2,7 +2,7 @@
     <div>
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
-        FOod
+        Food
         <FooterComp></FooterComp>
     </div>
 </template>

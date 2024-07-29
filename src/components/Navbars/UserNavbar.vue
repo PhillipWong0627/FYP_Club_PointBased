@@ -94,32 +94,34 @@
 
                 </ul>
             </div>
-            <div>
-                <div @click="toggleDropdownProfile" class="modalProfile">
-                    <img src="@/assets/navBar/appImage.png"
-                        class="max-w-40-px w-40-px h-40-px max-h-40-px lg:static absolute top-65-px rounded-full border-2 border-white"
-                        style="object-fit: cover; " />
+            <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+                <UserProfileDropdown />
+            </ul>
+
+            <!-- <div @click="toggleDropdownProfile" class="modalProfile">
+                <img src="@/assets/navBar/appImage.png"
+                    class="max-w-40-px w-40-px h-40-px max-h-40-px lg:static absolute top-65-px rounded-full border-2 border-white"
+                    style="object-fit: cover; " />
 
 
-                    <div style="z-index: 1000" v-show="showDropdown"
-                        class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-blueGray-800 mt-1 p-1 py-3">
-                        <div class="pr-1 pt-1 pb-2 flex flex-col w-[80px]">
-                            <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">
-                                Register
-                            </button>
-                            <button v-if="!loggedIn" class="px-1" @click="showLoginModal">
-                                Login
-                            </button>
-                            <button v-if="loggedIn" class="px-1" @click="showMyPageModal">
-                                MyPage
-                            </button>
-                            <button v-if="loggedIn" @click="logout" class="block text-white">
-                                Logout
-                            </button>
-                        </div>
+                <div style="z-index: 1000" v-show="showDropdown"
+                    class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-blueGray-800 mt-1 p-1 py-3">
+                    <div class="pr-1 pt-1 pb-2 flex flex-col w-[80px]">
+                        <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">
+                            Register
+                        </button>
+                        <button v-if="!loggedIn" class="px-1" @click="showLoginModal">
+                            Login
+                        </button>
+                        <button v-if="loggedIn" class="px-1" @click="showMyPageModal">
+                            MyPage
+                        </button>
+                        <button v-if="loggedIn" @click="logout" class="block text-white">
+                            Logout
+                        </button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
         </div>
@@ -129,19 +131,19 @@
 <script>
 // import IndexDropdown from "@/components/Dropdowns/IndexDropdown.vue";
 import ButtonPress from "@/components/ButtonPress.vue";
-import { ref } from 'vue';
+import UserProfileDropdown from "@/components/Dropdowns/UserProfileDropdown.vue";
+
 export default {
     data() {
         return {
             navbarOpen: false,
             Links: [
                 { name: "main", link: "/" },
-                { name: "about", link: "/about" },
+                { name: "reward", link: "/reward" },
                 { name: "foods & beverage", link: "/foodandbeverage" },
                 { name: "Facilities Booking", link: "/facilities" },
                 { name: "events & promotion", link: "/eventandpromotion" },
             ],
-            showDropdown: ref(false),
 
         };
     },
@@ -158,14 +160,26 @@ export default {
             window.location.href = routeData.href;
 
         },
-        search(){
+        search() {
             console.log("Searching");
-        }
+        },
+        toggleDropdownProfile() {
+            this.showDropdown = !this.showDropdown;
+            this.isDropdownOpen = false;
+            this.isDropdownOpenLanguage = false;
+        },
     },
     components: {
         // IndexDropdown,
         ButtonPress,
+        UserProfileDropdown,
 
     },
 };
 </script>
+
+<style scoped>
+.modalProfile:hover {
+    cursor: pointer;
+}
+</style>
