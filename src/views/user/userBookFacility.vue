@@ -2,8 +2,16 @@
     <div>
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
-        Facility Booking
-        <FooterComp></FooterComp>
+
+        <div class="flex flex-col items-center">
+            <span class="text-3xl font-semibold">Facility</span>
+            <div>
+                <!-- Components for all the facilities -->
+                Card
+
+            </div>
+        </div>
+        <FooterComp class="mt-12"></FooterComp>
     </div>
 </template>
 
@@ -23,7 +31,7 @@ export default {
     },
     data() {
         return {
-    
+
 
         }
     }
@@ -31,4 +39,3 @@ export default {
 
 
 </script>
-
