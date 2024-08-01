@@ -14,9 +14,9 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #007BFF;
+  background-color: #22c55e;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   text-align: center;
