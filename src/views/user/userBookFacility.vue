@@ -5,35 +5,36 @@
 
         <div class="flex flex-col items-center">
             <span class="text-3xl font-semibold uppercase py-4">Facilities</span>
-            <div class="flex flex-wrap justify-evenly border-2 border-red-500 facilityContainer bg-emerald-200">
+            <div class="flex flex-wrap justify-evenly facilityContainer  container">
                 <!-- Components for all the facilities -->
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2 border-2 border-red-500">
-                    <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
-                    <span class="text-xl">Badminton Rubber Flooring</span>
+                <div v-for="i in facilityData" :key="i.facilityData"
+                    class="flex flex-col items-center justify-around cardContainer  bg-blueGray-100 px-2 my-2 rounded-sm">
+                    <img style="width: 100%; height: 60%;" :src="i.facilityImage" class="rounded-md">
+                    <span class="text-xl">{{ i.facilityName }}</span>
                     <ButtonPress>Book Now</ButtonPress>
                 </div>
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2 border-2 border-red-500">
+                <!-- <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
                     <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
                     <span class="text-xl">Swimming</span>
                     <ButtonPress>Book Now</ButtonPress>
                 </div>
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2 border-2 border-red-500">
+                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
                     <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
                     <span class="text-xl">Snooker</span>
                     <ButtonPress>Book Now</ButtonPress>
                 </div>
 
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2 border-2 border-red-500">
+                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
                     <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
                     <span class="text-xl">Basketball</span>
                     <ButtonPress>Book Now</ButtonPress>
                 </div>
 
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2 border-2 border-red-500">
+                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
                     <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
                     <span class="text-xl">Ping Pong</span>
                     <ButtonPress>Book Now</ButtonPress>
-                </div>
+                </div> -->
 
 
 
@@ -63,7 +64,32 @@ export default {
     },
     data() {
         return {
-
+            facilityData: [
+                {
+                    facilityName: "Badminton Rubber Flooring",
+                    facilityImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    facilityName: "Swimming",
+                    facilityImage: require("@/assets/userMain/hero_1.jpg").default
+                },
+                {
+                    facilityName: "Snooker",
+                    facilityImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    facilityName: "Basketball",
+                    facilityImage: require("@/assets/userMain/hero.png").default
+                },
+                {
+                    facilityName: "PingPong",
+                    facilityImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    facilityName: "Football",
+                    facilityImage: require("@/assets/userMain/h.jpg").default
+                },
+            ]
 
         }
     }
@@ -81,6 +107,6 @@ export default {
 
     width: 300px;
     height: 393px;
-    background: white;
+    /* background: white; */
 }
 </style>

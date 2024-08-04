@@ -2,12 +2,18 @@
     <div class="">
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
-        <p class="flex border-2 justify-center text-3xl uppercase ">Event Promotion</p>
-        <div style="width: 900px; height: 221.19px;" class="flex justify-center mx-auto rounded-full">
+        <p class="flex justify-center text-3xl uppercase mt-6">Event Promotion</p>
+        <!-- <div style="width: 900px; height: 220px;" class="flex justify-center mx-auto rounded-full">
             <img class="w-full rounded-3xl" src="@/assets/userMain/golfImage.jpg">
-        </div>
+        </div> -->
+        <swiper :pagination="true" :keyboard="true" :modules="modules" class="mySwiper mt-4">
 
-        <main class="wrapper pt-6 pb-12 border-2">
+            <swiper-slide v-for="i in advertisementData" :key="i.advertisementData" class="">
+                <img class="w-full rounded-3xl" :src="i.advImage" />
+            </swiper-slide>
+        </swiper>
+
+        <main class="wrapper pt-6 pb-12 ">
             <div class="card-container flex justify-evenly w-full">
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4 " v-for="livedata in liveData"
                     :key="livedata.liveData">
@@ -43,7 +49,7 @@
             </ul>
         </div> -->
 
-        <FooterComp style="margin-top: 400px;" class=""></FooterComp>
+        <FooterComp class=""></FooterComp>
     </div>
 </template>
 
@@ -54,18 +60,36 @@ import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import team1 from "@/assets/img/team-1-800x800.jpg";
 import appImage from "@/assets/navBar/location.png";
 
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css';
+
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+// import required modules
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
+
+
 
 export default {
     components: {
         Navnavbars,
         FooterComp,
         UserNavbar,
+
+        Swiper,
+        SwiperSlide,
+
     },
     methods: {
 
     },
     data() {
         return {
+            modules: [Navigation, Pagination, Mousewheel, Keyboard],
+
             team1,
             appImage,
 
@@ -112,9 +136,102 @@ export default {
                     streamerIcon: this.team,
                     streamerName: "Streamer 2"
                 },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+                {
+                    liveID: "2",
+                    streamerID: "2",
+                    image: require("@/assets/userMain/h.jpg").default,
+                    liveTitle: "Live Stream 2",
+                    streamerIcon: this.team,
+                    streamerName: "Streamer 2"
+                },
+
 
             ],
 
+            advertisementData: [
+                {
+                    advImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    advImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    advImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    advImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    advImage: require("@/assets/userMain/h.jpg").default
+                },
+                {
+                    advImage: require("@/assets/userMain/h.jpg").default
+                },
+            ]
         }
     }
 }
@@ -269,5 +386,30 @@ export default {
 
 .multiline-ellipsis::after {
     content: "...";
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background-color: #E2E8F0;
+        /* #bfdbfe */
+    ;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 900px;
+    height: 300px;
+    object-fit: cover;
 }
 </style>

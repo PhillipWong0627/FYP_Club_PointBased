@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view class="bg-blueGray-200" />
     
     <div class="floating-contact-us">
       <img class="w-10 h-10" src="@/assets/svg/whatsapp.svg">
