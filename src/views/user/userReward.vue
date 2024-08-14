@@ -56,6 +56,7 @@
 
         </div>
         <RewardPage></RewardPage>
+        <DealsPage></DealsPage>
 
         <FooterComp class="mt-20"></FooterComp>
     </div>
@@ -65,7 +66,8 @@
 import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
-import RewardPage from "@/components/rewardComp.vue";
+import RewardPage from "@/components/Rewards/rewardComp.vue";
+import DealsPage from "@/components/Rewards/DealComp.vue";
 
 //QR Code
 import QrcodeVue from 'qrcode.vue'
@@ -78,6 +80,7 @@ export default {
         FooterComp,
         UserNavbar,
         RewardPage,
+        DealsPage,
 
         //QR Code
         QrcodeVue

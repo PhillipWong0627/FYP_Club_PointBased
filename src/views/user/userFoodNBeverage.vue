@@ -1,99 +1,137 @@
 <template>
-    <div>
-        <Navnavbars></Navnavbars>
-        <UserNavbar></UserNavbar>
+    <div class="shop-container">
+        <!-- Categories Section -->
+        <div class="categories">
+            <div v-for="(category, index) in categories" :key="index" class="category-item"
+                :class="{ active: selectedCategory === index }" @click="selectCategory(index)">
+                <img :src="category.icon" alt="" />
+                <p>{{ category.name }}</p>
+            </div>
+        </div>
 
-        <swiper :pagination="true" :keyboard="true" :modules="modules" class="mySwiper">
-            <swiper-slide v-for="i in advertisementData" :key="i.advertisementData">
-                <img :src="i.advImage" />
-            </swiper-slide>
-        </swiper>
-
-
-
-        <FooterComp style="margin-top: 1000px;" class="mt-12"></FooterComp>
+        <!-- Products Section -->
+        <div class="products">
+            <div v-for="(product, index) in filteredProducts" :key="index" class="product-item">
+                <img :src="product.image" alt="" />
+                <h3>{{ product.name }}</h3>
+                <p :class="{ oldPrice: product.oldPrice }">${{ product.price }}</p>
+                <p v-if="product.oldPrice" class="old-price">
+                    ${{ product.oldPrice }}
+                </p>
+            </div>
+        </div>
     </div>
-
-
 </template>
 
 <script>
-import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
-import FooterComp from "@/components/Footers/Footer.vue";
-import UserNavbar from '@/components/Navbars/UserNavbar.vue'
-
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue';
-
-// Import Swiper styles
-import 'swiper/css';
-
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-// import './style.css';
-
-// import required modules
-import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
-
 export default {
-    components: {
-        Navnavbars,
-        FooterComp,
-        UserNavbar,
-
-        Swiper,
-        SwiperSlide,
-    },
-    setup() {
+    data() {
         return {
-            modules: [Navigation, Pagination, Mousewheel, Keyboard],
-            advertisementData: [
+            selectedCategory: 0,
+            categories: [
                 {
-                    advImage: require("@/assets/userMain/h.jpg").default
+                    name: "Beauty",
+                    icon: require("@/assets/navBar/appImage.png").default
                 },
                 {
-                    advImage: require("@/assets/userMain/h.jpg").default
+                    name: "Clothes",
+                    icon: require("@/assets/navBar/appImage.png").default
                 },
                 {
-                    advImage: require("@/assets/userMain/h.jpg").default
+                    name: "Clothes",
+                    icon: require("@/assets/navBar/appImage.png").default
                 },
                 {
-                    advImage: require("@/assets/userMain/h.jpg").default
+                    name: "Clothes",
+                    icon: require("@/assets/navBar/appImage.png").default
+                },
+                // Add other categories...
+            ],
+            products: [
+                {
+                    category: 1,
+                    name: "The north coat",
+                    image: "north-coat.png",
+                    price: 260,
+                    oldPrice: 320,
                 },
                 {
-                    advImage: require("@/assets/userMain/h.jpg").default
+                    category: 2,
+                    name: "Gucci duffle bag",
+                    image: "gucci-bag.png",
+                    price: 900,
+                    oldPrice: 1000,
                 },
                 {
-                    advImage: require("@/assets/userMain/h.jpg").default
+                    category: 3,
+                    name: "RGB Liquid CPU Cooler",
+                    image: "cooler.png",
+                    price: 150,
+                    oldPrice: 170,
                 },
-            ]
+                {
+                    category: 4,
+                    name: "Small Bookshelf",
+                    image: "bookshelf.png",
+                    price: 350,
+                },
+                // Add other products...
+            ],
         };
+    },
+    computed: {
+        filteredProducts() {
+            return this.products.filter(
+                (product) => product.category === this.selectedCategory
+            );
+        },
+    },
+    methods: {
+        selectCategory(index) {
+            this.selectedCategory = index;
+        },
     },
 };
 </script>
 
-<style>
-.swiper {
-    width: 100%;
-    height: 100%;
-}
-
-.swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-
-    /* Center slide text vertically */
+<style scoped>
+.shop-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-.swiper-slide img {
-    display: block;
-    width: 900px;
-    height: 350px;
-    object-fit: cover;
+.categories {
+    display: flex;
+    justify-content: space-around;
+}
+
+.category-item {
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.category-item.active {
+    border-bottom: 2px solid blue;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-item {
+    width: 200px;
+    text-align: center;
+}
+
+.product-item img {
+    max-width: 100%;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: red;
 }
 </style>
