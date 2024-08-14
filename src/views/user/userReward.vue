@@ -57,7 +57,7 @@
         </div>
         <RewardPage></RewardPage>
 
-        <FooterComp class="mt-12"></FooterComp>
+        <FooterComp class="mt-20"></FooterComp>
     </div>
 </template>
 
@@ -65,7 +65,7 @@
 import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
-import RewardPage from "@/components/flashSales.vue";
+import RewardPage from "@/components/rewardComp.vue";
 
 //QR Code
 import QrcodeVue from 'qrcode.vue'
