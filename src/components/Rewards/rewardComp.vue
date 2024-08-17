@@ -2,9 +2,9 @@
   <div class="flex flex-col pt-10 ">
     <div class=" container mx-auto flex justify-between">
       <span class="text-3xl font-semibold uppercase py-4 ">Rewards</span>
-      <button>View All</button>
+      <button class="uppercase font-bold text-lg pr-4">View All</button>
     </div>
-    <div class="flex flex-wrap justify-evenly mx-auto container border-2 border-red-500">
+    <div class="flex flex-wrap justify-evenly mx-auto container ">
       <!-- Components for all the facilities -->
       <div v-for="i in product" :key="i.product"
         class="flex flex-col items-center justify-around cardContainer bg-blueGray-100 px-2 my-2 rounded-sm ">
@@ -14,7 +14,7 @@
             <span>{{ i.point }} pts</span>
 
           </div>
-          <div class="uppercase text-xl">
+          <div class="uppercase text-sm">
             {{ i.name }}
 
           </div>

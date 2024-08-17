@@ -9,10 +9,9 @@
         <div style=" height: 360px;" class=" flex justify-center">
             <div class=" bg-white flex justify-center rounded-3xl" style="width: 500px;">
                 <div style="width: 98%;" class="my-2 rounded-3xl flex flex-col relative  items-center bg-emerald-200">
-                    <div class="absolute cursor-pointer"
-                        style="right: 10px; top: 10px;">
+                    <div class="absolute cursor-pointer" style="right: 10px; top: 10px;">
                         <!-- <i class="fas fa-info flex mt-1 justify-center"></i> -->
-                        <i class="fas fa-info-circle text-2xl"   ></i>
+                        <i class="fas fa-info-circle text-2xl"></i>
 
                         <!-- <img style="width: 30px; height: 30px;" src="@/assets/navBar/appImage.png" /> -->
                     </div>
@@ -23,9 +22,9 @@
                     <div class="">
                         <span class="text-sm font-bold uppercase">Scan Code To Collect Point</span>
                     </div>
-                    <div class="absolute flex right-0 bottom-0 items-center">
-                        <span>3143pts</span>
-                        <i class="fas fa-chevron-right"></i>
+                    <div style="right: 10px; bottom: 10px;" class="absolute flex items-center">
+                        <span class="pr-2 pb-1">3143 pts</span>
+                        <i class="fas fa-chevron-right cursor-pointer mt-1"></i>
                     </div>
 
                 </div>
@@ -35,26 +34,7 @@
 
         </div>
 
-        <div class="flex flex-col">
-            <div class="flex">
-                <span>Rewards</span>
-                <button>view all</button>
-            </div>
-            <div>
-                Cards..........
-            </div>
 
-        </div>
-        <div class="flex flex-col">
-            <span>Deals</span>
-            <div class="">
-                List of Type ...
-            </div>
-            <div>
-                Cards..........
-            </div>
-
-        </div>
         <RewardPage></RewardPage>
         <DealsPage></DealsPage>
 

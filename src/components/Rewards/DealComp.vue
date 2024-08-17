@@ -1,10 +1,10 @@
 <template>
-  <div class="wrapper pt-10 p-1 pb-12 border-2 border-red-500">
+  <div class="wrapper pt-10 p-1 pb-12 ">
     <div class=" container mx-auto">
-      <span class="text-3xl font-semibold uppercase py-4 ">Deals</span>
+      <span class="text-3xl font-semibold uppercase py-4  ">Deals</span>
     </div>
 
-    <div class="categories border border-red-500">
+    <div class="categories container mx-auto mt-10">
       <div v-for="(category, index) in categories" :key="index"
         class="category-item flex flex-col items-center justify-center" :class="{ active: selectedCategory === index }"
         @click="selectCategory(index)">
@@ -13,16 +13,16 @@
 
       </div>
     </div>
-    <div class="flex flex-wrap justify-evenly mx-auto container border-2 border-red-500">
+    <div class="flex flex-wrap justify-evenly mx-auto container ">
       <div v-for="(product, index) in filteredProducts" :key="index"
         class="flex flex-col items-center justify-around cardContainer bg-blueGray-100 px-2 my-2 rounded-sm">
         <img style="width: 200px; height: 180px;" class="w-full rounded-3xl" :src="product.image" alt="" />
         <div class="flex flex-col items-center mt-4">
           <div class="uppercase border-2 border-red-500 rounded-full px-2 text-lg">
-            <span>{{ product.oldPrice }} pts</span>
+            <span>{{ product.point }} pts</span>
 
           </div>
-          <div class="uppercase text-xl">
+          <div class="uppercase text-sm">
             {{ product.name }}
 
           </div>
@@ -74,62 +74,60 @@ export default {
         {
           category: 1,
           name: "The north coat",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 260,
-          oldPrice: 320,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 320,
         },
         {
           category: 1,
           name: "The north coat",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 260,
-          oldPrice: 320,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 320,
         },
 
         {
           category: 1,
           name: "The north coat",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 260,
-          oldPrice: 320,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 320,
         },
 
         {
           category: 1,
           name: "The north coat",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 260,
-          oldPrice: 320,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 320,
         },
 
 
         {
           category: 2,
           name: "Gucci duffle bag",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 900,
-          oldPrice: 1000,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 1000,
         },
         {
           category: 3,
           name: "RGB Liquid CPU Cooler",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 150,
-          oldPrice: 170,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 170,
         },
         {
           category: 4,
           name: "Small Bookshelf",
-          image: require("@/assets/navBar/appImage.png").default,
-          price: 350,
+          image: require("@/assets/img/team-1-800x800.jpg").default,
+          point: 170,
+
         },
-        // Add other products...
 
       ],
     };
   },
   computed: {
     filteredProducts() {
+      if (this.selectedCategory === 0) {
+        return this.products;
+      }
+
       return this.products.filter(
         (product) => product.category === this.selectedCategory
       );
@@ -147,13 +145,9 @@ export default {
 <style scoped>
 .cardContainer {
 
-width: 200px;
-height: 293px;
-/* background: white; */
-}
-.shop-container {
-  display: flex;
-  flex-direction: column;
+  width: 200px;
+  height: 293px;
+  /* background: white; */
 }
 
 .categories {
@@ -173,23 +167,5 @@ height: 293px;
   border: 2px solid #F58033;
 }
 
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
 
-.product-item {
-  width: 200px;
-  text-align: center;
-}
-
-.product-item img {
-  max-width: 100%;
-}
-
-.old-price {
-  text-decoration: line-through;
-  color: red;
-}
 </style>
