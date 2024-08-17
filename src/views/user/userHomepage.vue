@@ -155,7 +155,9 @@
                 </div>
             </div>
         </div>
-
+        <div>
+            <UserMemberPlan></UserMemberPlan>
+        </div>
         <FooterComp class="" />
 
 
@@ -168,6 +170,7 @@ import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 import ButtonPress from "@/components/ButtonPress.vue";
 import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
+import UserMemberPlan from "@/components/UserMainPage/MemberPlanComp.vue";
 
 export default {
     components: {
@@ -175,6 +178,7 @@ export default {
         ButtonPress,
         FooterComp,
         UserNavbar,
+        UserMemberPlan,
     },
     methods: {
         testButton() {
