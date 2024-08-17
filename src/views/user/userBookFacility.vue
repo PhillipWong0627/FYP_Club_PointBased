@@ -4,11 +4,13 @@
         <UserNavbar></UserNavbar>
 
         <div class="flex flex-col items-center">
-            <span class="text-3xl font-semibold uppercase py-4">Facilities</span>
+            <p class="flex justify-center font-semibold text-3xl uppercase mt-6">Facilities</p>
+
+            <!-- <span class="text-3xl font-semibold uppercase py-4">Facilities</span> -->
             <div class="flex flex-wrap justify-evenly facilityContainer  container">
                 <!-- Components for all the facilities -->
                 <div v-for="i in facilityData" :key="i.facilityData"
-                    class="flex flex-col items-center justify-around cardContainer  bg-blueGray-100 px-2 my-2 rounded-sm">
+                    class="flex flex-col items-center justify-around cardContainer   bg-blueGray-100 px-2 my-2 rounded-sm">
                     <img style="width: 100%; height: 60%;" :src="i.facilityImage" class="rounded-md">
                     <span class="text-xl">{{ i.facilityName }}</span>
                     <ButtonPress>Book Now</ButtonPress>

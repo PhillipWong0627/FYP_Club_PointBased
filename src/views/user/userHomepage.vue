@@ -2,6 +2,7 @@
     <div class="bg-blueGray-200">
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
+        
         <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
             <div class="absolute top-0 w-full h-full bg-center bg-cover main-section">
                 <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>

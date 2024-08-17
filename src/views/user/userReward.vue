@@ -3,10 +3,10 @@
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
 
-        <p class="flex justify-center text-3xl uppercase mt-6">Rewards</p>
+        <p class="flex justify-center font-semibold text-3xl uppercase mt-6">Rewards</p>
 
         <!-- Outer Div.. -->
-        <div style=" height: 360px;" class=" flex justify-center">
+        <div style=" height: 360px;" class=" flex justify-center mt-6">
             <div class=" bg-white flex justify-center rounded-3xl" style="width: 500px;">
                 <div style="width: 98%;" class="my-2 rounded-3xl flex flex-col relative  items-center bg-emerald-200">
                     <div class="absolute cursor-pointer" style="right: 10px; top: 10px;">

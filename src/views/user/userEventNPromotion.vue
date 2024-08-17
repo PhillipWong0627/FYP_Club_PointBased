@@ -2,7 +2,7 @@
     <div class="">
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
-        <p class="flex justify-center text-3xl uppercase mt-6">Event Promotion</p>
+        <p class="flex justify-center font-semibold text-3xl uppercase mt-6">Event Promotion</p>
         <!-- <div style="width: 900px; height: 220px;" class="flex justify-center mx-auto rounded-full">
             <img class="w-full rounded-3xl" src="@/assets/userMain/golfImage.jpg">
         </div> -->
