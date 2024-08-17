@@ -1,63 +1,35 @@
 <template>
-  <div class="wrapper pt-10 p-1 pb-12">
-
-
-    <div class="flex flex-row items-center pb-5">
-      <h2 class="font-inter font-semibold text-[36px] max-[767px]:text-[22px]">Browse By Category</h2>
+  <div class="wrapper pt-10 p-1 pb-12 border-2 border-red-500">
+    <div class=" container mx-auto">
+      <span class="text-3xl font-semibold uppercase py-4 ">Deals</span>
     </div>
 
+    <div class="categories border border-red-500">
+      <div v-for="(category, index) in categories" :key="index"
+        class="category-item flex flex-col items-center justify-center" :class="{ active: selectedCategory === index }"
+        @click="selectCategory(index)">
+        <img style="width: 50%; height: 60%;" :src="category.icon" alt="">
+        <p class="text-base font-semibold uppercase">{{ category.name }}</p>
 
-    <div
-      class="w-[full] flex justify-start items-start gap-5 pl-10 pt-5 text-base l font-poppins text-[16px] max-[767px]">
-      <button v-for="(item, index) in categories" :key="index" @click="catButtonClick(index, item.categoryid)">
-        {{ item.name }}
-        <div class="w-[full] h-[3px] bg-orange-400 rounded-sm" v-if="selectedCatIndex === index"></div>
-      </button>
+      </div>
     </div>
+    <div class="flex flex-wrap justify-evenly mx-auto container border-2 border-red-500">
+      <div v-for="(product, index) in filteredProducts" :key="index"
+        class="flex flex-col items-center justify-around cardContainer bg-blueGray-100 px-2 my-2 rounded-sm">
+        <img style="width: 200px; height: 180px;" class="w-full rounded-3xl" :src="product.image" alt="" />
+        <div class="flex flex-col items-center mt-4">
+          <div class="uppercase border-2 border-red-500 rounded-full px-2 text-lg">
+            <span>{{ product.oldPrice }} pts</span>
 
-    <div
-      class="w-[full] flex justify-start items-start gap-5 md:pl-10 pt-5 text-base l font-poppins text-[16px] max-[767px] pl-3">
-      <button v-for="(item, index) in items" :key="index"
-        class="text-center text-black text-base text-[16px] font-poppins leading-normal font-medium"
-        @click="handleButtonClick(index, item.subCategoryId)">
-        {{ item.name }}
-        <div class="w-[full] h-[3px] bg-orange-400 rounded-sm" v-if="selectedItemIndex === index"></div>
-      </button>
-    </div>
-
-    <div class="card-container flex justify-start w-full ml-[40px] pt-5 max-[768px]:ml-0">
-      <div class="card py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="product in product"
-        :key="product.product">
-        <div @click="toProduct(product.product_id)" class="card-body relative">
-          <div
-            class="w-[55px] h-[26px] px-3 py-1 absolute left-5 top-3 bg-orange-400 rounded justify-center items-center gap-2.5 inline-flex"
-            v-show="false">
-            <div class="text-neutral-50 text-xs font-normal font-['Poppins'] leading-[18px]">
-              {{ product.discount_percent }}
-            </div>
           </div>
+          <div class="uppercase text-xl">
+            {{ product.name }}
 
-
-          <div class="flex items-center" style="height: 70px">
-            <div class="flex flex-col h-[42px] pl-1 items-start pt-0.5 w-full">
-              <div class="text-black font-semibold text-16px font-poppins w-full text-start">
-                {{ product.name }}
-              </div>
-
-              <div class="flex flex-row">
-                <div class="font-medium text-grayText text-[16px] w-full text-themcolor whitespace-nowrap">
-                  {{ product.discount_price }}
-                </div>
-
-                <div class="font-medium text-grayText text-[16px] pl-3 w-full whitespace-nowrap">
-                  <s>{{ product.price }}</s>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -74,338 +46,150 @@ export default {
 
   data() {
     return {
-      routeName: '',
-      isMobile: false,
-      items: [
-        "All",
-        "Foundation",
-        "Face cream",
-        "Sunscreen",
-        "Toner",
-        "All",
-        "Foundation",
-        "Face cream",
-        "Sunscreen",
-        "Toner",
-      ],
-      categories: [
-        {
-          image: require("@/assets/navBar/appImage.png").default,
-          name: "Beauty",
-        },
-        {
-          image: require("@/assets/navBar/appImage.png").default,
-          name: "Beauty",
-        },
-      ],
-      currentSlide: 0,
-      settings: {
-        itemsToShow: 1,
-        snapAlign: "center",
-      },
-      breakpoints: {
-        300: { itemsToShow: 2, snapAlign: "start" },
-        500: { itemsToShow: 2.5, snapAlign: "none" },
-        700: { itemsToShow: 3.5, snapAlign: "center" },
-        1024: { itemsToShow: 8, snapAlign: "start" },
-      },
+      selectedCategory: 0,
+
+      categories:
+        [
+          {
+            name: "All",
+            icon: require("@/assets/navBar/appImage.png").default
+          },
+          {
+            name: "Beauty",
+            icon: require("@/assets/navBar/appImage.png").default
+          },
+          {
+            name: "Clothes",
+            icon: require("@/assets/navBar/appImage.png").default
+          },
+          {
+            name: "Clothes",
+            icon: require("@/assets/navBar/appImage.png").default
+          },
+          // Add other categories...
+        ],
 
 
-      product: [
+      products: [
         {
+          category: 1,
+          name: "The north coat",
           image: require("@/assets/navBar/appImage.png").default,
-          name: "HAVIT HV-G92 Gamepad",
-          discount_price: "$120",
-          price: "$160",
-          favorite: true,
-          discount_percent: "-20%",
+          price: 260,
+          oldPrice: 320,
         },
         {
+          category: 1,
+          name: "The north coat",
           image: require("@/assets/navBar/appImage.png").default,
-          name: "AK-900 Wired Keyboard",
-          discount_price: "$140",
-          price: "$180",
-          favorite: true,
-          discount_percent: "-40%",
+          price: 260,
+          oldPrice: 320,
+        },
+
+        {
+          category: 1,
+          name: "The north coat",
+          image: require("@/assets/navBar/appImage.png").default,
+          price: 260,
+          oldPrice: 320,
+        },
+
+        {
+          category: 1,
+          name: "The north coat",
+          image: require("@/assets/navBar/appImage.png").default,
+          price: 260,
+          oldPrice: 320,
+        },
+
+
+        {
+          category: 2,
+          name: "Gucci duffle bag",
+          image: require("@/assets/navBar/appImage.png").default,
+          price: 900,
+          oldPrice: 1000,
         },
         {
+          category: 3,
+          name: "RGB Liquid CPU Cooler",
           image: require("@/assets/navBar/appImage.png").default,
-          name: "IPS LCD Gaming Monitor",
-          discount_price: "$160",
-          price: "$220",
-          favorite: true,
-          discount_percent: "-40%",
+          price: 150,
+          oldPrice: 170,
         },
         {
+          category: 4,
+          name: "Small Bookshelf",
           image: require("@/assets/navBar/appImage.png").default,
-          name: "S-Series Comfort Chair ",
-          discount_price: "$180",
-          price: "$280",
-          favorite: true,
-          discount_percent: "-40%",
+          price: 350,
         },
-        {
-          image: require("@/assets/navBar/appImage.png").default,
-          name: "S-Series Comfort Chair ",
-          discount_price: "$220",
-          price: "$320",
-          favorite: true,
-          discount_percent: "-40%",
-        },
+        // Add other products...
+
       ],
     };
   },
-
+  computed: {
+    filteredProducts() {
+      return this.products.filter(
+        (product) => product.category === this.selectedCategory
+      );
+    },
+  },
   methods: {
-    toProduct(inventoryID) {
-      this.$router.push({
-        name: "product",
-        query: {
-          product: "1",
-        },
-      });
-      if (this.isMobile) {
-        this.routeName = 'Mobile Product';
-      } else {
-        this.routeName = 'product';
-      }
-      this.$router.push({
-        name: this.routeName,
-        query: {
-          product: inventoryID,
-        },
-      });
+    selectCategory(index) {
+      this.selectedCategory = index;
     },
 
-    showProduct(index, categoryid) {
-      this.currentSlide = index;
-
-      this.items = []
-      this.generateSubCategoryList(categoryid)
-    },
-
-    isSelected(index) {
-      return this.currentSlide === index;
-    },
-
-    handleBeforeSlide(newIndex, oldIndex) {
-      // Prevent automatic sliding when the user clicks on a category
-      if (oldIndex !== null) {
-        return false;
-      }
-    },
-
-    handleButtonClick(index, subCategoryId) {
-      this.selectedItemIndex = index;
-      this.generateProductList(subCategoryId);
-    },
-    catButtonClick(index, catId) {
-      this.selectedCatIndex = index;
-      this.generateSubCategoryList(catId);
-    },
-    next() {
-      this.$refs.carousel.next();
-    },
-
-    prev() {
-      this.$refs.carousel.prev();
-    },
-
-    toggleFavorite(product) {
-      product.favorite = !product.favorite;
-    },
   },
 };
 </script>
 
 <style scoped>
-/* @media (min-width: 300px) {
-  .card {
-    display: inline-block;
-    width: 175px;
-    height: 162px;
-  }
+.cardContainer {
 
-  .titleBox {
-    position: absolute;
-    bottom: 0;
-  }
-
-  .contentImage {
-    display: block;
-    width: 30px;
-  }
-
-  .gradient_bottom::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
-    background-size: cover;
-  }
+width: 200px;
+height: 293px;
+/* background: white; */
+}
+.shop-container {
+  display: flex;
+  flex-direction: column;
 }
 
-@media (min-width: 500px) {
-  .card {
-    display: inline-block;
-    width: 230px;
-    height: 162px;
-  }
-
-  .titleBox {
-    position: absolute;
-    bottom: 0;
-  }
-
-  .contentImage {
-    display: block;
-    width: 35px;
-  }
-
-  .gradient_bottom::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    bottom: 1;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
-    background-size: cover;
-    border-radius: 8px;
-  }
+.categories {
+  display: flex;
+  justify-content: space-around;
 }
 
-@media (min-width: 640px) {
-  .card {
-    display: inline-block;
-    width: 270px;
-    height: 350px;
-  }
-
-  .titleBox {
-    position: absolute;
-    bottom: 0;
-  }
-
-  .contentImage {
-    display: block;
-    width: 38px;
-  }
-
-  .gradient_bottom::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
-    background-size: cover;
-    border-radius: 8px;
-  }
-} */
-
-.card {
-  display: inline-block;
-  width: 270px;
-  height: 350px;
+.category-item {
+  width: 170px;
+  height: 145px;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.titleBox {
-  position: absolute;
-  bottom: 0;
+.category-item.active {
+  border: 2px solid #F58033;
 }
 
-.contentImage {
-  display: block;
-  width: 38px;
-}
-
-.wrapper {
-  width: 100%;
-  max-width: 1500px;
-  /* margin-left: 40px; */
-  /* margin: 0px auto; */
-}
-
-.card-container {
+.products {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  row-gap: 15px;
-  border: 10px solid gren;
+  gap: 20px;
 }
 
-.card-body {
+.product-item {
+  width: 200px;
   text-align: center;
-  height: 250px;
-  width: 100%;
-  cursor: pointer;
-  position: relative;
 }
 
-/* .card-body img {
-  width: 100%;
-  border-radius: 8px;
-} */
-
-.multiline-ellipsis {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.product-item img {
+  max-width: 100%;
 }
 
-.multiline-ellipsis::after {
-  content: "...";
-}
-
-@media (max-width : 768px) {
-  .card {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .soldoutimg {
-    width: 300px;
-    height: 300px;
-  }
-}
-
-@media (min-width: 300px) {
-
-  .soldoutimg {
-    width: 110px;
-    height: 110px;
-  }
-
-}
-
-@media (min-width: 500px) {
-  .soldoutimg {
-    width: 110px;
-    height: 110px;
-  }
-
-
-}
-
-@media (min-width: 640px) {
-  .soldoutimg {
-    width: 150px;
-    height: 150px;
-  }
-
+.old-price {
+  text-decoration: line-through;
+  color: red;
 }
 </style>

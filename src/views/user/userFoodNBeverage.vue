@@ -28,55 +28,57 @@ export default {
     data() {
         return {
             selectedCategory: 0,
-            categories: [
-                {
-                    name: "Beauty",
-                    icon: require("@/assets/navBar/appImage.png").default
-                },
-                {
-                    name: "Clothes",
-                    icon: require("@/assets/navBar/appImage.png").default
-                },
-                {
-                    name: "Clothes",
-                    icon: require("@/assets/navBar/appImage.png").default
-                },
-                {
-                    name: "Clothes",
-                    icon: require("@/assets/navBar/appImage.png").default
-                },
-                // Add other categories...
-            ],
-            products: [
-                {
-                    category: 1,
-                    name: "The north coat",
-                    image: "north-coat.png",
-                    price: 260,
-                    oldPrice: 320,
-                },
-                {
-                    category: 2,
-                    name: "Gucci duffle bag",
-                    image: "gucci-bag.png",
-                    price: 900,
-                    oldPrice: 1000,
-                },
-                {
-                    category: 3,
-                    name: "RGB Liquid CPU Cooler",
-                    image: "cooler.png",
-                    price: 150,
-                    oldPrice: 170,
-                },
-                {
-                    category: 4,
-                    name: "Small Bookshelf",
-                    image: "bookshelf.png",
-                    price: 350,
-                },
-                // Add other products...
-            ],
+            categories:
+                [
+                    {
+                        name: "Beauty",
+                        icon: require("@/assets/navBar/appImage.png").default
+                    },
+                    {
+                        name: "Clothes",
+                        icon: require("@/assets/navBar/appImage.png").default
+                    },
+                    {
+                        name: "Clothes",
+                        icon: require("@/assets/navBar/appImage.png").default
+                    },
+                    {
+                        name: "Clothes",
+                        icon: require("@/assets/navBar/appImage.png").default
+                    },
+                    // Add other categories...
+                ],
+            products:
+                [
+                    {
+                        category: 1,
+                        name: "The north coat",
+                        image: require("@/assets/navBar/appImage.png").default,
+                        price: 260,
+                        oldPrice: 320,
+                    },
+                    {
+                        category: 2,
+                        name: "Gucci duffle bag",
+                        image: require("@/assets/navBar/appImage.png").default,
+                        price: 900,
+                        oldPrice: 1000,
+                    },
+                    {
+                        category: 3,
+                        name: "RGB Liquid CPU Cooler",
+                        image: require("@/assets/navBar/appImage.png").default,
+                        price: 150,
+                        oldPrice: 170,
+                    },
+                    {
+                        category: 4,
+                        name: "Small Bookshelf",
+                        image: require("@/assets/navBar/appImage.png").default,
+                        price: 350,
+                    },
+                    // Add other products...
+                ],
         };
     },
     computed: {

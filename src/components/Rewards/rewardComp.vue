@@ -4,13 +4,13 @@
       <span class="text-3xl font-semibold uppercase py-4 ">Rewards</span>
       <button>View All</button>
     </div>
-    <div class="flex flex-wrap justify-evenly mx-auto container ">
+    <div class="flex flex-wrap justify-evenly mx-auto container border-2 border-red-500">
       <!-- Components for all the facilities -->
       <div v-for="i in product" :key="i.product"
         class="flex flex-col items-center justify-around cardContainer bg-blueGray-100 px-2 my-2 rounded-sm ">
         <img style="width: 200px; height: 180px;" class="w-full rounded-3xl" :src="i.image" />
         <div class="flex flex-col items-center mt-4">
-          <div class="uppercase  rounded-full px-2 text-lg">
+          <div class="uppercase border-2 border-red-500 rounded-full px-2 text-lg">
             <span>{{ i.point }} pts</span>
 
           </div>
@@ -64,15 +64,7 @@
                     <span class="text-xl">Ping Pong</span>
                     <ButtonPress>Book Now</ButtonPress>
                 </div> -->
-
-
-
-
-
     </div>
-
-
-
   </div>
 </template>
 
