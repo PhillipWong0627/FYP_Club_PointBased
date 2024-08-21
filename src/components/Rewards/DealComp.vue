@@ -15,7 +15,7 @@
     </div>
     <div class="flex flex-wrap justify-evenly mx-auto container ">
       <div v-for="(product, index) in filteredProducts" :key="index"
-        class="flex flex-col items-center justify-around cardContainer bg-blueGray-100 px-2 my-2 rounded-sm">
+        class="flex flex-col items-center justify-around cardContainer cursor-pointer shadow-2xl bg-blueGray-100 px-2 my-2 rounded-sm">
         <img style="width: 200px; height: 180px;" class="w-full rounded-3xl" :src="product.image" alt="" />
         <div class="flex flex-col items-center mt-4">
           <div class="uppercase border-2 border-red-500 rounded-full px-2 text-lg">
@@ -55,15 +55,15 @@ export default {
             icon: require("@/assets/navBar/appImage.png").default
           },
           {
-            name: "Beauty",
+            name: "Deals",
             icon: require("@/assets/navBar/appImage.png").default
           },
           {
-            name: "Clothes",
+            name: "Burgers & Others",
             icon: require("@/assets/navBar/appImage.png").default
           },
           {
-            name: "Clothes",
+            name: "Dessert",
             icon: require("@/assets/navBar/appImage.png").default
           },
           // Add other categories...

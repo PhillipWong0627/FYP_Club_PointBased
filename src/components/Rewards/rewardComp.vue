@@ -4,10 +4,10 @@
       <span class="text-3xl font-semibold uppercase py-4 ">Rewards</span>
       <button class="uppercase font-bold text-lg pr-4">View All</button>
     </div>
-    <div class="flex flex-wrap justify-evenly mx-auto container ">
+    <div class="flex flex-wrap justify-evenly mx-auto container  ">
       <!-- Components for all the facilities -->
       <div v-for="i in product" :key="i.product"
-        class="flex flex-col items-center justify-around cardContainer bg-blueGray-100 px-2 my-2 rounded-sm ">
+        class="flex flex-col items-center justify-around cardContainer shadow-2xl bg-blueGray-100 px-2 my-2 rounded-sm cursor-pointer ">
         <img style="width: 200px; height: 180px;" class="w-full rounded-3xl" :src="i.image" />
         <div class="flex flex-col items-center mt-4">
           <div class="uppercase border-2 border-red-500 rounded-full px-2 text-lg">
@@ -166,9 +166,10 @@ export default {
 
 <style scoped>
 .cardContainer {
-
   width: 200px;
   height: 293px;
+  margin-left: 10px;
+  margin-right: 10px;
   /* background: white; */
 }
 

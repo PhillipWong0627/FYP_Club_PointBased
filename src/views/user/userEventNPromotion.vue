@@ -13,27 +13,24 @@
             </swiper-slide>
         </swiper>
 
+
         <main class="wrapper pt-6 pb-12 ">
+            <span class="flex justify-center uppercase font-bold text-3xl pb-2">News</span>
             <div class="card-container flex justify-evenly w-full">
-                <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4 " v-for="livedata in liveData"
-                    :key="livedata.liveData">
+                <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4 " v-for="event in eventData"
+                    :key="event.eventData" @click="toEventLink(event)">
                     <div class="card-body relative">
-                        <!-- <div @click="toLiveStream(livedata.liveID, livedata.streamerID)" class="card-body relative"> -->
+                        <!-- <div @click="toLiveStream(event.eventID, event.streamerID)" class="card-body relative"> -->
                         <div class="w-full h-full">
-                            <img style="" class="" :src="livedata.image" alt="Image" />
+                            <img style="" class="" :src="event.image" alt="Image" />
                         </div>
                         <div class="gradient_bottom w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
-                            <div class="pr-1 pl-1 z-10 w-full contentImage  md:pb-1.5">
-
-                                <img id="circle" style="width: 25px" class="rounded-full" :src="livedata.image"
-                                    alt="Image" />
-                            </div>
                             <div class="flex flex-col pl-1 items-start z-10 w-52">
                                 <div class="text-start text-white font-normal text-sm  w-210-px multiline-ellipsis">
-                                    <span> {{ livedata.liveTitle }}</span>
+                                    <span> {{ event.eventTitle }}</span>
                                 </div>
                                 <div class="text-xs text-white font-bold opacity-60 text-start multiline-ellipsis">
-                                    {{ livedata.streamerName }}
+                                    {{ event.dateTime }}
                                 </div>
                             </div>
                         </div>
@@ -41,13 +38,9 @@
                 </div>
             </div>
         </main>
-        <!-- <div>
-            <ul>
-                <li v-for="i in liveData" :key="i.liveData">
-                    {{ i.liveID }}
-                </li>
-            </ul>
-        </div> -->
+        <!-- Include the EventModal component -->
+        <EventModal :isVisible="isModalVisible" :eventTitle="selectedEvent?.eventTitle"
+            :eventDescription="selectedEvent?.dateTime" :eventImage="selectedEvent?.image" @close="isModalVisible = false" />
 
         <FooterComp class=""></FooterComp>
     </div>
@@ -59,6 +52,7 @@ import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import team1 from "@/assets/img/team-1-800x800.jpg";
 import appImage from "@/assets/navBar/location.png";
+import EventModal from "@/components/Modals/EventModal.vue";
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
@@ -82,8 +76,16 @@ export default {
         Swiper,
         SwiperSlide,
 
+        EventModal,
+
     },
     methods: {
+        toEventLink(event) {
+            console.log(event);
+            this.selectedEvent = event;
+            this.isModalVisible = true; // Show modal
+
+        }
 
     },
     data() {
@@ -92,121 +94,123 @@ export default {
 
             team1,
             appImage,
+            isModalVisible: false, // Control modal visibility
+            selectedEvent: null, // Store selected event data
 
-            liveData: [
+            eventData: [
                 {
-                    liveID: "1",
+                    eventID: "1",
                     streamerID: "1",
                     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    liveTitle: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1",
+                    eventTitle: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1",
                     streamerIcon: this.appImage,
-                    streamerName: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1"
+                    dateTime: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "3",
                     streamerID: "2",
                     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
 
                 {
-                    liveID: "2",
+                    eventID: "4",
                     streamerID: "2",
                     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
 
                 {
-                    liveID: "2",
+                    eventID: "5",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "6",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
                 {
-                    liveID: "2",
+                    eventID: "2",
                     streamerID: "2",
                     image: require("@/assets/userMain/h.jpg").default,
-                    liveTitle: "Live Stream 2",
+                    eventTitle: "Live Stream 2",
                     streamerIcon: this.team,
-                    streamerName: "Streamer 2"
+                    dateTime: "Streamer 2"
                 },
 
 
@@ -397,7 +401,7 @@ export default {
     text-align: center;
     font-size: 18px;
     background-color: #E2E8F0;
-        /* #bfdbfe */
+    /* #bfdbfe */
     ;
 
     /* Center slide text vertically */
