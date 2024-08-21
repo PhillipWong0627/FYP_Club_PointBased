@@ -1,6 +1,6 @@
 <template>
     <div v-if="isVisible" class="modal-overlay" @click="closeModal">
-      <div class="modal">
+      <div class="modal" @click.stop>
         <div class="flex justify-between modalHeader text-white text-2xl uppercase px-4 py-2">
             <h2>{{ eventTitle }}</h2>
             <span class="close cursor-pointer" @click="closeModal">&times;</span>
