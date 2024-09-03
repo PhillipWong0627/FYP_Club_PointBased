@@ -43,6 +43,7 @@ import UserFoodPage from "@/views/user/userFoodNBeverage.vue";
 import UserFacilityPage from "@/views/user/userBookFacility.vue";
 import UserEventPage from "@/views/user/userEventNPromotion.vue";
 
+import UserFacilitySchedule from "@/views/user/BookFacility/userFacilitySchedule.vue";
 
 // routes
 
@@ -54,6 +55,7 @@ const routes = [
     children: [
       {
         path: "/admin/dashboard",
+        name: "adminDashboard",
         component: Dashboard,
       },
       {
@@ -117,6 +119,11 @@ const routes = [
     name: "facilities",
     component: UserFacilityPage,
   },
+    {
+      path: "/Scheduler",
+      name: "Scheduler",
+      component: UserFacilitySchedule,
+    },
   {
     path: "/eventandpromotion",
     name: "event&promotion",

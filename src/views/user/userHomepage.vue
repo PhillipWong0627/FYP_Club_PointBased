@@ -2,7 +2,7 @@
     <div class="bg-blueGray-200">
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
-        
+
         <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
             <div class="absolute top-0 w-full h-full bg-center bg-cover main-section">
                 <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
@@ -16,11 +16,15 @@
                                 <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Discover our
                                     world-class
                                     hotel &amp; restaurant resort.</p>
-                                <p data-aos="fade-up" data-aos-delay="100"><a href="#"
+                                <p data-aos="fade-up" data-aos-delay="100"><a href="/admin"
                                         class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Explore
                                         The
-                                        Beauty</a> <a href="#"
-                                        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Download</a>
+                                        Beauty</a>
+                                    <a href="#"
+                                    @click="toAdminPage()"
+                                        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                        Download
+                                    </a>
                                 </p>
 
                             </div>
@@ -156,7 +160,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="">
             <UserMemberPlan></UserMemberPlan>
         </div>
         <FooterComp class="" />
@@ -190,6 +194,14 @@ export default {
             });
             window.location.href = routeData.href;
 
+        },
+        toAdminPage() {
+            console.log("Going to Admin Page");
+            const routeData = this.$router.resolve({
+                name: "adminDashboard"
+            });
+
+            window.location.href = routeData.href;
         },
         toFoodBeveragePage() {
             const routeData = this.$router.resolve({
