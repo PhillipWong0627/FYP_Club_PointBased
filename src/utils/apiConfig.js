@@ -5,3 +5,4 @@ export const baseUrl = 'http://localhost:8080';
 export const ClubManagementSystemrBaseUrl = '/api/v1/user';
 
 export const getAllMember = ClubManagementSystemrBaseUrl + '/getMember';
+export const addNewMember =  ClubManagementSystemrBaseUrl + '/addMembers'

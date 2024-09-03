@@ -9,7 +9,6 @@
           :style="`background-image: url('${registerBg2}');`"
         ></div>
         <router-view />
-        <footer-small absolute />
       </section>
     </main>
   </div>
@@ -18,7 +17,6 @@
 import UserNavbar from "@/components/Navbars/UserNavbar.vue";
 import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 
-import FooterSmall from "@/components/Footers/FooterSmall.vue";
 
 import registerBg2 from "@/assets/img/register_bg_2.png";
 
@@ -29,7 +27,6 @@ export default {
     };
   },
   components: {
-    FooterSmall,
     UserNavbar,
     Navnavbars
   },

@@ -27,8 +27,8 @@ import Maps from "@/views/admin/Maps.vue";
 
 // views for Auth layout
 
-import Login from "@/views/auth/Login.vue";
-import Register from "@/views/auth/Register.vue";
+// import Login from "@/views/auth/Login.vue";
+// import Register from "@/views/auth/Register.vue";
 
 // views without layouts
 
@@ -44,6 +44,11 @@ import UserFacilityPage from "@/views/user/userBookFacility.vue";
 import UserEventPage from "@/views/user/userEventNPromotion.vue";
 
 import UserFacilitySchedule from "@/views/user/BookFacility/userFacilitySchedule.vue";
+
+import UserProfilePage from "@/views/user/myProfile.vue"
+
+import UserRegister from "@/views/auth/UserRegister.vue";
+import UserLogin from "@/views/auth/UserLogin.vue";
 
 // routes
 
@@ -72,6 +77,8 @@ const routes = [
       },
     ],
   },
+
+  //Authentication Default
   {
     path: "/auth",
     redirect: "/auth/login",
@@ -79,11 +86,11 @@ const routes = [
     children: [
       {
         path: "/auth/login",
-        component: Login,
+        component: UserLogin,
       },
       {
         path: "/auth/register",
-        component: Register,
+        component: UserRegister,
       },
     ],
   },
@@ -95,6 +102,8 @@ const routes = [
     path: "/profile",
     component: Profile,
   },
+  
+  // Start From Here
   {
     path: "/index",
     name: "index",
@@ -128,6 +137,12 @@ const routes = [
     path: "/eventandpromotion",
     name: "event&promotion",
     component: UserEventPage,
+  },
+  {
+    path: "/myProfile",
+    name: "myProfile",
+    component: UserProfilePage,
+
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];

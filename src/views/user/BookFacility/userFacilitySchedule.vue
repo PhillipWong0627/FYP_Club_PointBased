@@ -27,14 +27,6 @@
         const result = await getMemberInfo();
         console.log(result);
         this.members = result;
-        console.log("THIS IS MY MEMBER ARRAY");
-        console.log(this.members);
-        // try {
-        //   const response = await axios.get('http://localhost:8080/api/v1/member');
-        //   this.members = response.data;
-        // } catch (error) {
-        //   console.error('Error fetching members:', error);
-        // }
       }
     }
   };
