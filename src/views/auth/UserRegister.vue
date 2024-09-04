@@ -39,7 +39,7 @@
                                 <input :type="passwordFieldType" v-model="password"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="Password" />
-                                <div class="button mr-1.5 ">
+                                <div class="button mr-1.5">
                                     <img v-if="passwordVisibility" src="@/assets/auth/unhide.png" alt="UnHide Password"
                                         @click="togglePasswordVisibility" />
                                     <img v-else src="@/assets/auth/hide.png" alt="Hide Password"
@@ -98,7 +98,12 @@ export default {
                 this.name,
                 this.password
             );
-            console.log(result);
+
+            console.log(result)
+            if(result) {
+                //Toast "You Have succesfully Register as member"
+                window.location.reload()
+            }
 
         }
 
@@ -111,7 +116,7 @@ export default {
 .button {
     position: absolute;
     right: 10px;
-    top: 33px;
+    top: 40px;
     background: none;
     border: none;
     cursor: pointer;

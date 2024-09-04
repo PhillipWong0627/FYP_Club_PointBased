@@ -53,12 +53,13 @@ export async function addMember(email, username, password) {
     console.log(response);
 
     const code = response.code;
-    const data = response.data;
+    // const data = response.data;
     // console.log(response);
     // console.log(code);
     // console.log(data);
     if (code === 0) {
-      return data;
+      // return data;
+      return true;
     } else {
       console.log(`Unsuccessfully register: ${code}`);
       return [];
