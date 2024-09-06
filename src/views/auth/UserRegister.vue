@@ -10,13 +10,13 @@
 
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
 
-                        <form>
+                        <form @submit.prevent="toPaymentModal" >
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password">
                                     Name
                                 </label>
-                                <input type="text" v-model="name"
+                                <input type="text" v-model="name" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="Name" />
                             </div>
@@ -26,7 +26,7 @@
                                     htmlFor="grid-password">
                                     Email
                                 </label>
-                                <input type="email" v-model="email"
+                                <input type="email" v-model="email" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="Email" />
                             </div>
@@ -36,7 +36,7 @@
                                     htmlFor="grid-password">
                                     Password
                                 </label>
-                                <input :type="passwordFieldType" v-model="password"
+                                <input :type="passwordFieldType" v-model="password" required
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="Password" />
                                 <div class="button mr-1.5">
@@ -50,28 +50,34 @@
                             </div>
 
 
-
-
                             <div class="text-center mt-6">
-                                <button @click="registerUser()"
+                                <button
                                     class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                                    type="button">
-                                    Create Account
+                                    type="submit">
+                                    Pay To Join Member
                                 </button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Include the PaymentModal component -->
+        <PaymentModal :isVisible="isModalVisible" :name="name" :email="email" :password="password"
+            @close="isModalVisible = false" />
+
     </div>
 </template>
 <script>
 //Import to fetch data
-import { addMember } from '@/service/apiProvider.js';
+import PaymentModal from "@/components/Modals/PaymentModal.vue";
 
 export default {
 
+    components: {
+        PaymentModal,
+    },
     data() {
         return {
             name: '', // Bind to the name input
@@ -79,6 +85,8 @@ export default {
             password: '', // Bind to the password input
 
             passwordVisibility: false,
+            isModalVisible: false, // Control modal visibility
+
         }
     },
     computed: {
@@ -92,20 +100,22 @@ export default {
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
         },
-        async registerUser() {
-            const result = await addMember(
-                this.email,
-                this.name,
-                this.password
-            );
 
-            console.log(result)
-            if(result) {
-                //Toast "You Have succesfully Register as member"
-                window.location.reload()
+
+        toPaymentModal() {
+            if (this.name == "" || this.email == "" || this.password == "") {
+                // console.log("FILL");
+                alert("Please fill in all the fields (Name, Email, and Password).");
+
+            } else {
+                console.log("Show Modal ");
+
+                this.isModalVisible = true; // Show modal
+
             }
 
-        }
+
+        },
 
     }
 }

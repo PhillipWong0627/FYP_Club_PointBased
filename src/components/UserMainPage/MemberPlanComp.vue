@@ -66,27 +66,13 @@
                             Best Deal
                         </h4>
                         <h3 class="text-2xl font-bold mt-2">Monthly Membership</h3>
-                        <p class="text-4xl font-bold">$99</p>
+                        <p class="text-4xl font-bold">RM 30</p>
                         <p class="text-sm text-gray-600">Every month</p>
                     </div>
                     <p class="text-center mb-4">Explore the basics with this introductory course</p>
-                    <p class="text-center text-sm text-gray-600 mb-4">Valid for 12 months</p>
-                    <ButtonPress class="w-full">Buy Now</ButtonPress>
+                    <ButtonPress @click=userRegister() class="w-full">Subscript Now!</ButtonPress>
                     <hr class="my-6 border-blueGray-300" />
 
-                    <!-- <button
-                        class="w-full bg-black text-white font-semibold py-2 rounded-md focus:outline-none hover:bg-gray-800">
-                        Buy Now
-                    </button> -->
-                    <ul class="mt-4 text-sm text-gray-600">
-                        <li class="flex items-center justify-center py-1"><i class="fas fa-check-circle mr-2"></i>4
-                            classes</li>
-                        <li class="flex items-center justify-center py-1"><i class="fas fa-check-circle mr-2"></i>3
-                            individual
-                            sessions</li>
-                        <li class="flex items-center justify-center py-1"><i class="fas fa-check-circle mr-2"></i>Online
-                            resources</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -99,6 +85,20 @@ import ButtonPress from "@/components/ButtonPress.vue";
 export default {
     components: {
         ButtonPress
+    },
+    methods: {
+        userRegister() {
+            //Navigate to regisrer page
+            console.log("HALO");
+            const routeData = this.$router.resolve({
+                name: "userRegister",
+
+            });
+            window.location.href = routeData.href;
+
+
+
+        }
     }
 }
 

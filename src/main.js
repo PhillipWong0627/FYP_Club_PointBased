@@ -50,6 +50,9 @@ import UserProfilePage from "@/views/user/myProfile.vue"
 import UserRegister from "@/views/auth/UserRegister.vue";
 import UserLogin from "@/views/auth/UserLogin.vue";
 
+//Plugin
+
+
 // routes
 
 const routes = [
@@ -90,6 +93,7 @@ const routes = [
       },
       {
         path: "/auth/register",
+        name: "userRegister",
         component: UserRegister,
       },
     ],
@@ -111,6 +115,7 @@ const routes = [
   },
   {
     path: "/",
+    name: "main",
     component: UserMainPage,
   },
   {
@@ -156,6 +161,8 @@ const router = createRouter({
 const app = createApp(App);
 
 app.use(router);
+
+
 
 app.mount("#app");
 

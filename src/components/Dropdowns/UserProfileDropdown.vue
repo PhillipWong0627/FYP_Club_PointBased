@@ -46,11 +46,11 @@
             </a> -->
             <router-link to="/auth/register" v-if="!loggedIn"
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                Register
+                Register as Member
             </router-link>
             <router-link to="/auth/login" v-if="!loggedIn"
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                Login
+                Login as Member
             </router-link>
 
 

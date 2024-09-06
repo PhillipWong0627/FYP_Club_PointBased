@@ -39,34 +39,33 @@ export async function getMemberInfo() {
   }
 }
 
-export async function addMember(email, username, password) {
+export async function addMember(email, username, password, contactNumber) {
   const url = baseUrl + addNewMember;
   console.log(url);
+  console.log(contactNumber);
 
   const apiDetails = {
     email: email,
     memberName: username,
     password: password,
+    contact: contactNumber
   };
   try {
     const response = await postRequest(url, apiDetails);
     console.log(response);
 
     const code = response.code;
-    // const data = response.data;
-    // console.log(response);
-    // console.log(code);
-    // console.log(data);
+    
     if (code === 0) {
       // return data;
       return true;
     } else {
       console.log(`Unsuccessfully register: ${code}`);
-      return [];
+      return false;
     }
 
   } catch (e) {
     console.log(`Unsuccessful in provider: ${e}`);
-    return [];
+    return false;
   }
 }

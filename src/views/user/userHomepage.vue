@@ -1,5 +1,6 @@
 <template>
     <div class="bg-blueGray-200">
+        
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
 
@@ -20,8 +21,7 @@
                                         class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Explore
                                         The
                                         Beauty</a>
-                                    <a href="#"
-                                    @click="toAdminPage()"
+                                    <a href="#" @click="toAdminPage()"
                                         class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                         Download
                                     </a>
@@ -41,52 +41,7 @@
                 </svg>
             </div>
         </div>
-        <!-- <section class="site-hero main-section ">
-            <div class="">
-                <div class="flex site-hero-inner justify-center items-center ">
-                    <div class=" text-center">
-                        <h1 class="heading" data-aos="fade-up">Welcome to <em>Villa</em> resort</h1>
-                        <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Discover our world-class
-                            hotel &amp; restaurant resort.</p>
-                        <p data-aos="fade-up" data-aos-delay="100"><a href="#"
-                                class="btn uppercase btn-primary mr-md-2 mr-0 mb-3 d-sm-inline d-block">Explore The
-                                Beauty</a> <a href="#"
-                                class="btn uppercase btn-outline-light d-sm-inline d-block">Download</a></p>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <!-- <div class="flex justify-center  bg-blueGray-200">
-            <div class="container flex flex-col items-center ">
-                <div class="">
-                    <span>Since 1987</span>
-                </div>
-                <div class="">
-                    <span>KELAB RAHMAN PUTRA MALAYSIA</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-center px-10">Kelab Rahman Putra Malaysia (KRPM) is a premier golfing destination
-                        that offers members access
-                        to
-                        two challenging 18-hole par 72 golf courses. The Lakes Course and The Hills Course are both
-                        designed
-                        to provide golfers with a unique and challenging experience, and are considered among the best
-                        golf
-                        courses in the country.
-                    </span>
-                    <span class="mt-5 text-center px-10">our world-class golf courses, KRPM also offers a spacious Club
-                        House that is full of amenities
-                        for
-                        members, family, and guests. Our Club House is equipped with a variety of facilities, including
-                        a
-                        swimming pool, fitness center, sauna, and steam room. We also have a restaurant and bar that
-                        serves
-                        delicious food and refreshing drinks, making it the perfect place to relax and socialize after a
-                        round of golf.
-                    </span>
-                </div>
-            </div>
-        </div> -->
+
 
         <div class="container mx-auto px-4 bg-blueGray-200 pt-6">
 
@@ -109,7 +64,7 @@
                             Malaysia.
                         </p>
                         <div class="pt-6">
-                            <ButtonPress @click="testButton()" class="text-sm">Become Members</ButtonPress>
+                            <ButtonPress @click="scrollToUserMemberPlan()" class="text-sm">Become Members</ButtonPress>
                         </div>
                     </div>
                 </div>
@@ -160,7 +115,7 @@
                 </div>
             </div>
         </div>
-        <div class="">
+        <div ref="userMemberPlan" class="">
             <UserMemberPlan></UserMemberPlan>
         </div>
         <FooterComp class="" />
@@ -186,15 +141,12 @@ export default {
         UserMemberPlan,
     },
     methods: {
-        testButton() {
-            console.log("HALO");
-            const routeData = this.$router.resolve({
-                name: "index",
-
-            });
-            window.location.href = routeData.href;
-
+        scrollToUserMemberPlan() {
+            const section = this.$refs.userMemberPlan;
+            section.scrollIntoView({ behavior: 'smooth' });
         },
+
+
         toAdminPage() {
             console.log("Going to Admin Page");
             const routeData = this.$router.resolve({
