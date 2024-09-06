@@ -171,7 +171,7 @@ export default {
                 { name: "The Putra Cafe" },
                 { name: "The Mixed Lounge" },
                 { name: "Japanese Food Restaurant & Many More" }
-            ]
+            ],
 
         }
     }

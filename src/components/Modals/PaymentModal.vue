@@ -118,8 +118,8 @@ export default {
                     this.contactWithCountry
                 );
                 
-                console.log("THIS IS RESULT")
-                console.log(result)
+                // console.log("THIS IS RESULT")
+                // console.log(result)
                 if (result) {
                     setTimeout(() => {
                         this.loading = false;
