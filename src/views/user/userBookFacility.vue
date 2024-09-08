@@ -15,33 +15,6 @@
                     <span class="text-xl">{{ i.facilityName }}</span>
                     <ButtonPress>Book Now</ButtonPress>
                 </div>
-                <!-- <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
-                    <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
-                    <span class="text-xl">Swimming</span>
-                    <ButtonPress>Book Now</ButtonPress>
-                </div>
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
-                    <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
-                    <span class="text-xl">Snooker</span>
-                    <ButtonPress>Book Now</ButtonPress>
-                </div>
-
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
-                    <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
-                    <span class="text-xl">Basketball</span>
-                    <ButtonPress>Book Now</ButtonPress>
-                </div>
-
-                <div class="flex flex-col items-center justify-around cardContainer px-2 my-2">
-                    <img style="width: 100%; height: 60%;" src="@/assets/navBar/appImage.png">
-                    <span class="text-xl">Ping Pong</span>
-                    <ButtonPress>Book Now</ButtonPress>
-                </div> -->
-
-
-
-
-
             </div>
         </div>
         <FooterComp class="mt-12"></FooterComp>
@@ -79,32 +52,18 @@ export default {
                 {
                     facilityID: 1,
                     facilityName: "Badminton Rubber Flooring",
-                    facilityImage: require("@/assets/userMain/h.jpg").default
+                    facilityImage: require("@/assets/facility/badmintonCourt.jpg").default
                 },
+
                 {
                     facilityID: 2,
-                    facilityName: "Swimming",
-                    facilityImage: require("@/assets/userMain/hero_1.jpg").default
+                    facilityName: "PingPong",
+                    facilityImage: require("@/assets/facility/badmintonCourt.jpg").default
                 },
                 {
                     facilityID: 3,
-                    facilityName: "Snooker",
-                    facilityImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    facilityID: 4,
-                    facilityName: "Basketball",
-                    facilityImage: require("@/assets/userMain/hero.png").default
-                },
-                {
-                    facilityID: 5,
-                    facilityName: "PingPong",
-                    facilityImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    facilityID: 6,
                     facilityName: "Football",
-                    facilityImage: require("@/assets/userMain/h.jpg").default
+                    facilityImage: require("@/assets/facility/badmintonCourt.jpg").default
                 },
             ]
 

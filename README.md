@@ -237,3 +237,6 @@ Instagram: <a href="https://www.instagram.com/creativetimofficial/" target="_bla
 - License Agreement: <a href="https://www.creative-tim.com/license?ref=vn-readme" target="_blank">https://www.creative-tim.com/license?ref=vn-readme</a>
 - Support: <a href="https://www.creative-tim.com/contact-us?ref=vn-readme" target="_blank">https://www.creative-tim.com/contact-us?ref=vn-readme</a>
 - Issues: <a href="https://github.com/creativetimofficial/vue-notus/issues" target="_blank">Github Issues Page</a>
+
+<!-- TO BUILD TAILWIND CSS FILE -->
+npm run build:tailwind

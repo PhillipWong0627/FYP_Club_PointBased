@@ -44,6 +44,7 @@ import UserFacilityPage from "@/views/user/userBookFacility.vue";
 import UserEventPage from "@/views/user/userEventNPromotion.vue";
 
 import UserFacilitySchedule from "@/views/user/BookFacility/userFacilitySchedule.vue";
+import UserFacilityBooking from "@/views/user/BookFacility/userFacilityBookingDetails.vue";
 
 import UserProfilePage from "@/views/user/myProfile.vue"
 
@@ -137,6 +138,12 @@ const routes = [
       path: "/Scheduler",
       name: "Scheduler",
       component: UserFacilitySchedule,
+    },
+    {
+      path: "/Booking",
+      name: "Booking",
+      component: UserFacilityBooking,
+
     },
   {
     path: "/eventandpromotion",
