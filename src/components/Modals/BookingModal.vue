@@ -1,68 +1,52 @@
 <template>
     <div v-if="isVisible" class="modal-overlay" @click="closeModal">
         <div class="modal bg-blueGray-200" @click.stop>
-            <div class="flex justify-between modalHeader rounded-md text-white text-2xl uppercase px-4 py-2">
-                <h2>Complete Your Purchase</h2>
-                <span class="close cursor-pointer" @click="closeModal">&times;</span>
+            <div class="flex justify-between modalHeader rounded-md text-black font-bold text-2xl uppercase px-4 py-2">
+                <h2 class="modal-title">Book Your Slot</h2>
+                <span class="close-button" @click="closeModal">&times;</span>
+                <span>{{ name }}</span>
             </div>
-            <form  @submit.prevent="registerUser">
-                <div class="flex flex-col">
-                    <!-- Mobile Number Input -->
-                    <div class="mb-4">
-                        <label class="block text-black text-2xl uppercase mb-2">Mobile Number</label>
-                        <div class="flex">
-                            <select class="border rounded-l-lg p-2 bg-gray-100 text-gray-600">
-                                <option value="+60">MY +60</option>
+            <form @submit.prevent="proceedToPayment">
+                <div class="modal-body">
+                    <!-- Date Selection -->
+                    <div class="input-group">
+                        <label class="input-label">Date</label>
+                        <input type="date" v-model="selectedDate" class="input-field" required />
+                    </div>
+
+                    <!-- Start Time and AM/PM Selection -->
+                    <div class="input-group time-selection">
+                        <div>
+                            <label class="input-label">Start Time</label>
+                            <select v-model="selectedStartTime" class="input-field" required>
+                                <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
                             </select>
-                            <input v-model="mobileNumber" type="text" placeholder="Mobile Number" required
-                                class="border rounded-r-lg p-2 w-full" />
+                        </div>
+                    </div>
+                    <!-- Fetching Available Court -->
+                    <div class="input-group">
+                        <div class="flex justify-center">
+                            <ButtonPress @click="CheckAvailableCourt()">Check Available Courts</ButtonPress>
                         </div>
                     </div>
 
-                    <!-- 6-Digit PIN Input -->
-                    <div class="mb-6">
-                        <label class="block text-black text-2xl uppercase mb-2">6-digit PIN</label>
-                        <div class="flex justify-between">
-                            <input v-for="n in 6" :key="n" maxlength="1" type="password" required
-                                class="border p-2 w-12 text-center">
-                        </div>
+
+                    <!-- Warnings -->
+                    <div class="text-red-500 font-bold uppercase p-1">
+                        <span>* Please double-check your booking details.</span>
+                        <span>* No refund or cancellation allowed after booking is made.</span>
                     </div>
+                </div>
 
-                    <!-- Submit Button -->
-                    <ButtonPress type="submit" class="">Pay</ButtonPress>
-
-
-                    <!-- Information Message -->
-                    <p class="text-sm text-gray-500 mt-4 text-center">
-                        Don't worry, rest assured that your data are kept secure and confidential.
-                    </p>
-
+                <!-- Proceed Button -->
+                <div class="modal-footer">
+                    <ButtonPress type="submit" class="w-full">Proceed</ButtonPress>
                 </div>
             </form>
 
-            <div class="flex justify-between border-2 rounded-md p-2 text-sm text-gray-500">
-                <div class="flex flex-col">
-                    <span class="text-sm text-gray-500">Monthly Charge</span>
-                    <span>Billing strats: {{ formattedDate }}</span>
-                </div>
-                <div>
-                    RM 30/mo
-                </div>
 
 
-            </div>
-            <!-- Display the name and email -->
-            <div class="mb-4">
-                <label class="block text-black text-xl uppercase mb-2">Name</label>
-                <div class="border rounded-md">
-                    <span class="text-sm text-gray-500 ">{{ name }}</span>
-                </div>
-                <label class="block text-black text-xl uppercase mb-2">Email</label>
-                <div class="border rounded-md">
-                    <span class="text-sm text-gray-500 ">{{ email }}</span>
-                </div>
 
-            </div>
         </div>
         <div v-if="loading" class="loading-overlay">
             <div class="spinner"></div>
@@ -73,19 +57,41 @@
 
 <script>
 import ButtonPress from "@/components/ButtonPress.vue";
-import { addMember } from '@/service/apiProvider.js';
 
 export default {
     data() {
         return {
-            mobileNumber: '', // To store the mobile number
-            pin: ['', '', '', '', '', ''], // To store the 6-digit pin
-            contactWithCountry: "",
             loading: false,
-            today: new Date()
+
+            selectedDate: new Date().toISOString().substr(0, 10),  // Default to current date
+            selectedStartTime: '',  // Time slot selected by the user
+            timeOptions:
+                [
+                    '10:00-11:00',
+                    '11:00-12:00',
+                    '12:00-13:00',
+                    '13:00-14:00',
+                    '14:00-15:00',
+                    '15:00-16:00',
+                ],  // Time options
+
 
         };
     },
+    mounted() {
+        // Set the default value for selectedStartTime, e.g., first time slot
+        this.selectedStartTime = this.timeOptions[0]; // Set the first option as default
+    },
+
+    watch: {
+        isVisible(newValue) {
+            if (newValue) {
+                this.setDefaultStartTime(); // Set the default value when modal opens
+            }
+        }
+    },
+
+
     components: {
         ButtonPress
     },
@@ -96,7 +102,7 @@ export default {
         },
         name: String, // Name passed from the parent component
         email: String, // Email passed from the parent component
-        password: String // Email passed from the parent component
+        password: String, // Email passed from the parent component
 
 
 
@@ -105,67 +111,35 @@ export default {
         closeModal() {
             this.$emit("close");
         },
-        async registerUser() {
-            this.loading = true; // Show loading indicator
 
-            this.contactWithCountry = "60" + this.mobileNumber
-            console.log(this.contactWithCountry);
-            try {
-                const result = await addMember(
-                    this.email,
-                    this.name,
-                    this.password,
-                    this.contactWithCountry
-                );
-                
-                // console.log("THIS IS RESULT")
-                // console.log(result)
-                if (result) {
-                    setTimeout(() => {
-                        this.loading = false;
-                    }, 5000)
-
-                    const routeData = this.$router.resolve({
-                        name: "main",
-
-                    });
-                    window.location.href = routeData.href;
-
-                    alert("Register Successfuly, Click To Proceed To Login~")
-
-                } else {
-                    alert("Server Error, Please Try Again Later~")
-                }
-            } catch (error) {
-                console.error(error);
-                // Handle error here
-            } finally {
-                this.loading = false; // Hide loading indicator
+        setDefaultStartTime() {
+            if (this.name && this.timeOptions.includes(this.name)) {
+                this.selectedStartTime = this.name; // Set the start time to the passed name value
+            } else {
+                this.selectedStartTime = this.timeOptions[0]; // Fallback to first time slot if no match
             }
-
-
-
         },
-    },
-    computed: {
-        isPinFilled() {
-            return this.pin.every(digit => digit !== '');
+
+
+        proceedToPayment() {
+            alert('Proceeding to Payment!' + this.selectedStartTime);
+
+            const routeData = this.$router.resolve({
+                name: "Booking",
+            });
+            window.location.href = routeData.href;
         },
-        formattedDate() {
-            // Format the date as "Oct 5, 2024"
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return this.today.toLocaleDateString('en-US', options);
+        CheckAvailableCourt() {
+            alert('Checking Court!');
+
         }
 
-    }
+    },
+
 };
 </script>
 
 <style scoped>
-.modalHeader {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -221,5 +195,67 @@ export default {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+}
+
+.close-button {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.time-selection {
+    display: flex;
+    justify-content: space-between;
+}
+
+.check-courts-button {
+    background-color: orange;
+    color: white;
+    padding: 0.5rem;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.modal-footer {
+    margin-top: 1rem;
 }
 </style>

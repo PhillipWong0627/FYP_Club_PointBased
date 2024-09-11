@@ -43,7 +43,7 @@
                 </tr>
                 <tr class="font-bold">
                     <td>Total Amount</td>
-                    <td class="text-right">RM24.00</td>
+                    <td class="text-right">RM {{ totalAmount }}</td>
                 </tr>
             </table>
 
@@ -73,7 +73,7 @@
                 <!-- Payment Summary -->
                 <div class="font-bold text-lg flex justify-between items-center">
                     <span>Total Amount</span>
-                    <span class="text-red-500">RM24.00</span>
+                    <span class="text-red-500">RM {{ totalAmount }}</span>
                 </div>
 
                 <!-- Pay Now Button -->
@@ -107,9 +107,20 @@ export default {
             // Logic to go back to previous page
             window.history.back();
         },
+
         payNow() {
-            // Payment logic
-            alert("Payment process initiated.");
+            // Navigating
+            // Push to the Live Page
+            const routeData = this.$router.resolve({
+                name: "BookingPayment",
+                query: {
+                    Username: this.userName,
+                    PhoneNumber: this.phoneNumber,
+                    Email: this.email,
+                    TotalAmount: this.totalAmount,
+                },
+            });
+            window.location.href = routeData.href;
         },
     },
     data() {
@@ -118,6 +129,7 @@ export default {
             phoneCode: '+60',
             phoneNumber: '',
             email: '',
+            totalAmount: "24.00"
 
 
         }

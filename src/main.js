@@ -45,6 +45,8 @@ import UserEventPage from "@/views/user/userEventNPromotion.vue";
 
 import UserFacilitySchedule from "@/views/user/BookFacility/userFacilitySchedule.vue";
 import UserFacilityBooking from "@/views/user/BookFacility/userFacilityBookingDetails.vue";
+import UserBookingPayment from "@/views/user/BookFacility/userFacilityBookingPayment.vue";
+import Test from "@/views/user/BookFacility/test.vue";
 
 import UserProfilePage from "@/views/user/myProfile.vue"
 
@@ -110,6 +112,11 @@ const routes = [
   
   // Start From Here
   {
+    path: "/test",
+    name: "test",
+    component: Test,
+  },
+  {
     path: "/index",
     name: "index",
     component: Index,
@@ -143,6 +150,12 @@ const routes = [
       path: "/Booking",
       name: "Booking",
       component: UserFacilityBooking,
+
+    },
+    {
+      path: "/BookingPayment",
+      name: "BookingPayment",
+      component: UserBookingPayment,
 
     },
   {
