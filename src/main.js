@@ -48,7 +48,8 @@ import UserFacilityBooking from "@/views/user/BookFacility/userFacilityBookingDe
 import UserBookingPayment from "@/views/user/BookFacility/userFacilityBookingPayment.vue";
 import Test from "@/views/user/BookFacility/test.vue";
 
-import UserProfilePage from "@/views/user/myProfile.vue"
+import UserProfilePage from "@/views/user/myProfile.vue";
+import UserBookingHistory from "@/views/user/userBookingHistory.vue";
 
 import UserRegister from "@/views/auth/UserRegister.vue";
 import UserLogin from "@/views/auth/UserLogin.vue";
@@ -167,6 +168,12 @@ const routes = [
     path: "/myProfile",
     name: "myProfile",
     component: UserProfilePage,
+
+  },
+  {
+    path: "/bookingHistory",
+    name: "bookingHistory",
+    component: UserBookingHistory,
 
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },

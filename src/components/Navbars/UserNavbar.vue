@@ -50,7 +50,7 @@
 
                 <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
                     <div class="pt-2 pr-1">
-                        <ButtonPress @click="testButton()" class="">Register as member</ButtonPress>
+                        <ButtonPress @click="linkToRegisterPage()" class="">Register as member</ButtonPress>
                     </div>
                     <div class="lg:block hidden pt-2 pl-1">
                         <input type="text" placeholder="Search event/team" maxlength="20" @keyup.enter="search"
@@ -151,10 +151,9 @@ export default {
         setNavbarOpen: function () {
             this.navbarOpen = !this.navbarOpen;
         },
-        testButton() {
-            console.log("HALO");
+        linkToRegisterPage() {
             const routeData = this.$router.resolve({
-                name: "index",
+                name: "userRegister",
 
             });
             window.location.href = routeData.href;

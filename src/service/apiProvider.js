@@ -9,7 +9,8 @@ import {
   baseUrl,
   getAllMember,
   addNewMember,
-  memberLogin
+  memberLogin,
+  makePayment
 
 } from '@/utils/apiConfig.js';
 import { postRequest } from './apiRequestMethod';
@@ -30,7 +31,7 @@ export async function getMemberInfo() {
     // console.log(code);
     // console.log(data);
     if (code === 0) {
-      
+
       return data;
     } else {
       console.log(`get getUserInfo Unsuccessfully: ${code}`);
@@ -43,16 +44,18 @@ export async function getMemberInfo() {
   }
 }
 
-export async function addMember(email, username, password, contactNumber) {
+export async function addMember(email, username, password, contactNumber, paymentAmount) {
   const url = baseUrl + addNewMember;
-  console.log(url);
-  console.log(contactNumber);
+  // console.log(url);
+  // console.log(contactNumber);
+  // console.log(paymentAmount);
 
   const apiDetails = {
     email: email,
     memberName: username,
     password: password,
-    contact: contactNumber
+    contact: contactNumber,
+    points: paymentAmount,
   };
   try {
     const response = await postRequest(url, apiDetails);
@@ -92,23 +95,50 @@ export async function login(email, password) {
     // console.log(data);
 
     if (code === 0) {
-      // console.log("SETTING COOKIE");
-      // console.log(data['memberID']);
-      // console.log(data['memberName']);
-      // console.log(data['email']);
 
       localStorage.setItem('memberID', data['memberID']);
       localStorage.setItem('memberName', data['memberName']);
       localStorage.setItem('email', data['email']);
+      localStorage.setItem('points', data['points']);
 
       return true;
     } else {
       console.log(`Unsuccessfully login: ${code}`);
       return false;
-    } 
+    }
 
   } catch (e) {
     console.log(`Unsuccessful in provider: ${e}`);
+    return false;
+  }
+
+}
+
+export async function makePaymentGetPoint(memberID, paymentAmount) {
+  const url = baseUrl + makePayment + memberID + 'add-points';
+
+  console.log("Payment URL");
+  console.log(url);
+
+  const apiDetails = {
+    points: paymentAmount
+  };
+
+  try {
+    const response = await postRequest(url, apiDetails);
+    console.log(response);
+
+    const code = response.code;
+
+    if (code === 0) {
+      return true;
+    } else {
+      console.log(`Unsuccessfully makePayment: ${code}`);
+      return false;
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider:makePayment  ${e}`);
     return false;
   }
 

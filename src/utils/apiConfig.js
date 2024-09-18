@@ -5,5 +5,8 @@ export const baseUrl = 'http://localhost:8080';
 export const ClubManagementSystemrBaseUrl = '/api/v1/user';
 
 export const getAllMember = ClubManagementSystemrBaseUrl + '/getMember';
-export const addNewMember =  ClubManagementSystemrBaseUrl + '/addMembers'
-export const memberLogin =  ClubManagementSystemrBaseUrl + '/login'
+export const addNewMember =  ClubManagementSystemrBaseUrl + '/addMembers';
+export const memberLogin =  ClubManagementSystemrBaseUrl + '/login';
+
+//Make Payment Get Point API
+export const makePayment = ClubManagementSystemrBaseUrl +  '/';

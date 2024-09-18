@@ -75,6 +75,7 @@
 import ButtonPress from "@/components/ButtonPress.vue";
 import { addMember } from '@/service/apiProvider.js';
 
+
 export default {
     data() {
         return {
@@ -111,19 +112,26 @@ export default {
             this.contactWithCountry = "60" + this.mobileNumber
             console.log(this.contactWithCountry);
             try {
+
+                const paymentAmount = 30;  // Example payment amount
+                console.log("Processing payment of RM", paymentAmount);
+
                 const result = await addMember(
                     this.email,
                     this.name,
                     this.password,
-                    this.contactWithCountry
+                    this.contactWithCountry,
+                    paymentAmount,
                 );
                 
-                // console.log("THIS IS RESULT")
-                // console.log(result)
+                console.log(result)
                 if (result) {
                     setTimeout(() => {
                         this.loading = false;
-                    }, 5000)
+                    }, 3000)
+
+                    alert("Registration successful! You earned " + paymentAmount + " points.");
+
 
                     const routeData = this.$router.resolve({
                         name: "main",
@@ -131,7 +139,6 @@ export default {
                     });
                     window.location.href = routeData.href;
 
-                    alert("Register Successfuly, Click To Proceed To Login~")
 
                 } else {
                     alert("Server Error, Please Try Again Later~")
@@ -142,9 +149,6 @@ export default {
             } finally {
                 this.loading = false; // Hide loading indicator
             }
-
-
-
         },
     },
     computed: {

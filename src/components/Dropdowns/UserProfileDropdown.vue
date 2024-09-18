@@ -29,6 +29,11 @@
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                 MyPage
             </router-link>
+            <router-link to="/bookingHistory" v-if="loggedIn"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+                Bookings
+            </router-link>
+
 
 
             <a v-if="loggedIn" @click="logout()" href="javascript:void(0);"
