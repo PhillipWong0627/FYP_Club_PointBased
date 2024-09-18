@@ -54,6 +54,11 @@ import UserBookingHistory from "@/views/user/userBookingHistory.vue";
 import UserRegister from "@/views/auth/UserRegister.vue";
 import UserLogin from "@/views/auth/UserLogin.vue";
 
+//Admin Pages
+import Facilities from "@/views/admin/FacilityTable.vue";
+import Events from "@/views/admin/EventTable.vue";
+
+
 //Plugin
 
 
@@ -81,6 +86,14 @@ const routes = [
       {
         path: "/admin/maps",
         component: Maps,
+      },
+      {
+        path: "/admin/facilities",
+        component: Facilities,
+      },
+      {
+        path: "/admin/events",
+        component: Events,
       },
     ],
   },
