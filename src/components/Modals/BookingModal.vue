@@ -4,41 +4,33 @@
             <div class="flex justify-between modalHeader rounded-md text-black font-bold text-2xl uppercase px-4 py-2">
                 <h2 class="modal-title">Book Your Slot</h2>
                 <span class="close-button" @click="closeModal">&times;</span>
-                <span>{{ name }}</span>
+                <span>{{ time }}</span>
             </div>
             <form @submit.prevent="proceedToPayment">
                 <div class="modal-body">
-                    <!-- Date Selection -->
                     <div class="input-group">
                         <label class="input-label">Date</label>
                         <input type="date" v-model="selectedDate" class="input-field" required />
                     </div>
 
-                    <!-- Start Time and AM/PM Selection -->
                     <div class="input-group time-selection">
                         <div>
                             <label class="input-label">Start Time</label>
                             <select v-model="selectedStartTime" class="input-field" required>
-                                <option v-for="time in timeOptions" :key="time" :value="time">{{ time }}</option>
+                                <option v-for="times in timeOptions" :key="times" :value="times">{{ time }}</option>
                             </select>
                         </div>
                     </div>
-                    <!-- Fetching Available Court -->
                     <div class="input-group">
                         <div class="flex justify-center">
                             <ButtonPress @click="CheckAvailableCourt()">Check Available Courts</ButtonPress>
                         </div>
                     </div>
-
-
-                    <!-- Warnings -->
                     <div class="text-red-500 font-bold uppercase p-1">
                         <span>* Please double-check your booking details.</span>
                         <span>* No refund or cancellation allowed after booking is made.</span>
                     </div>
                 </div>
-
-                <!-- Proceed Button -->
                 <div class="modal-footer">
                     <ButtonPress type="submit" class="w-full">Proceed</ButtonPress>
                 </div>
@@ -100,9 +92,7 @@ export default {
             type: Boolean,
             default: false,
         },
-        name: String, // Name passed from the parent component
-        email: String, // Email passed from the parent component
-        password: String, // Email passed from the parent component
+        time: String, // Name passed from the parent component
 
 
 

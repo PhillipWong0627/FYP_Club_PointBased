@@ -5,23 +5,13 @@
 
     <div class="container mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-6">
-        <!-- Facility Selection -->
-        <select v-model="selectedFacility" @change="onFacilityChange">
-          <option v-for="facility in facilities" :key="facility.id" :value="facility.id">
-            {{ facility.name }}
-          </option>
-        </select>
-        <!-- Booking Button -->
         <button class="make-booking" @click="makeBooking">+ Make Booking</button>
 
 
-        <!-- Date Picker -->
         <input type="date" v-model="selectedDate" class="px-3 py-2 border rounded-md" />
 
-        <!-- Make Booking Button -->
         <ButtonPress @click="toPaymentModal" class="uppercase font-semibold px-4 py-2">+ Make Booking</ButtonPress>
       </div>
-      <!-- Court Booking Grid -->
       <div class="overflow-x-auto">
         <table class="min-w-full bg-white border-collapse">
           <thead>
@@ -34,12 +24,6 @@
             <tr v-for="(slot, index) in timeSlots" :key="index">
               <td class="borde-2 p-2">{{ slot }}</td>
               <td v-for="court in filteredCourts" :key="court.id" class="border p-2 text-center">
-                <!-- <div :class="{
-                  'bg-green-500': isBooked(court.id, slot),
-                  'bg-white': !isBooked(court.id, slot),
-                  'cursor-pointer': !isBooked(court.id, slot),
-                }" class="h-8  w-full S" @click="bookSlot(court.id, slot)">
-                </div> -->
                 <div :class="{
                   'bg-green-500': isBooked(court.id, slot),
                   'bg-white': !isBooked(court.id, slot),
@@ -53,9 +37,9 @@
       </div>
 
     </div>
+    <FacilityList></FacilityList>
 
-    <BookingModal :isVisible="isModalVisible" :name="name" :email="email" :password="password"
-      @close="isModalVisible = false" />
+    <BookingModal :isVisible="isModalVisible" :time="time" @close="isModalVisible = false" />
 
     <FooterComp class="mt-12"></FooterComp>
 
@@ -69,20 +53,18 @@ import FooterComp from "@/components/Footers/Footer.vue";
 import ButtonPress from "@/components/ButtonPress.vue";
 
 import BookingModal from "@/components/Modals/BookingModal.vue";
+import FacilityList from "@/components/UserMainPage/FacilityList.vue";
 
 export default {
 
   data() {
     return {
 
-      name: '', // Bind to the name input
-      email: '', // Bind to the email input
-      password: '', // Bind to the password input
+      time: '', // Bind to the name input
       isModalVisible: false, // Control modal visibility
 
 
       selectedSlots: [],
-
       selectedFacility: 1,
       selectedDate: new Date().toISOString().substr(0, 10),
       facilities: [
@@ -225,7 +207,7 @@ export default {
       console.log(courtId);
       console.log(slot);
 
-      this.name = slot; // Pass the time slot as a prop to the modal
+      this.time = slot; // Pass the time slot as a prop to the modal
 
       this.isModalVisible = true; // Show modal
 
@@ -243,6 +225,7 @@ export default {
     FooterComp,
     BookingModal,
     ButtonPress,
+    FacilityList,
   }
 };
 </script>
