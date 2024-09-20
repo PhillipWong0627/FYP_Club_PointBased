@@ -1,7 +1,7 @@
 import {
   // postRequest,
   getRequest,
-  // patchRequest,
+  patchRequest,
   // postFileRequest
 } from '@/service/apiRequestMethod';
 
@@ -13,10 +13,10 @@ import {
   updateMemberById,
   memberLogin,
   makePayment,
-  getAllFacility,
+  getAllFacility, 
 
 } from '@/utils/apiConfig.js';
-import { postRequest, patchRequest } from './apiRequestMethod';
+import { postRequest } from './apiRequestMethod';
 
 // get user cookie / set cookie
 

@@ -116,9 +116,7 @@ export default {
     },
     async updateMemberInfo() {
       try {
-        const result = await updateMember(this.memberID, 1, "WONG", "YOUR HEART", "0172976168", "FK YOU");
-
-
+        const result = await updateMember(this.memberID, "WONGGG", "WONG", "YOUR HEART", "0172976168", "FK YOU");
 
         console.log("CALLING RESULT API");
         console.log(result);
