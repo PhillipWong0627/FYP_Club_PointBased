@@ -107,6 +107,21 @@ export async function patchRequest(url, body) {
     throw new Error(`Exception: ${error}`);
   }
 }
+export async function deleteRequest(url) {
+  try {
+    const response = await axios.delete(url);
+
+    if (response.status === 200) {
+      console.log('Response Data:', response.data);
+
+      return response.data
+    } else {
+      throw new Error(`Error: ${response.status}`);
+    }
+  } catch (e) {
+    console.error(`Exception: ${e.message}`);
+  }
+}
 
 export async function postFileRequest(file, url) {
   try {

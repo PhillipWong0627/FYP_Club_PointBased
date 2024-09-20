@@ -1,6 +1,12 @@
 <template>
   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
     :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
+    <Toast ref="toast" />
+    <div class="h-[450px] flex items-center justify-center" v-if="loading">
+      <span class="font-bold text-2xl text-black"> Loading...</span>
+      <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width: 108px; height: 108px" />
+    </div>
+
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -109,11 +115,9 @@
             </td>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
               <ButtonPress @click="EditUser(i.id)">Edit</ButtonPress>
-              <form>
-                <ButtonPress type="submit" @click="DeleteUser(i.id)">
-                  Delete</ButtonPress>
+              <ButtonPress type="submit" @click="DeleteUser(i.id)">
+                Delete</ButtonPress>
 
-              </form>
             </td>
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
@@ -129,12 +133,13 @@
 </template>
 <script>
 import TableDropdown from "@/components/Dropdowns/TableDropdown.vue";
+import Toast from '@/components/Toast.vue'; // Make sure the path is correct
 
 
 
 import ButtonPress from "@/components/ButtonPress.vue";
 //API
-import { getMemberInfo } from '@/service/apiProvider.js';
+import { getMemberInfo, deleteMember } from '@/service/apiProvider.js';
 
 export default {
   mounted() {
@@ -145,11 +150,13 @@ export default {
       memberData: [
 
       ],
+      loading: false,
     };
   },
   components: {
     TableDropdown,
     ButtonPress,
+    Toast,
 
   },
   props: {
@@ -185,9 +192,21 @@ export default {
 
       window.location.href = routeData.href;
     },
-    DeleteUser(id) {
+    async DeleteUser(id) {
       console.log("Deleting " + id)
 
+      try {
+        this.loading = true;
+
+        const result = await deleteMember(id);
+        console.log(result);
+        this.$refs.toast.showToast("User Have Been Deleted successfully!");
+
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
     }
   }
 

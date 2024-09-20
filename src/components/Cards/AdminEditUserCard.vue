@@ -1,5 +1,10 @@
 <template>
   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+    <Toast ref="toast" />
+    <div class="h-[450px] flex items-center justify-center" v-if="loading">
+      <span class="font-bold text-2xl text-black"> Loading...</span>
+      <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width: 108px; height: 108px" />
+    </div>
     <div class="rounded-t bg-white mb-0 px-6 py-6">
       <div class="text-center flex justify-between">
         <h6 class="text-blueGray-700 text-xl font-bold">User Account</h6>
@@ -86,6 +91,7 @@
         </div>
       </form>
     </div>
+
   </div>
 </template>
 
@@ -93,13 +99,14 @@
 
 //API
 import { getMember, updateMember } from '@/service/apiProvider.js';
+import Toast from '@/components/Toast.vue'; // Make sure the path is correct
 
 export default {
   mounted() {
     this.getMember();
   },
   components: {
-
+    Toast,
   },
   methods: {
     async getMember() {
@@ -116,19 +123,31 @@ export default {
     },
     async updateMemberInfo() {
       try {
-        const result = await updateMember(this.memberID, "WONGGG", "WONG", "YOUR HEART", "0172976168", "FK YOU");
+        this.loading = true; // Set loading to true
+
+        const result = await updateMember(
+          this.memberID,
+          this.memberData.memberName,
+          this.memberData.address,
+          this.memberData.contact,
+          this.memberData.description,
+        );
 
         console.log("CALLING RESULT API");
         console.log(result);
-
+        // Show toast notification after successful update
+        this.$refs.toast.showToast("User profile updated successfully!");
 
       } catch (error) {
         console.error(error);
+      }finally{
+        this.loading = false;
       }
     },
   },
   data() {
     return {
+      loading: false,
 
       memberID: this.$route.query.MemberID,
       memberData: {

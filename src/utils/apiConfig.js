@@ -11,6 +11,7 @@ export const getMemberById = ClubManagementSystemrBaseUrl + "/getById"
 export const addNewMember =  ClubManagementSystemrBaseUrl + '/addMembers';
 export const memberLogin =  ClubManagementSystemrBaseUrl + '/login';
 export const updateMemberById = ClubManagementSystemrBaseUrl + '/updateById';
+export const deleteMemberById = ClubManagementSystemrBaseUrl + '/deleteById';
 
 //Make Payment Get Point API
 export const makePayment = ClubManagementSystemrBaseUrl +  '/';

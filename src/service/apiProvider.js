@@ -2,6 +2,7 @@ import {
   // postRequest,
   getRequest,
   patchRequest,
+  deleteRequest,
   // postFileRequest
 } from '@/service/apiRequestMethod';
 
@@ -11,9 +12,10 @@ import {
   addNewMember,
   getMemberById,
   updateMemberById,
+  deleteMemberById,
   memberLogin,
   makePayment,
-  getAllFacility, 
+  getAllFacility,
 
 } from '@/utils/apiConfig.js';
 import { postRequest } from './apiRequestMethod';
@@ -138,6 +140,33 @@ export async function updateMember(id, name, address, contact, description) {
   }
 
 }
+
+export async function deleteMember(id) {
+  const url = baseUrl + deleteMemberById + "/" + id;
+  // console.log(url);
+
+  try {
+    const response = await deleteRequest(url);
+    console.log(response);
+
+    const code = response.code;
+
+    if (code === 0) {
+      // return data;
+      return true;
+    } else {
+      console.log(`Unsuccessfully delete: ${code}`);
+      return false;
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider:delete ${e}`);
+    return false;
+  }
+}
+
+
+
 
 export async function login(email, password) {
   const url = baseUrl + memberLogin;
