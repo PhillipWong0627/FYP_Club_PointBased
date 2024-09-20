@@ -9,12 +9,14 @@ import {
   baseUrl,
   getAllMember,
   addNewMember,
+  getMemberById,
+  updateMemberById,
   memberLogin,
   makePayment,
   getAllFacility,
 
 } from '@/utils/apiConfig.js';
-import { postRequest } from './apiRequestMethod';
+import { postRequest, patchRequest } from './apiRequestMethod';
 
 // get user cookie / set cookie
 
@@ -78,6 +80,65 @@ export async function addMember(email, username, password, contactNumber, paymen
   }
 }
 
+export async function getMember(id) {
+  const url = baseUrl + getMemberById + "/" + id;
+  console.log(url);
+
+  try {
+    const response = await getRequest(url);
+
+    const code = response.code;
+    const data = response.data;
+    // console.log(response);
+    // console.log(code);
+    // console.log(data);
+    if (code === 0) {
+
+      return data;
+    } else {
+      console.log(`get getMember Unsuccessfully: ${code}`);
+      return [];
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider:getMember ${e}`);
+    return [];
+  }
+}
+
+export async function updateMember(id, name, address, contact, description) {
+  const url = baseUrl + updateMemberById + "/" + id;
+  console.log(url);
+
+  const apiDetails = {
+    memberName: name,
+    address: address,
+    contact: contact,
+    description: description,
+  };
+
+  try {
+    const response = await patchRequest(url, apiDetails);
+    console.log(response);
+
+    const code = response.code;
+    const data = response.data;
+
+    if (code === 0) {
+      // return data;
+      return data;
+    } else {
+      console.log(`Unsuccessfully updateMember: ${code}`);
+      return [];
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider:updateMember ${e}`);
+    return [];
+  }
+
+}
+
 export async function login(email, password) {
   const url = baseUrl + memberLogin;
   const apiDetails = {
@@ -115,6 +176,7 @@ export async function login(email, password) {
 
 }
 
+
 export async function makePaymentGetPoint(memberID, paymentAmount) {
   const url = baseUrl + makePayment + memberID + 'add-points';
 
@@ -145,7 +207,7 @@ export async function makePaymentGetPoint(memberID, paymentAmount) {
 
 }
 
-export async function getFacility(){
+export async function getFacility() {
   const url = baseUrl + getAllFacility
   console.log(url);
   try {

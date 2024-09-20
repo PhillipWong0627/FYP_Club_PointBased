@@ -57,6 +57,7 @@ import UserLogin from "@/views/auth/UserLogin.vue";
 //Admin Pages
 import Facilities from "@/views/admin/FacilityTable.vue";
 import Events from "@/views/admin/EventTable.vue";
+import EditUser from "@/views/admin/EditUserPage.vue";
 
 
 //Plugin
@@ -87,6 +88,7 @@ const routes = [
         path: "/admin/maps",
         component: Maps,
       },
+      //Start From Here
       {
         path: "/admin/facilities",
         component: Facilities,
@@ -94,6 +96,11 @@ const routes = [
       {
         path: "/admin/events",
         component: Events,
+      },
+      {
+        path: "/admin/editUser",
+        name: "EditUser",
+        component: EditUser,
       },
     ],
   },
@@ -123,7 +130,7 @@ const routes = [
     path: "/profile",
     component: Profile,
   },
-  
+
   // Start From Here
   {
     path: "/test",
@@ -155,23 +162,23 @@ const routes = [
     name: "facilities",
     component: UserFacilityPage,
   },
-    {
-      path: "/Scheduler",
-      name: "Scheduler",
-      component: UserFacilitySchedule,
-    },
-    {
-      path: "/Booking",
-      name: "Booking",
-      component: UserFacilityBooking,
+  {
+    path: "/Scheduler",
+    name: "Scheduler",
+    component: UserFacilitySchedule,
+  },
+  {
+    path: "/Booking",
+    name: "Booking",
+    component: UserFacilityBooking,
 
-    },
-    {
-      path: "/BookingPayment",
-      name: "BookingPayment",
-      component: UserBookingPayment,
+  },
+  {
+    path: "/BookingPayment",
+    name: "BookingPayment",
+    component: UserBookingPayment,
 
-    },
+  },
   {
     path: "/eventandpromotion",
     name: "event&promotion",

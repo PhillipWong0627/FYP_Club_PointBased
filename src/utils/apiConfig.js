@@ -7,8 +7,10 @@ export const ClubManagementSystemrBaseUrl = '/api/v1/user';
 export const CMSBaseUrl = '/api/v1/admin';
 
 export const getAllMember = ClubManagementSystemrBaseUrl + '/getMember';
+export const getMemberById = ClubManagementSystemrBaseUrl + "/getById"
 export const addNewMember =  ClubManagementSystemrBaseUrl + '/addMembers';
 export const memberLogin =  ClubManagementSystemrBaseUrl + '/login';
+export const updateMemberById = ClubManagementSystemrBaseUrl + '/updateById';
 
 //Make Payment Get Point API
 export const makePayment = ClubManagementSystemrBaseUrl +  '/';

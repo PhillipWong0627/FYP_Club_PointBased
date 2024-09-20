@@ -5,13 +5,14 @@ import VueCookies from 'vue-cookies';
 
 const header = {
   "Content-Type": "application/json; charset=utf-8",
-  "accept": "application/json"}
+  "accept": "application/json"
+}
 
-  const headerBookmark = {
-    "Content-Type": "application/json; charset=utf-8",
-    "accept": "application/json",
-    "token": VueCookies.get('userToken')
-  }
+const headerBookmark = {
+  "Content-Type": "application/json; charset=utf-8",
+  "accept": "application/json",
+  "token": VueCookies.get('userToken')
+}
 
 export async function postRequest(url, body) {
   try {
@@ -29,67 +30,67 @@ export async function postRequest(url, body) {
   }
 }
 
-  export async function getRequest(url) {
-    try {
-      const response = await axios.get(url);
-  
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      throw new Error(`Exception: ${error}`);
-    }
-  }
+export async function getRequest(url) {
+  try {
+    const response = await axios.get(url);
 
-  export async function getRequestSaveBookmark(url) {
-    try {
-      const response = await axios.get(url, {
-        headers: headerBookmark,
-      });
-  
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      throw new Error(`Exception: ${error}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Error: ${response.status}`);
     }
+  } catch (error) {
+    throw new Error(`Exception: ${error}`);
   }
+}
 
-  export async function postRequestSaveBookmark(url, body) {
-    try {
-      const response = await axios.post(url, body, {
-        headers: headerBookmark,
-      });
-  
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      throw new Error(`Exception: ${error}`);
-    }
-  }
+export async function getRequestSaveBookmark(url) {
+  try {
+    const response = await axios.get(url, {
+      headers: headerBookmark,
+    });
 
-  export async function deleteRequestSaveBookmark(url) {
-    try {
-      const response = await axios.delete(url, {
-        headers: headerBookmark,
-      });
-  
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      throw new Error(`Exception: ${error}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Error: ${response.status}`);
     }
+  } catch (error) {
+    throw new Error(`Exception: ${error}`);
   }
+}
+
+export async function postRequestSaveBookmark(url, body) {
+  try {
+    const response = await axios.post(url, body, {
+      headers: headerBookmark,
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Error: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error(`Exception: ${error}`);
+  }
+}
+
+export async function deleteRequestSaveBookmark(url) {
+  try {
+    const response = await axios.delete(url, {
+      headers: headerBookmark,
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Error: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error(`Exception: ${error}`);
+  }
+}
 
 export async function patchRequest(url, body) {
   try {
@@ -131,7 +132,7 @@ export async function postFileRequest(file, url) {
 export async function getRequestSearchStream(url) {
   try {
     const response = await axios.get(url);
-    
+
 
     if (response.status === 200) {
       console.log('Response Data:', response.data);
@@ -147,17 +148,17 @@ export async function getRequestSearchStream(url) {
 }
 
 export async function deleteLiveStreamDetail(url) {
-  try{
+  try {
     const response = await axios.delete(url);
 
-    if(response.status === 200) {
+    if (response.status === 200) {
       console.log('Response Data:', response.data);
 
       return response.data
-    }else{
+    } else {
       throw new Error(`Error: ${response.status}`);
     }
-  }catch(e){
+  } catch (e) {
     console.error(`Exception: ${e.message}`);
   }
 }
