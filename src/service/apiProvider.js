@@ -16,6 +16,7 @@ import {
   memberLogin,
   makePayment,
   getAllFacility,
+  getAllEvents,
 
 } from '@/utils/apiConfig.js';
 import { postRequest } from './apiRequestMethod';
@@ -257,6 +258,33 @@ export async function getFacility() {
 
   } catch (e) {
     console.log(`Unsuccessful in provider:getFacilityInfo ${e}`);
+    return [];
+  }
+
+}
+
+
+export async function getEvents() {
+  const url = baseUrl + getAllEvents
+  console.log(url);
+  try {
+    const response = await getRequest(url);
+
+    const code = response.code;
+    const data = response.data;
+    // console.log(response);
+    // console.log(code);
+    if (code === 0) {
+      // console.log(data);
+
+      return data;
+    } else {
+      console.log(`get getEvents Unsuccessfully: ${code}`);
+      return [];
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider:getEvents ${e}`);
     return [];
   }
 

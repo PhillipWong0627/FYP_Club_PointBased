@@ -18,3 +18,6 @@ export const makePayment = ClubManagementSystemrBaseUrl +  '/';
 
 //Facility
 export const getAllFacility = CMSBaseUrl + '/getFacilities';
+
+//Events
+export const getAllEvents = CMSBaseUrl + '/events/all'

@@ -58,6 +58,8 @@ import UserLogin from "@/views/auth/UserLogin.vue";
 import Facilities from "@/views/admin/FacilityTable.vue";
 import Events from "@/views/admin/EventTable.vue";
 import EditUser from "@/views/admin/EditUserPage.vue";
+import EditEvent from "@/views/admin/EditEventPage.vue";
+import CreateEvent from "@/views/admin/CreateEventPage.vue";
 
 
 //Plugin
@@ -101,6 +103,16 @@ const routes = [
         path: "/admin/editUser",
         name: "EditUser",
         component: EditUser,
+      },
+      {
+        path: "/admin/editEvent",
+        name: "EditEvent",
+        component: EditEvent,
+      },
+      {
+        path: "/admin/createEvent",
+        name: "CreateEvent",
+        component: CreateEvent,
       },
     ],
   },

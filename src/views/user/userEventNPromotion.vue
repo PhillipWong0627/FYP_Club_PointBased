@@ -8,8 +8,8 @@
         </div> -->
         <swiper :pagination="true" :keyboard="true" :modules="modules" class="mySwiper mt-4">
 
-            <swiper-slide v-for="i in advertisementData" :key="i.advertisementData" class="">
-                <img class="w-full rounded-3xl" :src="i.advImage" />
+            <swiper-slide v-for="i in eventData" :key="i.eventData" class="">
+                <img class="w-full rounded-3xl" :src="i.eventImage" />
             </swiper-slide>
         </swiper>
 
@@ -22,7 +22,7 @@
                     <div class="card-body relative">
                         <!-- <div @click="toLiveStream(event.eventID, event.streamerID)" class="card-body relative"> -->
                         <div class="w-full h-full">
-                            <img style="" class="" :src="event.image" alt="Image" />
+                            <img style="" class="" :src="event.eventImage" alt="Image" />
                         </div>
                         <div class="gradient_bottom w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
                             <div class="flex flex-col pl-1 items-start z-10 w-52">
@@ -30,7 +30,7 @@
                                     <span> {{ event.eventTitle }}</span>
                                 </div>
                                 <div class="text-xs text-white font-bold opacity-60 text-start multiline-ellipsis">
-                                    {{ event.dateTime }}
+                                    {{ event.eventDateTime }}
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,8 @@
         </main>
         <!-- Include the EventModal component -->
         <EventModal :isVisible="isModalVisible" :eventTitle="selectedEvent?.eventTitle"
-            :eventDescription="selectedEvent?.dateTime" :eventImage="selectedEvent?.image" @close="isModalVisible = false" />
+            :eventDescription="selectedEvent?.eventDescription" :eventImage="selectedEvent?.eventImage"
+            @close="isModalVisible = false" />
 
         <FooterComp class=""></FooterComp>
     </div>
@@ -65,9 +66,13 @@ import 'swiper/css/pagination';
 // import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 
+import { getEvents } from '@/service/apiProvider.js';
 
 
 export default {
+    mounted() {
+        this.getEventsInfo();
+    },
     components: {
         Navnavbars,
         FooterComp,
@@ -85,7 +90,19 @@ export default {
             this.selectedEvent = event;
             this.isModalVisible = true; // Show modal
 
-        }
+        },
+        async getEventsInfo() {
+            try {
+                const result = await getEvents();
+                console.log("CALLING RESULT API");
+                console.log(result);
+
+                this.eventData = result;
+
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
     },
     data() {
@@ -98,144 +115,144 @@ export default {
             selectedEvent: null, // Store selected event data
 
             eventData: [
-                {
-                    eventID: "1",
-                    streamerID: "1",
-                    image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    eventTitle: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1",
-                    streamerIcon: this.appImage,
-                    dateTime: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "3",
-                    streamerID: "2",
-                    image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
+                // {
+                //     eventID: "1",
+                //     streamerID: "1",
+                //     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
+                //     eventTitle: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1",
+                //     streamerIcon: this.appImage,
+                //     dateTime: "Live Stream 1Live Stream 1Live Stream 1Live Stream 1Live Stream 1"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "3",
+                //     streamerID: "2",
+                //     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
 
-                {
-                    eventID: "4",
-                    streamerID: "2",
-                    image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
+                // {
+                //     eventID: "4",
+                //     streamerID: "2",
+                //     image: "https://images-cdn.ubuy.co.in/65fd32d17317ea26e17dd8e3-pack-of-4-3-inch-stickers-hello-kitty.jpg",
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
 
-                {
-                    eventID: "5",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "6",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
-                {
-                    eventID: "2",
-                    streamerID: "2",
-                    image: require("@/assets/userMain/h.jpg").default,
-                    eventTitle: "Live Stream 2",
-                    streamerIcon: this.team,
-                    dateTime: "Streamer 2"
-                },
+                // {
+                //     eventID: "5",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "6",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
+                // {
+                //     eventID: "2",
+                //     streamerID: "2",
+                //     image: require("@/assets/userMain/h.jpg").default,
+                //     eventTitle: "Live Stream 2",
+                //     streamerIcon: this.team,
+                //     dateTime: "Streamer 2"
+                // },
 
 
             ],
 
-            advertisementData: [
-                {
-                    advImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    advImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    advImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    advImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    advImage: require("@/assets/userMain/h.jpg").default
-                },
-                {
-                    advImage: require("@/assets/userMain/h.jpg").default
-                },
-            ]
+            // advertisementData: [
+            //     {
+            //         advImage: require("@/assets/userMain/h.jpg").default
+            //     },
+            //     {
+            //         advImage: require("@/assets/userMain/h.jpg").default
+            //     },
+            //     {
+            //         advImage: require("@/assets/userMain/h.jpg").default
+            //     },
+            //     {
+            //         advImage: require("@/assets/userMain/h.jpg").default
+            //     },
+            //     {
+            //         advImage: require("@/assets/userMain/h.jpg").default
+            //     },
+            //     {
+            //         advImage: require("@/assets/userMain/h.jpg").default
+            //     },
+            // ]
         }
     }
 }

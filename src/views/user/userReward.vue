@@ -2,18 +2,19 @@
     <div>
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
+
+        <div class="container mx-auto flex justify-between  mt-6">
+            <span class=""></span>
+            <span class="font-medium text-xl uppercase text-emerald-500 hover:text-black cursor-pointer">Available Points: {{ this.memberPoints }}</span>
+        </div>
         <p class="flex justify-center font-semibold text-3xl uppercase mt-6">Rewards</p>
 
-        <!-- Outer Div.. -->
-        <div style=" height: 360px;" class=" flex justify-center mt-6 ">
+        <!-- <div style=" height: 360px;" class=" flex justify-center mt-6 ">
             <div class=" bg-white flex justify-center rounded-3xl shadow-2xl" style="width: 500px;">
                 <div style="width: 98%; "
                     class="mt-1 mb-1 rounded-3xl flex flex-col relative  items-center bg-emerald-200">
                     <div class="absolute cursor-pointer" style="right: 12px; top: 10px;">
-                        <!-- <i class="fas fa-info flex mt  -1 justify-center"></i> -->
                         <i class="fas fa-info-circle text-2xl"></i>
-
-                        <!-- <img style="width: 30px; height: 30px;" src="@/assets/navBar/appImage.png" /> -->
                     </div>
                     <div class="shadow-xl bg-white flex flex-col mt-10 items-center py-2" style="width: 250px;">
                         <qrcode-vue :value="value" :size="size" level="H" />
@@ -26,13 +27,9 @@
                         <span class="pr-2 pb-1 uppercase font-bold"> {{ this.memberPoints }} pts</span>
                         <i class="fas fa-chevron-right cursor-pointer pr-2"></i>
                     </div>
-
                 </div>
-
             </div>
-
-
-        </div>
+        </div> -->
 
 
         <RewardPage></RewardPage>
@@ -50,7 +47,7 @@ import RewardPage from "@/components/Rewards/rewardComp.vue";
 import DealsPage from "@/components/Rewards/DealComp.vue";
 
 //QR Code
-import QrcodeVue from 'qrcode.vue'
+// import QrcodeVue from 'qrcode.vue'
 
 
 
@@ -63,7 +60,7 @@ export default {
         DealsPage,
 
         //QR Code
-        QrcodeVue
+        // QrcodeVue
     },
     methods: {
 

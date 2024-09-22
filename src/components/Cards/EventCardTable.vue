@@ -1,11 +1,20 @@
 <template>
   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
     :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']">
+    <Toast ref="toast" />
+    <div class="h-[450px] flex items-center justify-center" v-if="loading">
+      <span class="font-bold text-2xl text-black"> Loading...</span>
+      <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width: 108px; height: 108px" />
+    </div>
+
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
-        <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+        <div class="relative w-full flex justify-between px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']">
-            Events Tables
+            Event Tables
+          </h3>
+          <h3>
+            <ButtonPress @click="createEvent()">Create Event</ButtonPress>
           </h3>
         </div>
       </div>
@@ -16,297 +25,132 @@
         <thead>
           <tr>
             <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]">
-              Project
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event ID
             </th>
             <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]">
-              Budget
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event Title
             </th>
             <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]">
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event Description
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event Date
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event Location
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event Image
+            </th>
+
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Event Fee
+            </th>
+
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
               Status
             </th>
             <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]">
-              Users
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              Actions
             </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]">
-              Completion
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"></th>
+
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-              <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3 font-bold" :class="[
-                color === 'light' ? 'text-blueGray-600' : 'text-white',
-              ]">
-                Argon Design System
+          <tr v-for="i in eventData" :key="i.eventData">
+            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+              <span class="font-bold">
+                {{ i.id }}
               </span>
             </th>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              $2,500 USD
+              {{ i.eventTitle }}
             </td>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-circle text-orange-500 mr-2"></i> pending
+              {{ i.eventDescription }}
             </td>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                <img :src="team1" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow" />
-                <img :src="team2" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team3" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team4" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
+              {{ i.eventDateTime }}
+
+            </td>
+            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <span> {{ i.eventLocation }}
+              </span>
+            </td>
+
+            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <img style="width: 150px;" :src=i.eventImage alt="Event Image" />
+            </td>
+
+            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <div class="flex items-center">
+                <span class="mr-2"> {{ i.eventFee }}
+
+                </span>
+
               </div>
             </td>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <div class="flex items-center">
-                <span class="mr-2">60%</span>
-                <div class="relative w-full">
-                  <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                    <div style="width: 60%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500">
-                    </div>
-                  </div>
-                </div>
+                <span class="mr-2"> {{ i.is_active }}
+
+                </span>
+
               </div>
             </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-              <table-dropdown />
+
+            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+              <ButtonPress @click="EditEvent(i.id)">Edit</ButtonPress>
+              <ButtonPress type="submit" @click="DeleteUser(i.id)">
+                Delete</ButtonPress>
+
             </td>
+
           </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-              <img :src="angular" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3 font-bold" :class="[
-                color === 'light' ? 'text-blueGray-600' : 'text-white',
-              ]">
-                Angular Now UI Kit PRO
-              </span>
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              $1,800 USD
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-circle text-emerald-500 mr-2"></i>
-              completed
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                <img :src="team1" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow" />
-                <img :src="team2" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team3" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team4" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex items-center">
-                <span class="mr-2">100%</span>
-                <div class="relative w-full">
-                  <div class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
-                    <div style="width: 100%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-              <table-dropdown />
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-              <img :src="sketch" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3 font-bold" :class="[
-                color === 'light' ? 'text-blueGray-600' : 'text-white',
-              ]">
-                Black Dashboard Sketch
-              </span>
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              $3,150 USD
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-circle text-red-500 mr-2"></i> delayed
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                <img :src="team1" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow" />
-                <img :src="team2" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team3" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team4" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex items-center">
-                <span class="mr-2">73%</span>
-                <div class="relative w-full">
-                  <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                    <div style="width: 73%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-              <table-dropdown />
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-              <img :src="react" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3 font-bold" :class="[
-                color === 'light' ? 'text-blueGray-600' : 'text-white',
-              ]">
-                React Material Dashboard
-              </span>
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              $4,400 USD
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-circle text-teal-500 mr-2"></i> on schedule
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                <img :src="team1" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow" />
-                <img :src="team2" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team3" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team4" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex items-center">
-                <span class="mr-2">90%</span>
-                <div class="relative w-full">
-                  <div class="overflow-hidden h-2 text-xs flex rounded bg-teal-200">
-                    <div style="width: 90%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-              <table-dropdown />
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-              <img :src="vue" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3 font-bold" :class="[
-                color === 'light' ? 'text-blueGray-600' : 'text-white',
-              ]">
-                React Material Dashboard
-              </span>
-            </th>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              $2,200 USD
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i class="fas fa-circle text-emerald-500 mr-2"></i>
-              completed
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                <img :src="team1" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow" />
-                <img :src="team2" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team3" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-                <img :src="team4" alt="..." class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4" />
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex items-center">
-                <span class="mr-2">100%</span>
-                <div class="relative w-full">
-                  <div class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
-                    <div style="width: 100%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-              <table-dropdown />
-            </td>
-          </tr>
+
         </tbody>
       </table>
     </div>
+
   </div>
 </template>
 <script>
-import TableDropdown from "@/components/Dropdowns/TableDropdown.vue";
+import Toast from '@/components/Toast.vue'; // Make sure the path is correct
 
-import bootstrap from "@/assets/img/bootstrap.jpg";
-import angular from "@/assets/img/angular.jpg";
-import sketch from "@/assets/img/sketch.jpg";
-import react from "@/assets/img/react.jpg";
-import vue from "@/assets/img/react.jpg";
+import axios from 'axios';
 
-import team1 from "@/assets/img/team-1-800x800.jpg";
-import team2 from "@/assets/img/team-2-800x800.jpg";
-import team3 from "@/assets/img/team-3-800x800.jpg";
-import team4 from "@/assets/img/team-4-470x470.png";
+
+import ButtonPress from "@/components/ButtonPress.vue";
+//API
+import { getEvents } from '@/service/apiProvider.js';
 
 export default {
+  mounted() {
+    this.getEventsInfo();
+
+  },
   data() {
     return {
-      bootstrap,
-      angular,
-      sketch,
-      react,
-      vue,
-      team1,
-      team2,
-      team3,
-      team4,
+      memberData: [
+
+      ],
+      eventData: [],
+      loading: false,
     };
   },
   components: {
-    TableDropdown,
+    ButtonPress,
+    Toast,
+
   },
   props: {
     color: {
@@ -317,5 +161,60 @@ export default {
       },
     },
   },
+  methods: {
+
+    async getEventsInfo() {
+      try {
+        const result = await getEvents();
+        console.log("Calling Event API");
+        console.log(result);
+
+        this.eventData = result;
+
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    createEvent() {
+      console.log("Create Event ")
+      const routeData = this.$router.resolve({
+        name: "CreateEvent",
+
+      });
+
+      window.location.href = routeData.href;
+    },
+    EditEvent(id) {
+      console.log("Editing " + id)
+      const routeData = this.$router.resolve({
+        name: "EditEvent",
+        query: {
+          EventID: id,
+        },
+      });
+
+      window.location.href = routeData.href;
+    },
+    // Method to delete user by ID
+    async DeleteUser(id) {
+      try {
+        const response = await axios.delete(`/api/v1/admin/events/delete/${id}`);
+        if (response.data.code === 0) {
+          alert('Event deleted successfully!');
+          this.getEventsInfo(); // Re-fetch the users after successful deletion
+        } else {
+          alert('Error deleting user: ' + response.data.msg);
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Failed to delete user.');
+      }
+    },
+
+
+  }
+
+
+
 };
 </script>

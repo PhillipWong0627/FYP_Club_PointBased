@@ -69,10 +69,8 @@
         <tbody>
           <tr v-for="i in memberData" :key="i.memberData">
             <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-              <span class="font-bold">
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
                 {{ i.id }}
-              </span>
             </th>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               {{ i.memberName }}
@@ -113,14 +111,14 @@
 
               </div>
             </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
               <ButtonPress @click="EditUser(i.id)">Edit</ButtonPress>
               <ButtonPress type="submit" @click="DeleteUser(i.id)">
                 Delete</ButtonPress>
 
             </td>
 
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
               <table-dropdown />
             </td>
           </tr>
