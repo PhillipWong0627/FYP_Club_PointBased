@@ -14,7 +14,7 @@
             Facility Tables
           </h3>
           <h3>
-            <ButtonPress @click="createEvent()">Create Facility</ButtonPress>
+            <ButtonPress @click="createFacility()">Create Facility</ButtonPress>
           </h3>
         </div>
       </div>
@@ -32,10 +32,10 @@
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
               Facility Name
             </th>
-            <th
+            <!-- <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
               Facility Type
-            </th>
+            </th> -->
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
               Location
@@ -75,9 +75,9 @@
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               {{ i.facilityName }}
             </td>
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            <!-- <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               {{ i.facilityType }}
-            </td>
+            </td> -->
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               {{ i.location }}
 
@@ -169,10 +169,10 @@ export default {
         console.error(error);
       }
     },
-    createEvent() {
-      console.log("Create Event")
+    createFacility() {
+      console.log("Create Facility")
       const routeData = this.$router.resolve({
-        name: "CreateEvent",
+        name: "createFacility",
 
       });
 
@@ -183,7 +183,7 @@ export default {
       const routeData = this.$router.resolve({
         name: "EditFacility",
         query: {
-          EventID: id,
+          FacilityID: id,
         },
       });
 

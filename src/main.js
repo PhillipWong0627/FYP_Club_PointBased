@@ -50,6 +50,7 @@ import Test from "@/views/user/BookFacility/test.vue";
 
 import UserProfilePage from "@/views/user/myProfile.vue";
 import UserBookingHistory from "@/views/user/userBookingHistory.vue";
+import FoodMenu from "@/views/user/MenuPage/userFoodMenu.vue";
 
 import UserRegister from "@/views/auth/UserRegister.vue";
 import UserLogin from "@/views/auth/UserLogin.vue";
@@ -60,6 +61,8 @@ import Events from "@/views/admin/EventTable.vue";
 import EditUser from "@/views/admin/EditUserPage.vue";
 import EditEvent from "@/views/admin/EditEventPage.vue";
 import CreateEvent from "@/views/admin/CreateEventPage.vue";
+import EditFacility from "@/views/admin/EditFacilityPage.vue"
+import CreateFacility from "@/views/admin/CreateFacilityPage.vue";
 
 
 //Plugin
@@ -114,6 +117,16 @@ const routes = [
         name: "CreateEvent",
         component: CreateEvent,
       },
+      {
+        path: "/admin/editFacility",
+        name: "EditFacility",
+        component: EditFacility,
+      },
+      {
+        path: "/admin/createFacility",
+        name: "createFacility",
+        component: CreateFacility,
+      },
     ],
   },
 
@@ -163,6 +176,16 @@ const routes = [
     path: "/reward",
     name: "reward",
     component: UserRewardPage,
+    beforeEnter: (to, from, next) => {
+      const isLoggedIn = localStorage.getItem('memberID'); // Assuming 'memberID' is stored when logged in
+      if (isLoggedIn) {
+        next();
+      } else {
+        alert('Please login to access reward page');
+        next(false); // Prevent navigation
+      }
+    },
+
   },
   {
     path: "/foodandbeverage",
@@ -207,6 +230,11 @@ const routes = [
     name: "bookingHistory",
     component: UserBookingHistory,
 
+  },
+  {
+    path: "/foodMenu",
+    name: "foodMenu",
+    component: FoodMenu,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];

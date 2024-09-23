@@ -12,7 +12,7 @@
                 <!-- <img style="width: 100%; height: 60%;" src="@/assets/facility/badmintonCourt.jpg" class="rounded-md"> -->
                 <span class="text-xl">{{ i.facilityName }}</span>
                 <span class="text-sm"> Total Courts: {{ i.totalCourt }}</span>
-                <span class="text-sm"> Total Courts: {{ i.location }}</span>
+                <span class="text-sm"> Location: {{ i.location }}</span>
                 <ButtonPress>Book Now</ButtonPress>
             </div>
         </div>

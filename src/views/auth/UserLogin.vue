@@ -28,15 +28,6 @@
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Password" />
               </div>
-              <div>
-                <label class="inline-flex items-center cursor-pointer">
-                  <input id="customCheckLogin" type="checkbox"
-                    class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
-                  <span class="ml-2 text-sm font-semibold text-blueGray-600">
-                    Remember me
-                  </span>
-                </label>
-              </div>
 
               <div class="text-center mt-6">
                 <button
@@ -49,12 +40,8 @@
           </div>
         </div>
         <div class="flex flex-wrap mt-6 relative">
-          <div class="w-1/2">
-            <a href="javascript:void(0)" class="text-blueGray-200">
-              <small>Forgot password?</small>
-            </a>
-          </div>
-          <div class="w-1/2 text-right">
+          >
+          <div class="w-1/2 ">
             <router-link to="/auth/register" class="text-blueGray-200">
               <small>Create new account</small>
             </router-link>

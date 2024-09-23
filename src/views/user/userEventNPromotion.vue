@@ -39,7 +39,7 @@
             </div>
         </main>
         <!-- Include the EventModal component -->
-        <EventModal :isVisible="isModalVisible" :eventTitle="selectedEvent?.eventTitle"
+        <EventModal :isVisible="isModalVisible" :eventId="selectedEvent?.id" :eventFee="selectedEvent?.eventFee" :eventTitle="selectedEvent?.eventTitle"
             :eventDescription="selectedEvent?.eventDescription" :eventImage="selectedEvent?.eventImage"
             @close="isModalVisible = false" />
 

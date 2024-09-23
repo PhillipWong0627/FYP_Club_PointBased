@@ -26,7 +26,7 @@
                             Malaysia.
                         </p>
                         <div class="pt-6">
-                            <ButtonPress @click="testButton()" class="text-sm">See Menus</ButtonPress>
+                            <ButtonPress @click="toFoodBeveragePage()" class="text-sm">See Menus</ButtonPress>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ export default {
         },
         toFoodBeveragePage() {
             const routeData = this.$router.resolve({
-                name: "food&beverage",
+                name: "foodMenu",
 
             });
             window.location.href = routeData.href;
@@ -134,9 +134,6 @@ export default {
 
 
 <style scoped>
-
-
-
 .food-section {
     position: relative;
     background-image: url('@/assets/userMain/golfImage.jpg');
@@ -191,11 +188,4 @@ export default {
     bottom: 0;
     right: 0;
 }
-
-
-
-
-
-
-
 </style>
