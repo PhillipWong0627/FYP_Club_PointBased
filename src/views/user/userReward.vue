@@ -9,7 +9,7 @@
         <div class="container mx-auto flex justify-between  mt-6">
             <span class=""></span>
             <span class="font-medium text-xl uppercase text-emerald-500 hover:text-black cursor-pointer">Available
-                Points: {{ memberData.points}} points</span>
+                Points: <span class="font-extrabold text-2xl">{{ memberData.points }}</span> points</span>
         </div>
 
         <RewardPage></RewardPage>

@@ -21,7 +21,8 @@
           <h2 style="color: #2A83FF;" class="text-2xl">{{ rewardTitle }}</h2>
           <h2 class="text-2xl text-red-500">{{ rewardPts }} Points </h2>
           <p>{{ rewardDescription }}</p>
-          <ButtonPress class="w-full uppercase text-base font-bold mt-10" @click="redeemProduct()">Redeem</ButtonPress>
+          <ButtonPress class="w-full uppercase text-base font-bold mt-10" @click="redeemProduct(rewardId)">Redeem
+          </ButtonPress>
 
         </div>
 
@@ -92,29 +93,35 @@ export default {
     closeModal() {
       this.$emit("close");
     },
-    async redeemProduct() {
+    async redeemProduct(id) {
       if (this.loggedIn) {
         this.loading = true;
 
         // console.log("Redeem Product..");
-        console.log(this.eventId + "&" + this.memberId)
+        console.log(id + "&" + this.memberId)
         try {
-          const response = await axios.post(`/api/v1/admin/events/${this.eventId}/join/${this.memberId}`);
-          // console.log("THIS IS RESPONSE");
-          // console.log(response);
-          // console.log("THIS IS DATA");
-          // console.log(response.data);
+          const response = await axios.post(`/api/v1/user/${this.memberId}/redeem`, {
+            rewardId: id,
+          });
           if (response.data['code'] === 0) {
-            alert("Successfully Redeem the product!");
+            // alert("Successfully Redeem the product!");
+            alert(response.data.data); // Show success message
+            window.location.reload();
+
             this.closeModal();
+          } else if (response.data['code'] === 500219) {
+            alert('You have already redeemed this reward.');
+
           } else {
             alert("Error Redeem the product: " + response.data['msg']);
+
             this.closeModal();
 
           }
         } catch (error) {
-          console.error("Error joining the event", error);
+          console.error("Error Redeem the product", error);
           alert("Failed to Redeem the product.");
+          console.log("HERE")
           this.closeModal();
 
         } finally {

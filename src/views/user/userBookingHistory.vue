@@ -105,6 +105,53 @@
                     </div>
 
                 </div>
+                <div class="container mx-auto mt-8">
+                    <div class="rounded-t mb-0 px-4 py-3 border-0">
+                        <div class="flex flex-wrap items-center">
+                            <div class="relative w-full flex justify-between max-w-full flex-grow flex-1">
+                                <h2 class="text-2xl font-semibold text-center mb-4">Redeemed Rewards</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block w-full overflow-x-auto">
+                        <!-- Rewards table -->
+                        <table class="items-center w-full bg-transparent border-collapse">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Reward Name
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Points Used
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Image
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="reward in redeemedRewards" :key="reward.id">
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        {{ reward.productName }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        {{ reward.points }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        <img :src="reward.productImageUrl" alt="Reward Image" style="width: 150px;" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
 
             </section>
 
@@ -125,11 +172,14 @@ import axios from 'axios';
 export default {
     mounted() {
         this.fetchJoinedEvents(); // Fetch the joined events when the component is mounted
+        this.fetchRedeemedRewards(); // Fetch the redeemed rewards
+
     },
 
     data() {
         return {
             joinedEvents: [], // Stores the joined events
+            redeemedRewards: [], // Stores the redeemed rewards
 
         }
     },
@@ -163,6 +213,20 @@ export default {
                 alert('Please log in to view your joined events.');
             }
         },
+        async fetchRedeemedRewards() {
+            const memberId = localStorage.getItem('memberID'); // Get the logged-in member's ID from localStorage
+            if (memberId) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/api/v1/user/${memberId}/redeemed-rewards`);
+                    this.redeemedRewards = response.data.data; // Assign the returned rewards to the redeemedRewards array
+                } catch (error) {
+                    console.error('Error fetching redeemed rewards:', error);
+                }
+            } else {
+                alert('Please log in to view your redeemed rewards.');
+            }
+        }
+
     },
 
 };
