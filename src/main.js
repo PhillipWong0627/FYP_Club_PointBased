@@ -57,12 +57,15 @@ import UserLogin from "@/views/auth/UserLogin.vue";
 
 //Admin Pages
 import Facilities from "@/views/admin/FacilityTable.vue";
+import Rewards from "@/views/admin/RewardTable.vue";
 import Events from "@/views/admin/EventTable.vue";
 import EditUser from "@/views/admin/EditUserPage.vue";
 import EditEvent from "@/views/admin/EditEventPage.vue";
 import CreateEvent from "@/views/admin/CreateEventPage.vue";
 import EditFacility from "@/views/admin/EditFacilityPage.vue"
 import CreateFacility from "@/views/admin/CreateFacilityPage.vue";
+import EditReward from "@/views/admin/EditRewardPage.vue"
+import CreateReward from "@/views/admin/CreateRewardPage.vue";
 
 
 //Plugin
@@ -99,6 +102,10 @@ const routes = [
         component: Facilities,
       },
       {
+        path: "/admin/rewards",
+        component: Rewards,
+      },
+      {
         path: "/admin/events",
         component: Events,
       },
@@ -126,6 +133,16 @@ const routes = [
         path: "/admin/createFacility",
         name: "createFacility",
         component: CreateFacility,
+      },
+      {
+        path: "/admin/EditReward",
+        name: "EditReward",
+        component: EditReward,
+      },
+      {
+        path: "/admin/createReward",
+        name: "createReward",
+        component: CreateReward,
       },
     ],
   },

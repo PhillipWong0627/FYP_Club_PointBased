@@ -51,11 +51,11 @@
             </div>
 
             <!-- Facility Image URL -->
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Facility Image URL</label>
                 <input v-model="facility.facilityImage" type="text" placeholder="Enter Facility Image URL"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
+            </div> -->
 
 
             <!-- Submit Button -->

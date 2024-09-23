@@ -24,5 +24,8 @@ export const makePayment = ClubManagementSystemrBaseUrl + '/';
 //Facility
 export const getAllFacility = CMSBaseUrl + '/getFacilities';
 
+
+//Rewards
+export const getAllReward = CMSBaseUrl + '/reward/list'
 //Events
 export const getAllEvents = CMSBaseUrl + '/events/all'

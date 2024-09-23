@@ -51,11 +51,11 @@
             </div>
 
             <!-- Event Image URL -->
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Event Image URL</label>
                 <input v-model="event.eventImage" type="text" placeholder="Enter Event Image URL"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
+            </div> -->
 
 
             <!-- Submit Button -->
