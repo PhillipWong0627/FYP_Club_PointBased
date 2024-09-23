@@ -98,7 +98,7 @@ export default {
                     console.error('Failed to fetch member data:', error);
                 }
             } else {
-                alert('No member ID found. Please log in.');
+                alert('Member ID found. Please log in.');
             }
         },
     },

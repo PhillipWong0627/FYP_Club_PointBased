@@ -3,9 +3,9 @@
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
         <p class="flex justify-center font-semibold text-3xl uppercase mt-6">Foods & Beverages</p>
-        <div class="container mx-auto p-14 bg-blue-100 rounded-lg border-2 pt-6 mt-6">
+        <div class="container mx-auto p-14 bg-emerald-200 rounded-lg border-2  pt-6 mt-6">
             <!-- Category 1: Bread -->
-            <div class="flex justify-between text-3xl ">
+            <div class="flex justify-between text-3xl mt-5 ">
                 <div class="flex flex-col ">
                     <h3 class=" font-bold mb-2">The Golfers Terrace</h3>
 
@@ -14,7 +14,7 @@
                     <div class="flex flex-col px-4">
                         <h3 class=" font-bold mb-2">Member</h3>
 
-                    </div>
+                    </div>  
                     <div class="flex flex-col px-4">
                         <h3 class=" font-bold mb-2">Visotor</h3>
 
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <h3 class="text-3xl font-bold pt-10">The Mixed Lounge</h3>
             <!-- Category 2: Protein -->
             <div v-for="item in proteinList" :key="item.name" class="flex justify-between  text-xl font-medium pt-2">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <h3 class="text-3xl font-bold pt-10">Japanese Food Restaurant & Many More</h3>
             <!-- Category 2: Protein -->
             <div v-for="item in proteinList" :key="item.name" class="flex justify-between  text-xl font-medium pt-2">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
 
             <!-- Member discount section -->

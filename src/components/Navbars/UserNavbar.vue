@@ -21,7 +21,7 @@
             </div>
             <div class="lg:flex flex-grow items-center" :class="[navbarOpen ? 'block' : 'hidden']"
                 id="example-navbar-warning">
-                <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+                <ul class="flex flex-col lg:flex-row list-none ">
                     <li class="flex items-center" v-for="link in Links" :key="link.link">
                         <!-- <router-link :to="link.link"
                             class="hover:text-blueGray-500 text-blueGray-700 px-3 py-2 flex items-center text-xs uppercase font-bold">{{
@@ -35,7 +35,7 @@
                     </li>
                 </ul>
 
-                <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+                <ul v-if="!loggedIn" class="flex flex-col lg:flex-row list-none lg:ml-auto">
                     <div class="pt-2 pr-1">
                         <ButtonPress @click="linkToRegisterPage()" class="">Register as member</ButtonPress>
                     </div>
@@ -56,10 +56,13 @@
 <script>
 import ButtonPress from "@/components/ButtonPress.vue";
 import UserProfileDropdown from "@/components/Dropdowns/UserProfileDropdown.vue";
+import { ref } from 'vue';
 
 export default {
     data() {
         return {
+            loggedIn: ref(false),
+
             navbarOpen: false,
             Links: [
                 { name: "main", link: "/" },
@@ -70,6 +73,17 @@ export default {
             ],
 
         };
+    },
+    created() {
+        // Check if the user is logged in based on localStorage data
+        const memberID = localStorage.getItem('memberID');
+        const memberName = localStorage.getItem('memberName');
+        const email = localStorage.getItem('email');
+
+        // Set loggedIn to true if any of the items exist in localStorage
+        if (memberID && memberName && email) {
+            this.loggedIn = true;
+        }
     },
     methods: {
         setNavbarOpen: function () {

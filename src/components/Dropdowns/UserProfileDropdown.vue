@@ -4,7 +4,8 @@
             <div class="items-center flex">
                 <span
                     class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-                    <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" :src="image" />
+                    <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg"
+                        :src="memberData.avatar ? memberData.avatar : defaultAvatar" />
                 </span>
             </div>
         </a>
@@ -51,13 +52,30 @@ import { createPopper } from "@popperjs/core";
 
 import image from "@/assets/img/team-1-800x800.jpg";
 import { ref } from 'vue';
+import axios from 'axios';
 
 export default {
+    mounted() {
+        this.fetchMemberData(); // Fetch member data when the component is mounted
+    },
+
     data() {
         return {
             dropdownPopoverShow: false,
             image: image,
             loggedIn: ref(false),
+
+            // Default avatar image
+            defaultAvatar: require('@/assets/profile_coach.jpg').default, // Path to your default avatar image
+
+            memberData: {
+                memberName: "",
+                address: "",
+                contact: "",
+                description: "",
+                avatar: "",
+
+            }, // to store the fetched member data
 
 
         };
@@ -74,6 +92,18 @@ export default {
         }
     },
     methods: {
+        async fetchMemberData() {
+            const memberId = localStorage.getItem('memberID');
+            if (memberId) {
+                try {
+                    const response = await axios.get(`/api/v1/user/getById/${memberId}`);
+                    console.log(response)
+                    this.memberData = response.data.data; // assuming the API returns member data in the "data" field
+                } catch (error) {
+                    console.error('Failed to fetch member data:', error);
+                }
+            }
+        },
         toggleDropdown: function (event) {
             event.preventDefault();
             if (this.dropdownPopoverShow) {

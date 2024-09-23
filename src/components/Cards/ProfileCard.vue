@@ -5,12 +5,15 @@
     <div class="flex flex-wrap justify-center">
       <div class="w-full px-4 flex justify-center ">
         <div class="relative ">
-          <img :src="team2" class="shadow-xl rounded-full h-auto align-middle border-none "
-            style="width: 140px; height: 140px; object-fit: cover;" />
+          <img class="shadow-xl rounded-full h-auto align-middle border-none "
+            style="width: 140px; height: 140px; object-fit: cover;"
+            :src="memberData.avatar ? memberData.avatar : defaultAvatar" />
           <!-- Add upload button here -->
           <label for="upload" class="absolute bottom-0 right-0 cursor-pointer">
             <img src="@/assets/upload-icon.png" style="width: 24px; height: 24px;" />
-            <input type="file" id="upload" style="display: none;" @change="handleImageUpload" />
+            <input type="file" id="upload" style="display: none;" @change="onFileChange" />
+
+            <!-- <input type="file" id="upload" style="display: none;" @change="handleImageUpload" /> -->
           </label>
 
         </div>
@@ -128,13 +131,99 @@ export default {
         memberName: "",
         address: "",
         contact: "",
-        description: ""
+        description: "",
+        avatar: "",
 
       }, // to store the fetched member data
+
+
+      selectedFile: null,
+      imagePreview: null, // For image preview
+      uploadedImage: null,
+
+      memberId: localStorage.getItem('memberID'),
+      uploadedAvatarUrl: null, // URL of uploaded avatar from Cloudinary
+      // Default avatar image
+      defaultAvatar: require('@/assets/profile_coach.jpg').default, // Path to your default avatar image
 
     };
   },
   methods: {
+    // Function to handle the file input change event
+    onFileChange(e) {
+      // this.selectedFile = e.target.files[0];
+      const file = e.target.files[0];
+      if (file) {
+        this.selectedFile = file;
+
+        // Create a FileReader to read the file and show the preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target.result; // Store the image data for preview
+        };
+        reader.readAsDataURL(file);
+        // Upload the image after selection
+        this.uploadImage();
+
+      }
+
+    },
+
+    // Function to upload the image to Cloudinary
+    async uploadImage() {
+      if (!this.selectedFile) {
+        alert("Please select an image to upload.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", this.selectedFile);
+      formData.append("upload_preset", "j8c3wtcm"); // Replace with your Cloudinary upload preset
+
+      try {
+        const response = await axios.post(
+          `https://api.cloudinary.com/v1_1/dnzypglvm/image/upload`, // Replace YOUR_CLOUD_NAME with your Cloudinary cloud name
+          formData
+        );
+        console.log("This is Response")
+        console.log(response);
+        console.log(response.status);
+
+        if (response.status === 200) {
+          this.uploadedImage = response.data.secure_url;
+
+          // console.log('Image uploaded successfully: ', this.uploadedAvatarUrl);
+          alert('Updated To Cloud Succesfully!');
+
+          console.log("Image uploaded successfully: ", this.uploadedImage);
+          this.updateAvatar();
+        }
+
+      } catch (error) {
+        console.error("Error uploading the image:", error);
+      }
+    },
+    // Update avatar using the API call
+    async updateAvatar() {
+
+      console.log(this.uploadedImage);
+      try {
+        const response = await axios.put(`/api/v1/user/${this.memberId}/update-avatar`, {
+          avatarUrl: this.uploadedImage
+        });
+
+        console.log('Avatar updated successfully:', response);
+        alert('Avatar updated successfully!');
+        // this.fetchMemberData();
+        window.location.reload();
+
+      } catch (error) {
+        console.error('Error updating the avatar:', error);
+        alert('Failed to update the avatar.');
+      }
+    },
+
+
     async fetchMemberData() {
       const memberId = localStorage.getItem('memberID');
       if (memberId) {
@@ -145,8 +234,6 @@ export default {
         } catch (error) {
           console.error('Failed to fetch member data:', error);
         }
-      } else {
-        alert('No member ID found. Please log in.');
       }
     },
     async EditUser(id) {

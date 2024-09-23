@@ -61,9 +61,6 @@
             </th>
 
 
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -118,9 +115,6 @@
 
             </td>
 
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-              <table-dropdown />
-            </td>
           </tr>
 
         </tbody>
@@ -130,11 +124,7 @@
   </div>
 </template>
 <script>
-import TableDropdown from "@/components/Dropdowns/TableDropdown.vue";
-import Toast from '@/components/Toast.vue'; // Make sure the path is correct
-
-
-
+import Toast from '@/components/Toast.vue'; 
 import ButtonPress from "@/components/ButtonPress.vue";
 //API
 import { getMemberInfo, deleteMember } from '@/service/apiProvider.js';
@@ -152,7 +142,6 @@ export default {
     };
   },
   components: {
-    TableDropdown,
     ButtonPress,
     Toast,
 
