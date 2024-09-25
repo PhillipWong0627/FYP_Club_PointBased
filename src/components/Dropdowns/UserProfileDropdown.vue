@@ -4,7 +4,7 @@
             <div class="items-center flex">
                 <span
                     class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-                    <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg"
+                    <img alt="..." class=" w-12 h-12 rounded-full align-middle border-none shadow-lg"
                         :src="memberData.avatar ? memberData.avatar : defaultAvatar" />
                 </span>
             </div>

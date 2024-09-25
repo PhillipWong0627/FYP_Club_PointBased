@@ -1,6 +1,6 @@
 <template>
     <div class="bg-blueGray-200">
-        
+
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
 
@@ -13,11 +13,11 @@
                     <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                         <div class="flex site-hero-inner justify-center items-center ">
                             <div class=" text-center">
-                                <h1 class="heading" data-aos="fade-up">Welcome to <em>Villa</em> resort</h1>
+                                <h1 class="heading" data-aos="fade-up">Welcome to <em>Villa</em> club</h1>
                                 <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Discover our
                                     world-class
-                                    hotel &amp; restaurant resort.</p>
-                                <p data-aos="fade-up" data-aos-delay="100"><a href="/admin"
+                                    service &amp; restaurant.</p>
+                                <!-- <p data-aos="fade-up" data-aos-delay="100"><a href="/admin"
                                         class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Explore
                                         The
                                         Beauty</a>
@@ -25,7 +25,7 @@
                                         class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                         Download
                                     </a>
-                                </p>
+                                </p> -->
 
                             </div>
                         </div>
@@ -54,15 +54,19 @@
 
                         <h3 class="text-3xl font-semibold">THE LAKES & THE HILLS</h3>
                         <p class="mt-4 text-lg leading-relaxed text-blueGray-500 text-justify">
-                            Kelab Rahman Putra Malaysia (KRPM) offers two world-class golf courses, the Lakes and the
-                            Hills, both designed to offer golfers a unique & challenging experience. The courses are set
-                            against a stunning backdrop of lakes & lush greenery, & challenging water hazards, bunkers,
-                            & undulating greens test golfers' precision & skill.
+                            Welcome to our exclusive Club Management System, where we believe in creating an enriching
+                            experience for all our members. Our club is not just a place to enjoy top-notch facilities
+                            and events, but a thriving community where every interaction brings value.
+
+                            We are dedicated to providing a seamless and rewarding experience for all our members.
+                            Whether you are booking a facility, joining exciting club events, or enjoying exclusive
+                            rewards, our system is designed to offer convenience and enhance your club experience.
+
                         </p>
-                        <p class="pt-2 text-justify text-lg leading-relaxed text-blueGray-500">
+                        <!-- <p class="pt-2 text-justify text-lg leading-relaxed text-blueGray-500">
                             Overall, KRPM is a top-notch golf destination that offers an unforgettable experience in
                             Malaysia.
-                        </p>
+                        </p> -->
                         <div class="pt-6">
                             <ButtonPress @click="scrollToUserMemberPlan()" class="text-sm">Become Members</ButtonPress>
                         </div>
@@ -96,7 +100,7 @@
 
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
-                    <img alt="..." src="@/assets/userMain/golfImage.jpg" class="w-full align-middle rounded-t-lg" />
+                    <img alt="..." src="@/assets/userMain/mixed_lounge.jpg" class="w-full align-middle rounded-t-lg" />
                     <blockquote class="relative p-8 mb-4">
                         <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 583 95"
                             class="absolute left-0 w-full block h-95-px -top-94-px">

@@ -59,7 +59,7 @@
             </div>
             <div class="w-full md:w-6/12 mr-auto px-4 pt-24 md:pt-0 flex justify-center ">
                 <div class="membership-card relative bg-white rounded-lg shadow-lg p-6 max-w-sm ">
-                    <img style="height: 130px; width: 300px;" src="@/assets/userMain/h.jpg" />
+                    <img style="height: 130px; width: 300px;" src="@/assets/userMain/subscription.png" />
                     <div class="text-center mb-4 ">
                         <h4
                             class="text-sm font-semibold uppercase bg-blue-500 text-white inline-block px-2 py-1 rounded-full">

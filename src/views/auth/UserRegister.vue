@@ -10,7 +10,7 @@
 
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
 
-                        <form @submit.prevent="toPaymentModal" >
+                        <form @submit.prevent="toPaymentModal">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                     htmlFor="grid-password">
@@ -40,10 +40,13 @@
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="Password" />
                                 <div class="button mr-1.5">
-                                    <img v-if="passwordVisibility" src="@/assets/auth/unhide.png" alt="UnHide Password"
+                                    <span v-if="passwordVisibility" @click="togglePasswordVisibility" class="uppercase font-bold text-sm">hide</span>
+                                    <span v-else @click="togglePasswordVisibility" class="uppercase font-bold text-sm">show</span>
+
+                                    <!-- <img v-if="passwordVisibility" src="@/assets/auth/unhide.png" alt="UnHide Password"
                                         @click="togglePasswordVisibility" />
                                     <img v-else src="@/assets/auth/hide.png" alt="Hide Password"
-                                        @click="togglePasswordVisibility" />
+                                        @click="togglePasswordVisibility" /> -->
                                 </div>
 
 
@@ -126,7 +129,7 @@ export default {
 .button {
     position: absolute;
     right: 10px;
-    top: 40px;
+    top: 33px;
     background: none;
     border: none;
     cursor: pointer;

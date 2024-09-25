@@ -21,7 +21,7 @@
             <!-- Total Courts -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Total Courts</label>
-                <input v-model="facility.totalCourt" type="number" placeholder="Enter Total Courts"
+                <input v-model="facility.totalCourt" type="number" placeholder="Enter Total Courts" min="0"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required>
             </div>
@@ -45,7 +45,7 @@
             <!-- Facility Fee -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Facility Fee</label>
-                <input v-model="facility.pricePerHour" type="number" placeholder="Enter Facility Fee"
+                <input v-model="facility.pricePerHour" type="number" placeholder="Enter Facility Fee" min="0"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required>
             </div>

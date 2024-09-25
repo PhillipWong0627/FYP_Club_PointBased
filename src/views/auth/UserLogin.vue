@@ -3,7 +3,7 @@
     <div class="flex content-center items-center justify-center h-full">
       <div class="w-full lg:w-4/12 px-4">
         <div
-          class="relative flex flex-col min-w-0 break-words w-full mb-6 py-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+          class="relative flex flex-col min-w-0 break-words w-full pb-4 py-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
           <div class="text-blueGray-900 text-center mb-3 font-bold">
             <p class="flex justify-center font-semibold text-3xl uppercase mt-6">Member Login</p>
           </div>
@@ -24,9 +24,16 @@
                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
                   Password
                 </label>
-                <input type="password" required v-model="password"
+                <input :type="passwordFieldType" required v-model="password"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Password" />
+                <div class="button mr-1.5">
+                  <span v-if="passwordVisibility" @click="togglePasswordVisibility"
+                    class="uppercase font-bold text-sm">hide</span>
+                  <span v-else @click="togglePasswordVisibility" class="uppercase font-bold text-sm">show</span>
+
+                </div>
+
               </div>
 
               <div class="text-center mt-6">
@@ -39,8 +46,7 @@
             </form>
           </div>
         </div>
-        <div class="flex flex-wrap mt-6 relative">
-          >
+        <div class="flex flex-wrap relative ">
           <div class="w-1/2 ">
             <router-link to="/auth/register" class="text-blueGray-200">
               <small>Create new account</small>
@@ -58,10 +64,16 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      passwordVisibility: false,
+
     };
   },
   methods: {
+    togglePasswordVisibility() {
+      this.passwordVisibility = !this.passwordVisibility;
+    },
+
     async login() {
       const result = await login(this.email, this.password);
       console.log(result);
@@ -80,6 +92,23 @@ export default {
         alert("Server Error, Please Try Again Later~")
       }
     }
-  }
+  },
+  computed: {
+    passwordFieldType() {
+      return this.passwordVisibility ? "text" : "password";
+
+    }
+
+  },
 };
 </script>
+<style scoped>
+.button {
+  position: absolute;
+  right: 10px;
+  top: 33px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+</style>

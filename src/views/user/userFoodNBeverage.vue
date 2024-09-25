@@ -9,21 +9,21 @@
 
             <div class="items-center flex flex-wrap">
                 <div class="w-full md:w-6/12 ml-auto mr-auto px-4">
-                    <img alt="..." class="max-w-full rounded-lg shadow-lg" src="@/assets/userMain/golfImage.jpg" />
+                    <img alt="..." class="max-w-full rounded-lg shadow-lg" src="@/assets/userMain/lakeHill.jpg" />
                 </div>
                 <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
                     <div class="md:pr-12 ">
 
                         <h3 class="text-3xl font-semibold">THE LAKES & THE HILLS</h3>
                         <p class="mt-4 text-lg leading-relaxed text-blueGray-500 text-justify">
-                            Kelab Rahman Putra Malaysia (KRPM) offers two world-class golf courses, the Lakes and the
-                            Hills, both designed to offer golfers a unique & challenging experience. The courses are set
-                            against a stunning backdrop of lakes & lush greenery, & challenging water hazards, bunkers,
-                            & undulating greens test golfers' precision & skill.
-                        </p>
-                        <p class="pt-2 text-justify text-lg leading-relaxed text-blueGray-500">
-                            Overall, KRPM is a top-notch golf destination that offers an unforgettable experience in
-                            Malaysia.
+                            Welcome to our exclusive Club Management System, where we believe in creating an enriching
+                            experience for all our members. Our club is not just a place to enjoy top-notch facilities
+                            and events, but a thriving community where every interaction brings value.
+
+                            We are dedicated to providing a seamless and rewarding experience for all our members.
+                            Whether you are booking a facility, joining exciting club events, or enjoying exclusive
+                            rewards, our system is designed to offer convenience and enhance your club experience.
+
                         </p>
                         <div class="pt-6">
                             <ButtonPress @click="toFoodBeveragePage()" class="text-sm">See Menus</ButtonPress>
@@ -58,7 +58,7 @@
 
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
-                    <img alt="..." src="@/assets/userMain/golfImage.jpg" class="w-full align-middle rounded-t-lg" />
+                    <img alt="..." src="@/assets/userMain/mixed_lounge.jpg" class="w-full align-middle rounded-t-lg" />
                     <blockquote class="relative p-8 mb-4">
                         <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 583 95"
                             class="absolute left-0 w-full block h-95-px -top-94-px">
