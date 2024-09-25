@@ -2,11 +2,37 @@
   <div class="">
     <Navnavbars></Navnavbars>
     <UserNavbar></UserNavbar>
+    <div class="container mx-auto px-4 py-8">
+      <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse">
+          <thead>
+            <tr>
+              <th class="border p-2">Court No.</th>
+              <th v-for="i in courtByFacilityId" :key="i.id" class="border p-2">{{ i.courtNumber }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(slot, index) in timeSlots" :key="index">
+              <td class="borde-2 border-red-500 p-2">{{ slot }}</td>
+              <td v-for="court in courtByFacilityId" :key="court.id" class="border p-2 text-center">
+                <div :class="{
+                  'bg-green-500': isBooked(court.id, slot),
+                  'bg-white': !isBooked(court.id, slot),
+                  'cursor-pointer': !isBooked(court.id, slot),
+                }" class="h-8  w-full S" @click="toPaymentModal(court.id, slot)">
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
 
     <div class="container mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-6">
         <button class="make-booking" @click="makeBooking">+ Make Booking</button>
-
 
         <input type="date" v-model="selectedDate" class="px-3 py-2 border rounded-md" />
 
@@ -39,7 +65,7 @@
     </div>
     <FacilityList></FacilityList>
 
-    <BookingModal :isVisible="isModalVisible" :time="time" @close="isModalVisible = false" />
+    <BookingModal :isVisible="isModalVisible" :time="time" :corutId="courtId" :facilityId="facilityId" @close="isModalVisible = false" />
 
     <FooterComp class="mt-12"></FooterComp>
 
@@ -54,12 +80,19 @@ import ButtonPress from "@/components/ButtonPress.vue";
 
 import BookingModal from "@/components/Modals/BookingModal.vue";
 import FacilityList from "@/components/UserMainPage/FacilityList.vue";
+import axios from "axios";
 
 export default {
+  mounted() {
+    this.fetchCourtByFacilityId();
+  },
 
   data() {
     return {
+      facilityId: this.$route.query.FacilityID,
+      courtByFacilityId: [],
 
+      courtId: null,
       time: '', // Bind to the name input
       isModalVisible: false, // Control modal visibility
 
@@ -122,24 +155,6 @@ export default {
           facilityId: 1,
           name: 'Court 6'
         },
-
-        {
-          id: 7,
-          facilityId: 2,
-          name: 'Table 1'
-        },
-
-        {
-          id: 8,
-          facilityId: 2,
-          name: 'Table 2'
-        },
-
-        {
-          id: 9,
-          facilityId: 3,
-          name: 'Basketball Court'
-        }
       ],
       timeSlots: [
         '10:00-11:00',
@@ -155,7 +170,6 @@ export default {
         { courtId: 7, slot: '11:00-12:00', date: '2024-09-08' },
         { courtId: 9, slot: '14:00-15:00', date: '2024-09-08' }
 
-        // Add more existing bookings here
       ],
     };
   },
@@ -165,6 +179,15 @@ export default {
     }
   },
   methods: {
+    //Fetching 
+    async fetchCourtByFacilityId() {
+      const result = await axios.get(`/api/v1/admin/facilities/${this.facilityId}/courts`);
+      // console.log(result);
+      this.courtByFacilityId = result.data.data
+
+      // console.log("DATA");
+      // console.table(this.courtByFacilityId);
+    },
     //HI
     onFacilityChange() {
       this.selectedSlots = []; // Reset selected slots when facility changes
@@ -207,6 +230,7 @@ export default {
       console.log(courtId);
       console.log(slot);
 
+      this.courtId = courtId;
       this.time = slot; // Pass the time slot as a prop to the modal
 
       this.isModalVisible = true; // Show modal

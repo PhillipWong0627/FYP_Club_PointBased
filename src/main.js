@@ -68,6 +68,7 @@ import EditReward from "@/views/admin/EditRewardPage.vue"
 import CreateReward from "@/views/admin/CreateRewardPage.vue";
 import AdminLogin from "@/views/auth/AdminLogin.vue";
 
+import FacilityDetails from '@/components/FacilityDetails.vue';
 
 //Plugin
 
@@ -214,6 +215,12 @@ const routes = [
     },
 
   },
+  {
+    path: '/facility',
+    name: 'FacilityDetails',
+    component: FacilityDetails
+  },
+
   {
     path: "/foodandbeverage",
     name: "food&beverage",

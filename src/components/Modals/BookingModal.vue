@@ -5,12 +5,14 @@
                 <h2 class="modal-title">Book Your Slot</h2>
                 <span class="close-button" @click="closeModal">&times;</span>
                 <span>{{ time }}</span>
+                <span>{{ corutId }}</span>
+                <span>{{facilityId}}</span>
             </div>
             <form @submit.prevent="proceedToPayment">
                 <div class="modal-body">
                     <div class="input-group">
                         <label class="input-label">Date</label>
-                        <input type="date" v-model="selectedDate" class="input-field" required />
+                        <input type="date" v-model="selectedDate" class="input-field" :min="minDateTime" required />
                     </div>
 
                     <div class="input-group time-selection">
@@ -51,8 +53,17 @@
 import ButtonPress from "@/components/ButtonPress.vue";
 
 export default {
+    mounted() {
+        // Set the default value for selectedStartTime, e.g., first time slot
+        this.selectedStartTime = this.timeOptions[0]; // Set the first option as default
+
+        this.minDateTime = new Date().toISOString().substr(0, 10); // Set min date to today
+
+    },
     data() {
         return {
+            minDateTime: '', // Minimum date and time allowed for booking
+
             loading: false,
 
             selectedDate: new Date().toISOString().substr(0, 10),  // Default to current date
@@ -70,10 +81,7 @@ export default {
 
         };
     },
-    mounted() {
-        // Set the default value for selectedStartTime, e.g., first time slot
-        this.selectedStartTime = this.timeOptions[0]; // Set the first option as default
-    },
+
 
     watch: {
         isVisible(newValue) {
@@ -93,11 +101,13 @@ export default {
             default: false,
         },
         time: String, // Name passed from the parent component
-
+        corutId: Number,
+        facilityId: Number,
 
 
     },
     methods: {
+
         closeModal() {
             this.$emit("close");
         },
@@ -112,10 +122,16 @@ export default {
 
 
         proceedToPayment() {
-            alert('Proceeding to Payment!' + this.selectedStartTime);
+            // alert('Proceeding to Payment!' + this.selectedStartTime);
 
             const routeData = this.$router.resolve({
                 name: "Booking",
+                query:{
+                    date: this.selectedDate,
+                    time: this.time,
+                    courtID: this.corutId,
+                    facilityID: this.facilityId,
+                }
             });
             window.location.href = routeData.href;
         },

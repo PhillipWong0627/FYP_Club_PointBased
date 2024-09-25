@@ -9,6 +9,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <span class="uppercase text-2xl font-bold pl-5">Booking Details</span>
+                {{ selectedFacilityID }}
             </div>
 
             <!-- Court Image -->
@@ -18,14 +19,12 @@
             </div>
 
             <!-- Booking Summary -->
-            <h2 class="text-2xl font-bold mb-3">Badminton Rubber Flooring</h2>
+            <h2 class="text-2xl font-bold mb-3"> {{ facilityData.facilityName }} </h2>
             <div class="mb-5 text-sm">
-                <p><strong>Date: </strong>8th Sep 2024</p>
-                <p><strong>Start Time: </strong>10:00 PM</p>
-                <p><strong>End Time: </strong>11:00 PM</p>
-                <p><strong>Court: </strong>Court 9</p>
+                <p><strong>Date: </strong>{{ selectedDate }}</p>
+                <p><strong>Time: </strong> {{ selectedTime }}</p>
+                <p><strong>Court: </strong> Court {{ selectedCourt }}</p>
             </div>
-
             <!-- Cost Summary -->
             <h3 class="text-lg font-semibold mb-2">Booking Cost Breakdown</h3>
             <table class="w-full mb-5 text-sm">
@@ -43,7 +42,7 @@
                 </tr>
                 <tr class="font-bold">
                     <td>Total Amount</td>
-                    <td class="text-right">RM {{ totalAmount }}</td>
+                    <td class="text-right">RM {{ facilityData.pricePerHour }}</td>
                 </tr>
             </table>
 
@@ -73,7 +72,7 @@
                 <!-- Payment Summary -->
                 <div class="font-bold text-lg flex justify-between items-center">
                     <span>Total Amount</span>
-                    <span class="text-red-500">RM {{ totalAmount }}</span>
+                    <span class="text-red-500">RM {{ facilityData.pricePerHour }}</span>
                 </div>
 
                 <!-- Pay Now Button -->
@@ -94,15 +93,45 @@ import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import ButtonPress from "@/components/ButtonPress.vue";
+import axios from "axios";
 
 export default {
+    mounted() {
+        this.fetchFacilityData();
+
+    },
     components: {
         Navnavbars,
         FooterComp,
         UserNavbar,
         ButtonPress
     },
+    data() {
+        return {
+            userName: '',
+            phoneCode: '+60',
+            phoneNumber: '',
+            email: '',
+            totalAmount: "24.00",
+
+            selectedDate: this.$route.query.date,
+            selectedTime: this.$route.query.time,
+            selectedCourt: this.$route.query.courtID,
+            selectedFacilityID: this.$route.query.facilityID,
+
+            facilityData: [],
+        }
+    },
     methods: {
+        //Fetching 
+        async fetchFacilityData() {
+            const result = await axios.get(`/api/v1/admin/getById/${this.selectedFacilityID}`);
+            // console.log(result);
+            this.facilityData = result.data.data
+
+            // console.log("DATA");
+            // console.table(this.courtByFacilityId);
+        },
         goBack() {
             // Logic to go back to previous page
             window.history.back();
@@ -123,17 +152,7 @@ export default {
             window.location.href = routeData.href;
         },
     },
-    data() {
-        return {
-            userName: '',
-            phoneCode: '+60',
-            phoneNumber: '',
-            email: '',
-            totalAmount: "24.00"
 
-
-        }
-    },
 }
 
 
