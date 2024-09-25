@@ -4,7 +4,7 @@
         <h2>Available Courts</h2>
         <div>
             <label>Select Date:</label>
-            <input type="date" v-model="booking.date" />
+            <input type="date" v-model="booking.date" :min="minDateTime" />
         </div>
         <div>
             <label>Select Time Slot:</label>
@@ -39,12 +39,19 @@ export default {
                 timeSlot: ''
             },
 
-            faID: this.$route.query.facilityID
+            faID: this.$route.query.facilityID,
+
+            //HI
+            minDateTime: '', // Minimum date and time allowed for booking
+
         };
     },
     mounted() {
         const facilityId = this.$route.query.facilityID;
         this.getCourtsByFacility(facilityId);
+
+        this.minDateTime = new Date().toISOString().substr(0, 10); // Set min date to today
+
     },
     methods: {
         getCourtsByFacility(facilityId) {
@@ -69,7 +76,7 @@ export default {
                 timeSlot: this.booking.timeSlot
             })
                 .then(response => {
-                    if (response.data) {
+                    if (response.data.code === 0) {
                         console.log(courtId)
                         console.log(this.booking.memberId)
                         console.log(this.booking.date)

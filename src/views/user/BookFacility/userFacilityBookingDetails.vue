@@ -2,6 +2,8 @@
     <div>
         <Navnavbars></Navnavbars>
         <UserNavbar></UserNavbar>
+        <Toast ref="toast" />
+
         <div class="container mx-auto my-5 p-5 max-w-2xl bg-white rounded-lg shadow-md">
             <!-- Back Button -->
             <div class="mb-5 flex">
@@ -66,7 +68,9 @@
                         <input type="text" v-model="phoneNumber" placeholder="Phone number" required
                             class="w-full px-3 py-2 border rounded-md" />
                     </div>
-                    <input type="email" v-model="email" placeholder="Email address" required
+                    <!-- <input type="email" v-model="email" placeholder="Email address" required
+                        class="w-full px-3 py-2 border rounded-md" /> -->
+                    <input type="number" v-model="userAmount" placeholder="Enter Amount" required min="0"
                         class="w-full px-3 py-2 border rounded-md" />
                 </div>
                 <!-- Payment Summary -->
@@ -80,7 +84,7 @@
                     class="mt-5 w-full bg-orange-500 text-white py-3 rounded-md font-bold hover:bg-orange-600">
                     Pay Now
                 </button> -->
-                <ButtonPress type="submit" class="mt-5 w-full pt-3 pb-3 uppercase font-bold text-base">Pay Now
+                <ButtonPress type="submit" class="mt-5 w-full pt-3 pb-3 uppercase font-bold text-base">Pay and Book Now
                 </ButtonPress>
             </form>
         </div>
@@ -94,6 +98,7 @@ import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import ButtonPress from "@/components/ButtonPress.vue";
 import axios from "axios";
+import Toast from '@/components/Toast.vue'; // Make sure the path is correct
 
 export default {
     mounted() {
@@ -104,7 +109,8 @@ export default {
         Navnavbars,
         FooterComp,
         UserNavbar,
-        ButtonPress
+        ButtonPress,
+        Toast,
     },
     data() {
         return {
@@ -112,7 +118,6 @@ export default {
             phoneCode: '+60',
             phoneNumber: '',
             email: '',
-            totalAmount: "24.00",
 
             selectedDate: this.$route.query.date,
             selectedTime: this.$route.query.time,
@@ -120,6 +125,8 @@ export default {
             selectedFacilityID: this.$route.query.facilityID,
 
             facilityData: [],
+            userAmount: null,
+            memberId: localStorage.getItem('memberID'),
         }
     },
     methods: {
@@ -137,19 +144,68 @@ export default {
             window.history.back();
         },
 
-        payNow() {
+        async payNow() {
+            if (this.facilityData.pricePerHour > this.userAmount) {
+                // console.log("HALO")
+                alert("Not Enought Money");
+            } else {
+                try {
+                    console.log(this.selectedCourt);
+
+                    console.log(this.memberId);
+
+                    console.log(this.selectedDate);
+
+                    console.log(this.selectedTime);
+
+
+                    const result = await axios.post('api/v1/member/bookings/create', {
+                        courtId: this.selectedCourt,
+                        memberId: this.memberId,
+                        date: this.selectedDate,
+                        timeSlot: this.selectedTime
+                    });
+                    if (result.data.code === 0) {
+                        alert("Court booked successfully!");
+                        this.$refs.toast.showToast("Court booked successfully!");
+
+                        const routeData = this.$router.resolve({
+                            name: "main",
+                        });
+                        window.location.href = routeData.href;
+
+                    } else {
+                        alert("The Slot Is Not Available.");
+                        const routeData = this.$router.resolve({
+                            name: "facilities",
+                        });
+                        window.location.href = routeData.href;
+
+
+                    }
+                       console.log(result);
+
+                } catch (error) {
+                    console.error("Error checking availability:", error);
+
+                }
+            }
+
+
+
+
             // Navigating
             // Push to the Live Page
-            const routeData = this.$router.resolve({
-                name: "BookingPayment",
-                query: {
-                    Username: this.userName,
-                    PhoneNumber: this.phoneNumber,
-                    Email: this.email,
-                    TotalAmount: this.totalAmount,
-                },
-            });
-            window.location.href = routeData.href;
+            // const routeData = this.$router.resolve({
+            //     name: "BookingPayment",
+            //     query: {
+            //         Username: this.userName,
+            //         PhoneNumber: this.phoneNumber,
+            //         Email: this.email,
+            //         TotalAmount: this.totalAmount,
+            //     },
+            // });
+            // window.location.href = routeData.href;
         },
     },
 

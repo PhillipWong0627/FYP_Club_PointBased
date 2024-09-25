@@ -15,11 +15,12 @@
             <tr v-for="(slot, index) in timeSlots" :key="index">
               <td class="borde-2 border-red-500 p-2">{{ slot }}</td>
               <td v-for="court in courtByFacilityId" :key="court.id" class="border p-2 text-center">
+                <!-- {{ court.courtId }} -->
                 <div :class="{
                   'bg-green-500': isBooked(court.id, slot),
                   'bg-white': !isBooked(court.id, slot),
                   'cursor-pointer': !isBooked(court.id, slot),
-                }" class="h-8  w-full S" @click="toPaymentModal(court.id, slot)">
+                }" class="h-8  w-full S" @click="toPaymentModal(court.courtId, slot)">
                 </div>
               </td>
 
@@ -185,8 +186,9 @@ export default {
       // console.log(result);
       this.courtByFacilityId = result.data.data
 
-      // console.log("DATA");
-      // console.table(this.courtByFacilityId);
+      console.log("DATA");
+      console.log(this.courtByFacilityId);
+
     },
     //HI
     onFacilityChange() {

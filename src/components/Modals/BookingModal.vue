@@ -6,7 +6,7 @@
                 <span class="close-button" @click="closeModal">&times;</span>
                 <span>{{ time }}</span>
                 <span>{{ corutId }}</span>
-                <span>{{facilityId}}</span>
+                <!-- <span>{{ facilityId }}</span> -->
             </div>
             <form @submit.prevent="proceedToPayment">
                 <div class="modal-body">
@@ -19,18 +19,23 @@
                         <div>
                             <label class="input-label">Start Time</label>
                             <select v-model="selectedStartTime" class="input-field" required>
-                                <option v-for="times in timeOptions" :key="times" :value="times">{{ time }}</option>
+                                <option v-for="times in timeOptions" :key="times.timeOptions">{{ times }}
+                                </option>
                             </select>
                         </div>
                     </div>
+                    <div class="text-red-500 font-bold text-lg uppercase p-1">
+                        <span>* Kindly Check The Availability Before ProCEED.</span>
+                    </div>
+
                     <div class="input-group">
                         <div class="flex justify-center">
-                            <ButtonPress @click="CheckAvailableCourt()">Check Available Courts</ButtonPress>
+                            <ButtonPress @click="CheckAvailableCourt(corutId)">Check Available Courts</ButtonPress>
                         </div>
                     </div>
-                    <div class="text-red-500 font-bold uppercase p-1">
+                    <div class="text-red-500 font-bold text-sm uppercase p-1">
                         <span>* Please double-check your booking details.</span>
-                        <span>* No refund or cancellation allowed after booking is made.</span>
+                        <p>* No refund or cancellation allowed after booking is made.</p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -51,11 +56,11 @@
 
 <script>
 import ButtonPress from "@/components/ButtonPress.vue";
+import axios from 'axios';
 
 export default {
     mounted() {
         // Set the default value for selectedStartTime, e.g., first time slot
-        this.selectedStartTime = this.timeOptions[0]; // Set the first option as default
 
         this.minDateTime = new Date().toISOString().substr(0, 10); // Set min date to today
 
@@ -76,7 +81,7 @@ export default {
                     '13:00-14:00',
                     '14:00-15:00',
                     '15:00-16:00',
-                ],  // Time options
+                ],
 
 
         };
@@ -84,11 +89,11 @@ export default {
 
 
     watch: {
-        isVisible(newValue) {
-            if (newValue) {
-                this.setDefaultStartTime(); // Set the default value when modal opens
-            }
-        }
+        // isVisible(newValue) {
+        //     if (newValue) {
+        //         this.setDefaultStartTime(); // Set the default value when modal opens
+        //     }
+        // }
     },
 
 
@@ -107,36 +112,92 @@ export default {
 
     },
     methods: {
+        bookCourt(courtId) {
+            if (!this.booking.date || !this.booking.timeSlot) {
+                alert("Please select a date and time slot.");
+                return;
+            }
+
+            // Check availability
+            axios.post('api/v1/member/bookings/check', {
+                courtId,
+                date: this.booking.date,
+                timeSlot: this.booking.timeSlot
+            })
+                .then(response => {
+                    if (response.data) {
+                        console.log(courtId)
+                        console.log(this.booking.memberId)
+                        console.log(this.booking.date)
+                        console.log(this.booking.timeSlot)
+                        // Proceed with booking if available
+                        axios.post('api/v1/member/bookings/create', {
+                            courtId,
+                            memberId: this.booking.memberId,
+                            date: this.booking.date,
+                            timeSlot: this.booking.timeSlot
+                        })
+                            .then(() => {
+                                alert("Court booked successfully!");
+                            })
+                            .catch(() => {
+                                alert("Failed to book the court.");
+                            });
+                    } else {
+                        alert("The slot is not available.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error checking availability:", error);
+                });
+        },
 
         closeModal() {
             this.$emit("close");
         },
 
-        setDefaultStartTime() {
-            if (this.name && this.timeOptions.includes(this.name)) {
-                this.selectedStartTime = this.name; // Set the start time to the passed name value
-            } else {
-                this.selectedStartTime = this.timeOptions[0]; // Fallback to first time slot if no match
-            }
-        },
-
+        // setDefaultStartTime() {
+        //     if (this.name && this.timeOptions.includes(this.name)) {
+        //         this.selectedStartTime = this.name; // Set the start time to the passed name value
+        //     } else {
+        //         this.selectedStartTime = this.timeOptions[0]; // Fallback to first time slot if no match
+        //     }
+        // },
 
         proceedToPayment() {
-            // alert('Proceeding to Payment!' + this.selectedStartTime);
+            alert('Proceeding to Payment!' + this.selectedStartTime);
 
             const routeData = this.$router.resolve({
                 name: "Booking",
-                query:{
+                query: {
                     date: this.selectedDate,
-                    time: this.time,
+                    time: this.selectedStartTime,
                     courtID: this.corutId,
                     facilityID: this.facilityId,
                 }
             });
             window.location.href = routeData.href;
         },
-        CheckAvailableCourt() {
-            alert('Checking Court!');
+        async CheckAvailableCourt(courtId) {
+            // alert('Checking Court!');
+            console.log("Checking" + this.selectedStartTime)
+            console.log(this.selectedDate)
+            console.log(this.time)
+            console.log(courtId)
+            console.log(this.selectedStartTime);
+            // Check availability
+            const result = await axios.post('api/v1/member/bookings/check', {
+                courtId,
+                date: this.selectedDate,
+                timeSlot: this.selectedStartTime
+            });
+
+            if (result.data.code === 0) {
+                alert("Court: " + courtId + " at " + this.selectedStartTime + ". Still Available");
+            } else {
+                alert("Court: " + courtId + " at " +this.selectedStartTime + ". Slot Not Available, Pls Select Other Slots");
+
+            }
 
         }
 
