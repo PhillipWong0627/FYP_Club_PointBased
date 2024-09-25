@@ -12,7 +12,7 @@
       <!-- Brand -->
       <router-link
         class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-        to="/">
+        to="/admin/dashboard">
         Club Management System
       </router-link>
       <!-- User -->
@@ -34,7 +34,7 @@
             <div class="w-6/12">
               <router-link
                 class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                to="/">
+                to="/admin/dashboard">
                 Club Management System
               </router-link>
             </div>

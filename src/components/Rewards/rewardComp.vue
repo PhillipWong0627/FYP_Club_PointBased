@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col pt-10 ">
     <div class=" container mx-auto flex justify-between">
-      <span class="text-3xl font-semibold uppercase py-4 ">Rewards</span>
+      <span class="text-3xl font-semibold uppercase py-4 "></span>
       <!-- <button class="uppercase font-bold text-lg pr-4">View All</button> -->
     </div>
     <div class="flex flex-wrap justify-evenly mx-auto container  ">

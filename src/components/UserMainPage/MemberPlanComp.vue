@@ -70,7 +70,7 @@
                         <p class="text-sm text-gray-600">Every month</p>
                     </div>
                     <p class="text-center mb-4">Explore the basics with this introductory course</p>
-                    <ButtonPress @click=userRegister() class="w-full">Subscript Now!</ButtonPress>
+                    <ButtonPress @click=userRegister() class="w-full">Register as Member     Now!</ButtonPress>
                     <hr class="my-6 border-blueGray-300" />
 
                 </div>

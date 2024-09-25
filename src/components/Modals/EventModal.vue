@@ -15,9 +15,9 @@
       </div>
       <div class="">
         <div class="border-2">
-          <img style="width: 100%; height: 350px;" :src="eventImage" />
+          <img style="width: 100%; height: 250px;" :src="eventImage" />
         </div>
-        <div class="text-white flex flex-col justify-between  contentContainer">
+        <div class="text-white flex flex-col justify-betwen ">
           <h2 style="color: #2A83FF;" class="text-2xl">{{ eventTitle }}</h2>
           <h2 style="color: #2A83FF;" class="text-2xl">RM {{ eventFee }}</h2>
           <p>{{ eventDescription }}</p>
@@ -129,7 +129,7 @@ export default {
 
 
         }
-      }else{
+      } else {
         alert("Please Log in to Join the event!!")
         this.closeModal();
 

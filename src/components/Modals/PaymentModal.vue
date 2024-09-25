@@ -5,7 +5,7 @@
                 <h2>Complete Your Purchase</h2>
                 <span class="close cursor-pointer" @click="closeModal">&times;</span>
             </div>
-            <form  @submit.prevent="registerUser">
+            <form @submit.prevent="registerUser">
                 <div class="flex flex-col">
                     <!-- Mobile Number Input -->
                     <div class="mb-4">
@@ -123,7 +123,7 @@ export default {
                     this.contactWithCountry,
                     paymentAmount,
                 );
-                
+
                 console.log(result)
                 if (result) {
                     setTimeout(() => {
@@ -134,7 +134,7 @@ export default {
 
 
                     const routeData = this.$router.resolve({
-                        name: "main",
+                        name: "Login",
 
                     });
                     window.location.href = routeData.href;

@@ -28,7 +28,7 @@
                                 link.name }}
                         </router-link> -->
                         <a @click="navigateToPage(link.link)"
-                            class="hover:text-blueGray-500 text-blueGray-700 px-3 py-2 flex items-center text-xs uppercase font-bold">
+                            class="hover:text-blueGray-500 text-blueGray-700 px-3 py-2 flex items-center text-xs uppercase font-bold cursor-pointer">
                             {{ link.name }}
                         </a>
 
@@ -37,7 +37,7 @@
 
                 <ul v-if="!loggedIn" class="flex flex-col lg:flex-row list-none lg:ml-auto">
                     <div class="pt-2 pr-1">
-                        <ButtonPress @click="linkToRegisterPage()" class="">Register as member</ButtonPress>
+                        <ButtonPress @click="linkToAdminPage()" class="">Admin Login</ButtonPress>
                     </div>
 
 
@@ -89,9 +89,9 @@ export default {
         setNavbarOpen: function () {
             this.navbarOpen = !this.navbarOpen;
         },
-        linkToRegisterPage() {
+        linkToAdminPage() {
             const routeData = this.$router.resolve({
-                name: "userRegister",
+                name: "adminLogin",
 
             });
             window.location.href = routeData.href;

@@ -66,6 +66,7 @@ import EditFacility from "@/views/admin/EditFacilityPage.vue"
 import CreateFacility from "@/views/admin/CreateFacilityPage.vue";
 import EditReward from "@/views/admin/EditRewardPage.vue"
 import CreateReward from "@/views/admin/CreateRewardPage.vue";
+import AdminLogin from "@/views/auth/AdminLogin.vue";
 
 
 //Plugin
@@ -74,6 +75,12 @@ import CreateReward from "@/views/admin/CreateRewardPage.vue";
 // routes
 
 const routes = [
+  {
+    path: '/auth/admin/login',
+    name: 'adminLogin',
+    component: AdminLogin,
+
+  },
   {
     path: "/admin",
     redirect: "/admin/dashboard",
@@ -144,6 +151,7 @@ const routes = [
         name: "createReward",
         component: CreateReward,
       },
+
     ],
   },
 
@@ -155,6 +163,7 @@ const routes = [
     children: [
       {
         path: "/auth/login",
+        name: "Login",
         component: UserLogin,
       },
       {
@@ -162,6 +171,7 @@ const routes = [
         name: "userRegister",
         component: UserRegister,
       },
+
     ],
   },
   {
