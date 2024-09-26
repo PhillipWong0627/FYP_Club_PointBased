@@ -13,14 +13,15 @@
           </thead>
           <tbody>
             <tr v-for="(slot, index) in timeSlots" :key="index">
-              <td class="borde-2 border-red-500 p-2">{{ slot }}</td>
+              <td class="borde-2  p-2">{{ slot }}</td>
               <td v-for="court in courtByFacilityId" :key="court.id" class="border p-2 text-center">
                 <!-- {{ court.courtId }} -->
                 <div :class="{
-                  'bg-green-500': isBooked(court.id, slot),
-                  'bg-white': !isBooked(court.id, slot),
-                  'cursor-pointer': !isBooked(court.id, slot),
-                }" class="h-8  w-full S" @click="toPaymentModal(court.courtId, slot)">
+                  'bg-green-500': isSlotBooked(court.courtId, slot),
+                  'bg-white': !isSlotBooked(court.courtId, slot),
+                  'cursor-pointer': !isSlotBooked(court.courtId, slot),
+                }" class="h-8 w-full S"
+                  @click="!isSlotBooked(court.courtId, slot) && toPaymentModal(court.courtId, slot)">
                 </div>
               </td>
 
@@ -30,43 +31,10 @@
       </div>
     </div>
 
-
-    <div class="container mx-auto px-4 py-8">
-      <div class="flex items-center justify-between mb-6">
-        <button class="make-booking" @click="makeBooking">+ Make Booking</button>
-
-        <input type="date" v-model="selectedDate" class="px-3 py-2 border rounded-md" />
-
-        <ButtonPress @click="toPaymentModal" class="uppercase font-semibold px-4 py-2">+ Make Booking</ButtonPress>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border-collapse">
-          <thead>
-            <tr>
-              <th class="border p-2">Court No.</th>
-              <th v-for="court in filteredCourts" :key="court.id" class="border p-2">{{ court.name }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(slot, index) in timeSlots" :key="index">
-              <td class="borde-2 p-2">{{ slot }}</td>
-              <td v-for="court in filteredCourts" :key="court.id" class="border p-2 text-center">
-                <div :class="{
-                  'bg-green-500': isBooked(court.id, slot),
-                  'bg-white': !isBooked(court.id, slot),
-                  'cursor-pointer': !isBooked(court.id, slot),
-                }" class="h-8  w-full S" @click="toPaymentModal(court.id, slot)">
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
     <FacilityList></FacilityList>
 
-    <BookingModal :isVisible="isModalVisible" :time="time" :corutId="courtId" :facilityId="facilityId" @close="isModalVisible = false" />
+    <BookingModal :isVisible="isModalVisible" :time="time" :corutId="courtId" :facilityId="facilityId"
+      @close="isModalVisible = false" />
 
     <FooterComp class="mt-12"></FooterComp>
 
@@ -77,7 +45,6 @@
 import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import FooterComp from "@/components/Footers/Footer.vue";
-import ButtonPress from "@/components/ButtonPress.vue";
 
 import BookingModal from "@/components/Modals/BookingModal.vue";
 import FacilityList from "@/components/UserMainPage/FacilityList.vue";
@@ -86,12 +53,15 @@ import axios from "axios";
 export default {
   mounted() {
     this.fetchCourtByFacilityId();
+    this.fetchBookedSlots(); // Fetch booked slots when component mounts
+
   },
 
   data() {
     return {
       facilityId: this.$route.query.FacilityID,
       courtByFacilityId: [],
+      bookedSlots: [], // Array to store booked slots for all courts
 
       courtId: null,
       time: '', // Bind to the name input
@@ -101,62 +71,7 @@ export default {
       selectedSlots: [],
       selectedFacility: 1,
       selectedDate: new Date().toISOString().substr(0, 10),
-      facilities: [
-        {
-          id: 1,
-          name: 'Badminton',
-          totalCourts: 6
-        },
 
-        {
-          id: 2,
-          name: 'Ping Pong',
-          totalCourts: 2
-        },
-
-        {
-          id: 3,
-          name: 'Basketball',
-          totalCourts: 1
-        }
-      ],
-      courts: [
-        {
-          id: 1,
-          facilityId: 1,
-          name: 'Court 1'
-        },
-
-        {
-          id: 2,
-          facilityId: 1,
-          name: 'Court 2'
-        },
-
-        {
-          id: 3,
-          facilityId: 1,
-          name: 'Court 3'
-        },
-
-        {
-          id: 4,
-          facilityId: 1,
-          name: 'Court 4'
-        },
-
-        {
-          id: 5,
-          facilityId: 1,
-          name: 'Court 5'
-        },
-
-        {
-          id: 6,
-          facilityId: 1,
-          name: 'Court 6'
-        },
-      ],
       timeSlots: [
         '10:00-11:00',
         '11:00-12:00',
@@ -166,19 +81,10 @@ export default {
         '15:00-16:00',
         // Add more time slots here
       ],
-      bookings: [
-        { courtId: 1, slot: '10:00-11:00', date: '2024-09-08' },
-        { courtId: 7, slot: '11:00-12:00', date: '2024-09-08' },
-        { courtId: 9, slot: '14:00-15:00', date: '2024-09-08' }
 
-      ],
     };
   },
-  computed: {
-    filteredCourts() {
-      return this.courts.filter(court => court.facilityId === this.selectedFacility);
-    }
-  },
+
   methods: {
     //Fetching 
     async fetchCourtByFacilityId() {
@@ -186,44 +92,37 @@ export default {
       // console.log(result);
       this.courtByFacilityId = result.data.data
 
-      console.log("DATA");
-      console.log(this.courtByFacilityId);
+      // console.log("DATA");
+      // console.log(this.courtByFacilityId);
 
     },
+
+    // Fetch booked slots
+    async fetchBookedSlots() {
+      console.log("FACILITTY ID");
+      console.log(this.facilityId);
+      console.log(this.selectedDate);
+      const result = await axios.get(`/api/v1/member/bookings/getListByFacilityId_Date?facilityId=${this.facilityId}&date=${this.selectedDate}`);
+      console.table(result.data.data);
+      this.bookedSlots = result.data.data; // Assuming this returns a list of bookings with courtId and timeSlot
+
+      console.log("HALO WORLD");
+      console.log(this.bookedSlots);
+    },
+
+    isSlotBooked(courtId, slot) {
+      console.log("DLLM");
+      console.table(this.bookedSlots);
+      return this.bookedSlots.some(
+        (booking) => booking.court.courtId === courtId && booking.timeSlot === slot
+      );
+    },
+
+
+
     //HI
     onFacilityChange() {
       this.selectedSlots = []; // Reset selected slots when facility changes
-    },
-
-    // Check if a specific time slot and court are booked
-    isBooked(courtId, slot) {
-      return this.bookings.some(
-        booking => booking.courtId === courtId && booking.slot === slot && booking.date === this.selectedDate
-      );
-    },
-    // Book a time slot if available
-    bookSlot(courtId, slot) {
-      if (!this.isBooked(courtId, slot)) {
-        this.selectedSlots.push({ courtId, slot });
-      }
-    },
-    makeBooking() {
-      if (this.selectedDate && this.selectedSlots.length > 0) {
-        // Make bookings for the selected slots
-        this.selectedSlots.forEach(slot => {
-          this.bookings.push({
-            courtId: slot.courtId,
-            slot: slot.slot,
-            date: this.selectedDate
-          });
-        });
-
-        // Reset selected slots
-        this.selectedSlots = [];
-        alert('Booking successful!');
-      } else {
-        alert('Please select a date and at least one available slot.');
-      }
     },
 
     toPaymentModal(courtId, slot) {
@@ -237,12 +136,7 @@ export default {
 
       this.isModalVisible = true; // Show modal
 
-
-
-
     },
-
-
 
   },
   components: {
@@ -250,7 +144,6 @@ export default {
     UserNavbar,
     FooterComp,
     BookingModal,
-    ButtonPress,
     FacilityList,
   }
 };

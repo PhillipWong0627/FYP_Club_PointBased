@@ -4,20 +4,20 @@
             <div class="flex justify-between modalHeader rounded-md text-black font-bold text-2xl uppercase px-4 py-2">
                 <h2 class="modal-title">Book Your Slot</h2>
                 <span class="close-button" @click="closeModal">&times;</span>
-                <span>{{ time }}</span>
-                <span>{{ corutId }}</span>
+                <!-- <span>{{ time }}</span>
+                <span>{{ corutId }}</span> -->
                 <!-- <span>{{ facilityId }}</span> -->
             </div>
             <form @submit.prevent="proceedToPayment">
                 <div class="modal-body">
                     <div class="input-group">
-                        <label class="input-label">Date</label>
+                        <label class="input-label font-bold">Date</label>
                         <input type="date" v-model="selectedDate" class="input-field" :min="minDateTime" required />
                     </div>
 
                     <div class="input-group time-selection">
                         <div>
-                            <label class="input-label">Start Time</label>
+                            <label class="input-label font-bold">Start Time</label>
                             <select v-model="selectedStartTime" class="input-field" required>
                                 <option v-for="times in timeOptions" :key="times.timeOptions">{{ times }}
                                 </option>
@@ -42,10 +42,6 @@
                     <ButtonPress type="submit" class="w-full">Proceed</ButtonPress>
                 </div>
             </form>
-
-
-
-
         </div>
         <div v-if="loading" class="loading-overlay">
             <div class="spinner"></div>
@@ -83,19 +79,8 @@ export default {
                     '15:00-16:00',
                 ],
 
-
         };
     },
-
-
-    watch: {
-        // isVisible(newValue) {
-        //     if (newValue) {
-        //         this.setDefaultStartTime(); // Set the default value when modal opens
-        //     }
-        // }
-    },
-
 
     components: {
         ButtonPress
@@ -156,14 +141,6 @@ export default {
             this.$emit("close");
         },
 
-        // setDefaultStartTime() {
-        //     if (this.name && this.timeOptions.includes(this.name)) {
-        //         this.selectedStartTime = this.name; // Set the start time to the passed name value
-        //     } else {
-        //         this.selectedStartTime = this.timeOptions[0]; // Fallback to first time slot if no match
-        //     }
-        // },
-
         proceedToPayment() {
             alert('Proceeding to Payment!' + this.selectedStartTime);
 
@@ -179,6 +156,11 @@ export default {
             window.location.href = routeData.href;
         },
         async CheckAvailableCourt(courtId) {
+            if (!this.selectedStartTime) {
+                alert('Please select a valid time slot before checking available courts.');
+                return;
+            }
+
             // alert('Checking Court!');
             console.log("Checking" + this.selectedStartTime)
             console.log(this.selectedDate)
@@ -191,13 +173,15 @@ export default {
                 date: this.selectedDate,
                 timeSlot: this.selectedStartTime
             });
-
-            if (result.data.code === 0) {
+            console.table(result.data)
+            if (result.data.data === true) {
                 alert("Court: " + courtId + " at " + this.selectedStartTime + ". Still Available");
             } else {
-                alert("Court: " + courtId + " at " +this.selectedStartTime + ". Slot Not Available, Pls Select Other Slots");
+                alert("Court: " + courtId + " at " + this.selectedStartTime + ". Slot Not Available, Pls Select Other Slots");
 
             }
+
+
 
         }
 

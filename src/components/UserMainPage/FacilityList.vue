@@ -47,8 +47,8 @@ export default {
         async getFacilityInfo() {
             try {
                 const result = await getFacility();
-                console.log("CALLING RESULT API");
-                console.log(result);
+                // console.log("CALLING RESULT API");
+                // console.log(result);
 
                 this.facilityData = result;
 
