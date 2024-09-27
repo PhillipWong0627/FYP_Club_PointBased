@@ -12,8 +12,6 @@
                 <img class="w-full rounded-3xl" :src="i.eventImage" />
             </swiper-slide>
         </swiper>
-
-
         <main class="wrapper pt-6 pb-12 ">
             <span class="flex justify-center uppercase font-bold text-3xl pb-2">News</span>
             <div class="card-container flex justify-evenly w-full">

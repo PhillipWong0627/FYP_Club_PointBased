@@ -1,39 +1,78 @@
 <template>
   <div class="mt-32">
-    <span>SETTLEMENT REPORT</span>
-    <span>Analyze Data Trends</span>
-    
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-semibold mb-6">Event Participation Metrics</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th class="px-4 py-2">Event ID</th>
+              <th class="px-4 py-2">Event Title</th>
+              <th class="px-4 py-2">Event Description</th>
+              <th class="px-4 py-2">Event Date</th>
+              <th class="px-4 py-2">Number of Participants</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="event in events" :key="event.id">
+              <td class="border px-4 py-2">{{ event.id }}</td>
+              <td class="border px-4 py-2">{{ event.eventTitle }}</td>
+              <td class="border px-4 py-2">{{ event.eventDescription }}</td>
+              <td class="border px-4 py-2">{{ event.eventDateTime }}</td>
+              <td class="border px-4 py-2">{{ event.members.length }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <div class="flex flex-wrap">
-      <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-        <card-line-chart />
-      </div>
-      <div class="w-full xl:w-4/12 px-4">
-        <card-bar-chart />
-      </div>
-    </div>
-    <div class="flex flex-wrap mt-4">
-      <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-        <card-page-visits />
-      </div>
-      <div class="w-full xl:w-4/12 px-4">
-        <card-social-traffic />
-      </div>
-    </div>
+
   </div>
 </template>
 <script>
-import CardLineChart from "@/components/Cards/CardLineChart.vue";
-import CardBarChart from "@/components/Cards/CardBarChart.vue";
-import CardPageVisits from "@/components/Cards/CardPageVisits.vue";
-import CardSocialTraffic from "@/components/Cards/CardSocialTraffic.vue";
+
+import axios from 'axios';
 export default {
+  mounted() {
+    this.fetchEventParticipation();
+  },
+  data() {
+    return {
+      events: [],
+    };
+  },
   name: "dashboard-page",
   components: {
-    CardLineChart,
-    CardBarChart,
-    CardPageVisits,
-    CardSocialTraffic,
   },
-};
+  methods: {
+    async fetchEventParticipation() {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/admin/events/all');
+        this.events = response.data.data;
+      } catch (error) {
+        console.error('Error fetching event participation:', error);
+      }
+    }
+  },
+
+
+}
+
 </script>
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+</style>
+

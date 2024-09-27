@@ -166,13 +166,15 @@ export default {
                     console.log(this.memberId);
                     console.log(this.selectedDate);
                     console.log(this.selectedTime);
+                    console.log(this.selectedFacilityID);
 
 
                     const result = await axios.post('api/v1/member/bookings/create', {
                         courtId: this.selectedCourt,
                         memberId: this.memberId,
                         date: this.selectedDate,
-                        timeSlot: this.selectedTime
+                        timeSlot: this.selectedTime,
+                        facilityID: this.selectedFacilityID,
                     });
                     if (result.data.code === 0) {
                         console.log("THIS IS RESULT")

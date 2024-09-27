@@ -17,15 +17,6 @@
                                 <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Discover our
                                     world-class
                                     service &amp; restaurant.</p>
-                                <!-- <p data-aos="fade-up" data-aos-delay="100"><a href="/admin"
-                                        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Explore
-                                        The
-                                        Beauty</a>
-                                    <a href="#" @click="toAdminPage()"
-                                        class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                        Download
-                                    </a>
-                                </p> -->
 
                             </div>
                         </div>
