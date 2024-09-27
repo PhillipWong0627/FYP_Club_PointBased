@@ -12,18 +12,21 @@
                 <span class="uppercase text-2xl font-bold pl-5">Payment Details</span>
             </div>
 
+            <div class="text-xl font-bold mb-5">
+                <p class="text-red-500">• This is your order details please save a copy.</p>
+            </div>
 
 
             <!-- Order Details -->
             <h2 class="uppercase text-2xl font-bold pb-2">Order Details</h2>
-            <div class="mb-5 text-sm flex flex-col  bg-blueGray-200 rounded-md rounded-md">
+            <div class="mb-5 text-sm flex flex-col  bg-blueGray-200 rounded-md ">
                 <div class="flex justify-between pb-3 p-2">
-                    <span>Order ID</span>
-                    <span>ORDER 1</span>
+                    <span>Booking ID</span>
+                    <span>Booking {{ orderId }}</span>
                 </div>
                 <div class="flex justify-between pb-3 p-2">
                     <span>Payment Description</span>
-                    <span>Timing:2024-09-09 18:00:00-2024-09-09 20:00:00 Court:C4 </span>
+                    <span>Timing:{{ bookingData.date }} {{ bookingData.timeSlot }} Court: {{ courtId }} </span>
                 </div>
                 <div class="flex justify-between pb-3 p-2">
                     <span>Total Due</span>
@@ -31,13 +34,11 @@
                 </div>
             </div>
 
+
             <!-- Payer Details -->
             <h2 class="uppercase text-2xl font-bold pb-2 ">Payer Details</h2>
             <div class="mb-5 text-sm flex flex-col  bg-blueGray-200 rounded-md">
-                <div class="flex justify-between pb-3 p-2">
-                    <span>Email</span>
-                    <span>{{ email }}</span>
-                </div>
+
                 <div class="flex justify-between pb-3 p-2">
                     <span>Username</span>
                     <span> {{ userName }}</span>
@@ -51,9 +52,14 @@
 
             </div>
 
-            <ButtonPress @click="payNow" type="submit" class="mt-5 w-full pt-3 pb-3 uppercase font-bold text-base">
-                Pay Now
+            <ButtonPress @click="printReceipt()" type="submit"
+                class="mt-5 w-full pt-3 pb-3 uppercase font-bold text-base">
+                Print Receipts
             </ButtonPress>
+            <ButtonPress @click="backTomain()" class="mt-5 w-full pt-3 pb-3 uppercase font-bold text-base">
+                Home Page
+            </ButtonPress>
+
         </div>
         <div v-if="loading" class="loading-overlay">
             <div class="spinner"></div>
@@ -67,8 +73,12 @@ import Navnavbars from "@/components/Navnavbars/navNavBar.vue";
 import FooterComp from "@/components/Footers/Footer.vue";
 import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import ButtonPress from "@/components/ButtonPress.vue";
+import axios from "axios";
 
 export default {
+    mounted() {
+        this.fetchBookingInfo();
+    },
     components: {
         Navnavbars,
         FooterComp,
@@ -79,15 +89,29 @@ export default {
         return {
             userName: this.$route.query.Username,
             phoneNumber: '+60' + this.$route.query.PhoneNumber,
-            email: this.$route.query.Email,
             totalAmount: this.$route.query.TotalAmount,
 
             loading: false,
             payment: true,
 
+            orderId: this.$route.query.BookingID,
+            bookingData: [],
+            courtId: '',
+
         }
     },
     methods: {
+        async fetchBookingInfo() {
+            try {
+                const result = await axios.get(`/api/v1/member/bookings/findBookingById/${this.orderId}`)
+                console.table(result);
+                this.bookingData = result.data.data
+                this.courtId = result.data.data.court.courtId; // Assign courtId from booking data
+
+            } catch (error) {
+                alert("Error Fetching")
+            }
+        },
         goBack() {
             // Logic to go back to previous page
             window.history.back();
@@ -110,6 +134,69 @@ export default {
 
 
         },
+        printReceipt() {
+            const receiptContent = `
+                <html>
+                <head>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                        }
+                        .receipt-container {
+                            max-width: 600px;
+                            margin: auto;
+                            padding: 20px;
+                            border: 1px solid #ddd;
+                            border-radius: 5px;
+                        }
+                        h2 {
+                            text-align: center;
+                        }
+                        .receipt-details {
+                            margin-top: 20px;
+                        }
+                        .receipt-details div {
+                            margin-bottom: 10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="receipt-container">
+                        <h2>Receipt</h2>
+                        <div class="receipt-details">
+                            <div><strong>Order ID:</strong> ORDER ${this.orderId}</div>
+                            <div><strong>Username:</strong> ${this.userName}</div>
+                            <div><strong>Mobile No:</strong> ${this.phoneNumber}</div>
+                            <div><strong>Payment Description:</strong> Timing: ${this.bookingData.date} ${this.bookingData.timeSlot}, Court: ${this.courtId}</div>
+                            <div><strong>Total Due:</strong> RM ${this.totalAmount}</div>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            // Open a new window
+            const printWindow = window.open('', '', 'width=800,height=600');
+            printWindow.document.write(receiptContent);
+            printWindow.document.close(); // Close the document for writing
+
+            // Trigger the print dialog
+            printWindow.focus();
+            printWindow.print();
+
+            // Close the window after printing
+            printWindow.onafterprint = () => {
+                printWindow.close();
+
+                // Navigate to the main page
+                this.$router.push('/');
+            };
+
+        },
+        backTomain() {
+            this.$router.push('/');
+
+        }
     },
 
 }

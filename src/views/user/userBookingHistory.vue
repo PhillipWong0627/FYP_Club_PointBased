@@ -4,27 +4,101 @@
         <UserNavbar></UserNavbar>
         <main class="profile-page">
             <section class="relative py-16 bg-blueGray-200">
+
                 <div class="container mx-auto">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <div class="flex flex-wrap items-center">
                             <div class="relative w-full flex justify-between max-w-full flex-grow flex-1">
-                                <h2 class="text-2xl font-semibold text-center mb-4">Booking Table</h2>
-
-
+                                <h2 class="text-2xl font-semibold text-center mb-4">Booking History</h2>
                             </div>
                         </div>
                     </div>
+                    <div class="block w-full overflow-x-auto">
+                        <!-- Projects table -->
+                        <table class="items-center w-full bg-transparent border-collapse">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Booking ID
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Booking Date
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Booking Time Slot
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Courts...
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Member ID
+                                    </th>
+
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-lg uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                        Facility ID
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="i in bookingHistory" :key="i.bookingHistory">
+
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        {{ i.bookingId }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        {{ i.date }}
+                                    </td>
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        {{ i.timeSlot }}
+
+                                    </td>
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        <span> {{ i.court }}
+                                        </span>
+                                    </td>
+
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        <span> {{ i.memberId }}
+                                        </span>
+                                    </td>
+                                    <!-- <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        <img style="width: 150px;" :src=i.eventImage alt="Event Image" />
+                                    </td> -->
+
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                        <div class="flex items-center">
+                                            <span class="mr-2"> {{ i.facilityId }} </span>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
-                <div>
-                    USER BOOKING TABLE
-                </div>
+
                 <div class="container mx-auto">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <div class="flex flex-wrap items-center">
                             <div class="relative w-full flex justify-between max-w-full flex-grow flex-1">
                                 <h2 class="text-2xl font-semibold text-center mb-4">Joined Events</h2>
-
-
                             </div>
                         </div>
                     </div>
@@ -173,6 +247,7 @@ export default {
     mounted() {
         this.fetchJoinedEvents(); // Fetch the joined events when the component is mounted
         this.fetchRedeemedRewards(); // Fetch the redeemed rewards
+        this.fetchBookingHistory();
 
     },
 
@@ -180,7 +255,7 @@ export default {
         return {
             joinedEvents: [], // Stores the joined events
             redeemedRewards: [], // Stores the redeemed rewards
-
+            bookingHistory: [],
         }
     },
     components: {
@@ -225,7 +300,23 @@ export default {
             } else {
                 alert('Please log in to view your redeemed rewards.');
             }
-        }
+        },
+        async fetchBookingHistory() {
+            const memberId = localStorage.getItem('memberID'); // Get the logged-in member's ID from localStorage
+            if (memberId) {
+                try {
+                    const response = await axios.get(`/api/v1/member/bookings/getListByMemberId?memberId=${memberId}`);
+
+                    // const response = await axios.get(`http://localhost:8080/api/v1/member/bookings/getListByMemberId/?memberId=${memberId}`);
+                    console.table(response)
+                    this.bookingHistory = response.data.data; // Assign the returned events to the joinedEvents array
+                } catch (error) {
+                    console.error('Error fetching joined BOOKING HISOTRY:', error);
+                }
+            } else {
+                alert('Please log in to view your BOOKING HISOTRY.');
+            }
+        },
 
     },
 

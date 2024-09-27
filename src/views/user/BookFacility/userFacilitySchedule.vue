@@ -91,28 +91,29 @@ export default {
       const result = await axios.get(`/api/v1/admin/facilities/${this.facilityId}/courts`);
       // console.log(result);
       this.courtByFacilityId = result.data.data
+      console.table(result);
 
-      // console.log("DATA");
-      // console.log(this.courtByFacilityId);
+      console.log("DATA");
+      console.log(this.courtByFacilityId);
 
     },
 
     // Fetch booked slots
     async fetchBookedSlots() {
-      console.log("FACILITTY ID");
-      console.log(this.facilityId);
-      console.log(this.selectedDate);
+      // console.log("FACILITTY ID");
+      // console.log(this.facilityId);
+      // console.log(this.selectedDate);
       const result = await axios.get(`/api/v1/member/bookings/getListByFacilityId_Date?facilityId=${this.facilityId}&date=${this.selectedDate}`);
-      console.table(result.data.data);
+      // console.table(result.data.data);
       this.bookedSlots = result.data.data; // Assuming this returns a list of bookings with courtId and timeSlot
 
-      console.log("HALO WORLD");
-      console.log(this.bookedSlots);
+      // console.log("HALO WORLD");
+      // console.log(this.bookedSlots);
     },
 
     isSlotBooked(courtId, slot) {
-      console.log("DLLM");
-      console.table(this.bookedSlots);
+      // console.log("DLLM");
+      // console.table(this.bookedSlots);
       return this.bookedSlots.some(
         (booking) => booking.court.courtId === courtId && booking.timeSlot === slot
       );
