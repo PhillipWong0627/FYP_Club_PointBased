@@ -205,8 +205,6 @@ export default {
 }
 
 .modal {
-    /* background: white; */
-    /* background-color: #191919; */
     height: 90vh;
     padding: 20px;
     border-radius: 8px;
@@ -229,9 +227,7 @@ export default {
 
 .spinner {
     border: 16px solid #f3f3f3;
-    /* Light grey */
     border-top: 16px solid #3498db;
-    /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -300,11 +296,6 @@ export default {
     border-radius: 5px;
     cursor: pointer;
 }
-
-
-
-
-
 
 .modal-footer {
     margin-top: 1rem;

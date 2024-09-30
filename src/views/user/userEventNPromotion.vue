@@ -231,26 +231,6 @@ export default {
 
             ],
 
-            // advertisementData: [
-            //     {
-            //         advImage: require("@/assets/userMain/h.jpg").default
-            //     },
-            //     {
-            //         advImage: require("@/assets/userMain/h.jpg").default
-            //     },
-            //     {
-            //         advImage: require("@/assets/userMain/h.jpg").default
-            //     },
-            //     {
-            //         advImage: require("@/assets/userMain/h.jpg").default
-            //     },
-            //     {
-            //         advImage: require("@/assets/userMain/h.jpg").default
-            //     },
-            //     {
-            //         advImage: require("@/assets/userMain/h.jpg").default
-            //     },
-            // ]
         }
     }
 }
