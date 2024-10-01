@@ -112,7 +112,6 @@ export default {
     },
 
     isSlotBooked(courtId, slot) {
-      // console.log("DLLM");
       // console.table(this.bookedSlots);
       return this.bookedSlots.some(
         (booking) => booking.court.courtId === courtId && booking.timeSlot === slot
