@@ -76,11 +76,12 @@ export default {
 
     async login() {
       const result = await login(this.email, this.password);
-      console.log(result);
-      // console.log(this.email);
+      // console.log(result);
+      const code = result.code
+      // console.log(code);
       // console.log(this.password);
 
-      if (result) {
+      if (code === 0) {
         const routeData = this.$router.resolve({
           name: "main",
 
@@ -88,8 +89,10 @@ export default {
         window.location.href = routeData.href;
 
         alert("Login Succesful, Please Proceed")
-      } else {
-        alert("Server Error, Please Try Again Later~")
+      } else if (code === 500214) {
+        alert("Email is not exist~")
+      } else if (code === 500213) {
+        alert("password is not correct, please try again~")
       }
     }
   },

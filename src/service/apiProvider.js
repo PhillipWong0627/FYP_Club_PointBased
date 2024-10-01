@@ -74,7 +74,11 @@ export async function addMember(email, username, password, contactNumber, paymen
     if (code === 0) {
       // return data;
       return true;
-    } else {
+    } else if (code === 500215) {
+      console.log(`Email Existed: ${code}`);
+      return false;
+    }
+    else {
       console.log(`Unsuccessfully register: ${code}`);
       return false;
     }
@@ -193,12 +197,19 @@ export async function login(email, password) {
       localStorage.setItem('memberID', data['memberID']);
       localStorage.setItem('memberName', data['memberName']);
       localStorage.setItem('email', data['email']);
-      localStorage.setItem('points', data['points']);
 
-      return true;
-    } else {
+      return response;
+    } else if (code === 500213) {
+      console.log(`Incorrect Passsword/: ${code}`);
+      return response
+    }
+    else if (code === 500214) {
+      console.log(`Email Existed/: ${code}`);
+      return response
+    }
+    else {
       console.log(`Unsuccessfully login: ${code}`);
-      return false;
+      return response;
     }
 
   } catch (e) {

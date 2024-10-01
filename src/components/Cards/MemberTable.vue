@@ -65,9 +65,8 @@
         </thead>
         <tbody>
           <tr v-for="i in memberData" :key="i.memberData">
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                {{ i.id }}
+            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+              {{ i.id }}
             </th>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               {{ i.memberName }}
@@ -110,7 +109,7 @@
             </td>
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
               <ButtonPress @click="EditUser(i.id)">Edit</ButtonPress>
-              <ButtonPress type="submit" @click="DeleteUser(i.id)">
+              <ButtonPress type="submit" class="bg-red-500 hover:bg-orange-600" @click="DeleteUser(i.id)">
                 Delete</ButtonPress>
 
             </td>
@@ -124,7 +123,7 @@
   </div>
 </template>
 <script>
-import Toast from '@/components/Toast.vue'; 
+import Toast from '@/components/Toast.vue';
 import ButtonPress from "@/components/ButtonPress.vue";
 //API
 import { getMemberInfo, deleteMember } from '@/service/apiProvider.js';
@@ -180,20 +179,29 @@ export default {
       window.location.href = routeData.href;
     },
     async DeleteUser(id) {
-      console.log("Deleting " + id)
+      // Confirmation prompt
+      const confirmed = window.confirm("Are you sure you want to delete this user?");
 
-      try {
-        this.loading = true;
+      if (confirmed) {
+        console.log("Deleting " + id)
 
-        const result = await deleteMember(id);
-        console.log(result);
-        this.$refs.toast.showToast("User Have Been Deleted successfully!");
+        try {
+          this.loading = true;
 
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.loading = false;
+          const result = await deleteMember(id);
+          console.log(result);
+          this.$refs.toast.showToast("User Have Been Deleted successfully!");
+
+        } catch (error) {
+          console.error(error);
+        } finally {
+          this.loading = false;
+        }
+      } else {
+        console.log("Deletion canceled.");
+
       }
+
     }
   }
 

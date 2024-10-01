@@ -106,7 +106,7 @@
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
               <ButtonPress @click="EditReward(i.id)">Edit</ButtonPress>
-              <ButtonPress type="submit" @click="DeleteReward(i.id)">
+              <ButtonPress type="submit" class="bg-red-500 hover:bg-orange-600" @click="DeleteReward(i.id)">
                 Delete</ButtonPress>
 
             </td>
@@ -189,18 +189,25 @@ export default {
     },
     // Method to delete user by ID
     async DeleteReward(id) {
-      try {
-        const response = await axios.delete(`/api/v1/admin/reward/deleteById/${id}`);
-        if (response.data.code === 0) {
-          alert('Reward deleted successfully!');
-          this.getRewardInfo(); // Re-fetch the users after successful deletion
-        } else {
-          alert('Error deleting Reward: ' + response.data.msg);
+      const confirmed = window.confirm("Are you sure you want to delete this user?");
+
+      if (confirmed) {
+        try {
+          const response = await axios.delete(`/api/v1/admin/reward/deleteById/${id}`);
+          if (response.data.code === 0) {
+            alert('Reward deleted successfully!');
+            this.getRewardInfo(); // Re-fetch the users after successful deletion
+          } else {
+            alert('Error deleting Reward: ' + response.data.msg);
+          }
+        } catch (error) {
+          console.error('Error deleting Reward:', error);
+          alert('Failed to delete Reward.');
         }
-      } catch (error) {
-        console.error('Error deleting Reward:', error);
-        alert('Failed to delete Reward.');
+      } else {
+        console.log("Delection Canceled")
       }
+
     },
 
 

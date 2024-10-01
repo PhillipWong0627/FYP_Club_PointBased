@@ -64,9 +64,9 @@
             <h3 class="text-lg font-semibold mb-2">User Details</h3>
             <form @submit.prevent="payNow">
                 <div class="mb-5 space-y-3">
-                    <input type="text" v-model="userName" placeholder="Enter name" required
+                    <input v-if="!loggedIn" type="text" v-model="userName" placeholder="Enter name" required
                         class="w-full px-3 py-2 border rounded-md" />
-                    <div class="flex space-x-2">
+                    <div v-if="!loggedIn" class="flex space-x-2">
                         <select v-model="phoneCode" class="px-3 py-2 border rounded-md">
                             <option value="+60">+60</option>
                             <!-- Add other country codes if needed -->
@@ -106,6 +106,7 @@ import UserNavbar from '@/components/Navbars/UserNavbar.vue'
 import ButtonPress from "@/components/ButtonPress.vue";
 import axios from "axios";
 import Toast from '@/components/Toast.vue'; // Make sure the path is correct
+import { ref } from 'vue';
 
 export default {
     mounted() {
@@ -139,6 +140,20 @@ export default {
             loading: false,
 
             bookingJson: [],
+
+            loggedIn: ref(false),
+
+        }
+    },
+    created() {
+        // Check if the user is logged in based on localStorage data
+        const memberID = localStorage.getItem('memberID');
+        const memberName = localStorage.getItem('memberName');
+        const email = localStorage.getItem('email');
+
+        // Set loggedIn to true if any of the items exist in localStorage
+        if (memberID && memberName && email) {
+            this.loggedIn = true;
         }
     },
     methods: {

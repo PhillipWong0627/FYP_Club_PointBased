@@ -1,7 +1,14 @@
 <template>
     <div v-if="isVisible" class="modal-overlay" @click="closeModal">
+
+
         <div class="modal bg-blueGray-200" @click.stop>
-            <div class="flex justify-between modalHeader rounded-md text-white text-2xl uppercase px-4 py-2">
+            <div class="h-[450px] flex items-center justify-center" v-if="loading">
+                <span class="font-bold text-2xl text-black"> Loading...</span>
+                <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading"
+                    style="width: 108px; height: 108px" />
+            </div>
+            <div class="flex justify-between  rounded-md text-black font-bold text-2xl uppercase py-2">
                 <h2>Complete Your Purchase</h2>
                 <span class="close cursor-pointer" @click="closeModal">&times;</span>
             </div>
@@ -14,17 +21,20 @@
                             <select class="border rounded-l-lg p-2 bg-gray-100 text-gray-600">
                                 <option value="+60">MY +60</option>
                             </select>
-                            <input v-model="mobileNumber" type="text" placeholder="Mobile Number" required
-                                class="border rounded-r-lg p-2 w-full" />
+                            <input v-model="mobileNumber" type="tel" placeholder="Mobile Number" required
+                                pattern="[0-9]{9}" class="border rounded-r-lg p-2 w-full" />
+
                         </div>
+                        <small>Format: 122504088</small>
+
                     </div>
 
                     <!-- 6-Digit PIN Input -->
                     <div class="mb-6">
-                        <label class="block text-black text-2xl uppercase mb-2">6-digit PIN</label>
+                        <label class="block text-black text-2xl uppercase mb-2">Enter Your PIN</label>
                         <div class="flex justify-between">
-                            <input v-for="n in 6" :key="n" maxlength="1" type="password" required
-                                class="border p-2 w-12 text-center">
+                            <input type="password" required class="border" maxlength="6" pattern="\d{6}"
+                                placeholder="Your Pin">
                         </div>
                     </div>
 
@@ -64,9 +74,7 @@
 
             </div>
         </div>
-        <div v-if="loading" class="loading-overlay">
-            <div class="spinner"></div>
-        </div>
+
 
     </div>
 </template>
@@ -83,7 +91,9 @@ export default {
             pin: ['', '', '', '', '', ''], // To store the 6-digit pin
             contactWithCountry: "",
             loading: false,
-            today: new Date()
+            today: new Date(),
+
+
 
         };
     },
@@ -114,7 +124,7 @@ export default {
             try {
 
                 const paymentAmount = 30;  // Example payment amount
-                console.log("Processing payment of RM", paymentAmount);
+                // console.log("Processing payment of RM", paymentAmount);
 
                 const result = await addMember(
                     this.email,
@@ -141,7 +151,7 @@ export default {
 
 
                 } else {
-                    alert("Server Error, Please Try Again Later~")
+                    alert("Email Exist Please Try Another Email~")
                 }
             } catch (error) {
                 console.error(error);

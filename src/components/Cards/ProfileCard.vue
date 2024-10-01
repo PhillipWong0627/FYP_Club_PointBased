@@ -1,7 +1,10 @@
 <template>
   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
     <Toast ref="toast" />
-
+    <div class="h-[450px] flex items-center justify-center" v-if="loading">
+      <span class="font-bold text-2xl text-black"> Loading...</span>
+      <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width: 108px; height: 108px" />
+    </div>
     <div class="flex flex-wrap justify-center">
       <div class="w-full px-4 flex justify-center ">
         <div class="relative ">
@@ -146,6 +149,8 @@ export default {
       // Default avatar image
       defaultAvatar: require('@/assets/profile_coach.jpg').default, // Path to your default avatar image
 
+      loading: false,
+
     };
   },
   methods: {
@@ -171,10 +176,13 @@ export default {
 
     // Function to upload the image to Cloudinary
     async uploadImage() {
+
       if (!this.selectedFile) {
         alert("Please select an image to upload.");
         return;
       }
+      this.loading = true; // Show loading indicator
+
 
       const formData = new FormData();
       formData.append("file", this.selectedFile);
@@ -201,6 +209,9 @@ export default {
 
       } catch (error) {
         console.error("Error uploading the image:", error);
+      } finally {
+        this.loading = false; // Hide loading indicator
+
       }
     },
     // Update avatar using the API call
@@ -213,6 +224,8 @@ export default {
         });
 
         console.log('Avatar updated successfully:', response);
+        this.loading = false; // Show loading indicator
+
         alert('Avatar updated successfully!');
         // this.fetchMemberData();
         window.location.reload();
@@ -220,6 +233,9 @@ export default {
       } catch (error) {
         console.error('Error updating the avatar:', error);
         alert('Failed to update the avatar.');
+      } finally {
+        this.loading = false; // Show loading indicator
+
       }
     },
 

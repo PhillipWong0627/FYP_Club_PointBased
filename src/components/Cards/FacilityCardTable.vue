@@ -110,7 +110,7 @@
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
               <ButtonPress @click="EditFacility(i.facilityID)">Edit</ButtonPress>
-              <ButtonPress type="submit" @click="DeleteFacility(i.facilityID)">
+              <ButtonPress type="submit" class="bg-red-500 hover:bg-orange-600" @click="DeleteFacility(i.facilityID)">
                 Delete</ButtonPress>
 
             </td>
@@ -191,17 +191,25 @@ export default {
     },
     // Method to delete user by ID
     async DeleteFacility(id) {
-      try {
-        const response = await axios.delete(`/api/v1/admin/deleteById/${id}`);
-        if (response.data.code === 0) {
-          alert('Event deleted successfully!');
-          this.getFacilityInfo(); // Re-fetch the users after successful deletion
-        } else {
-          alert('Error deleting facility: ' + response.data.msg);
+      const confirmed = window.confirm("Are you sure you want to delete this user?");
+
+      if (confirmed) {
+
+        try {
+          const response = await axios.delete(`/api/v1/admin/deleteById/${id}`);
+          if (response.data.code === 0) {
+            alert('Event deleted successfully!');
+            this.getFacilityInfo(); // Re-fetch the users after successful deletion
+          } else {
+            alert('Error deleting facility: ' + response.data.msg);
+          }
+        } catch (error) {
+          console.error('Error deleting facility:', error);
+          alert('Failed to delete facility.');
         }
-      } catch (error) {
-        console.error('Error deleting facility:', error);
-        alert('Failed to delete facility.');
+      } else {
+        console.log("Deletion canceled.");
+
       }
     },
 

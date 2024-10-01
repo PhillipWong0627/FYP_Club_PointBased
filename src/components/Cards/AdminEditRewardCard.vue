@@ -49,7 +49,7 @@
             </div>
             <!-- Submit Button -->
             <div class="mb-6">
-                <ButtonPress type="submit" class=" ">
+                <ButtonPress :disabled="loading" :class="{ 'disabled-button': loading }" type="submit" class=" ">
                     Update Reward
                 </ButtonPress>
             </div>
@@ -115,6 +115,7 @@ export default {
                 alert("Please select an image to upload.");
                 return;
             }
+            this.loading = true; // Show loading indicator
 
             const formData = new FormData();
             formData.append("file", this.selectedFile);
@@ -132,6 +133,9 @@ export default {
                 console.log("Image uploaded successfully: ", this.Reward.productImageUrl);
             } catch (error) {
                 console.error("Error uploading the image:", error);
+            } finally {
+                this.loading = false; // Hide loading indicator
+
             }
         },
         // Fetch event data based on RewardID
@@ -173,3 +177,10 @@ export default {
 };
 </script>
 
+<style scoped>
+.disabled-button {
+    background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+</style>

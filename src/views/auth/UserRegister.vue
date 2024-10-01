@@ -40,13 +40,11 @@
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="Password" />
                                 <div class="button mr-1.5">
-                                    <span v-if="passwordVisibility" @click="togglePasswordVisibility" class="uppercase font-bold text-sm">hide</span>
-                                    <span v-else @click="togglePasswordVisibility" class="uppercase font-bold text-sm">show</span>
+                                    <span v-if="passwordVisibility" @click="togglePasswordVisibility"
+                                        class="uppercase font-bold text-sm">hide</span>
+                                    <span v-else @click="togglePasswordVisibility"
+                                        class="uppercase font-bold text-sm">show</span>
 
-                                    <!-- <img v-if="passwordVisibility" src="@/assets/auth/unhide.png" alt="UnHide Password"
-                                        @click="togglePasswordVisibility" />
-                                    <img v-else src="@/assets/auth/hide.png" alt="Hide Password"
-                                        @click="togglePasswordVisibility" /> -->
                                 </div>
 
 
@@ -66,7 +64,6 @@
                 </div>
             </div>
         </div>
-        <!-- Include the PaymentModal component -->
         <PaymentModal :isVisible="isModalVisible" :name="name" :email="email" :password="password"
             @close="isModalVisible = false" />
 
@@ -75,6 +72,7 @@
 <script>
 //Import to fetch data
 import PaymentModal from "@/components/Modals/PaymentModal.vue";
+import axios from "axios";
 
 export default {
 
@@ -90,6 +88,7 @@ export default {
             passwordVisibility: false,
             isModalVisible: false, // Control modal visibility
 
+            emailExist: null,
         }
     },
     computed: {
@@ -100,20 +99,39 @@ export default {
 
     },
     methods: {
+        async checkEmailExist() {
+            try {
+                const result = await axios.get(`http://localhost:8080/api/v1/user/check-email?email=${this.email}`)
+                console.log(result.data);
+                this.emailExist = result.data.data;
+            } catch (error) {
+                console.error("Error checking email:", error);
+                this.emailExist = null; // Reset in case of an error
+
+            }
+
+        },
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
         },
 
 
-        toPaymentModal() {
+        async toPaymentModal() {
             if (this.name == "" || this.email == "" || this.password == "") {
                 // console.log("FILL");
                 alert("Please fill in all the fields (Name, Email, and Password).");
 
             } else {
-                console.log("Show Modal ");
+                await this.checkEmailExist(); // Check if the email exists
 
-                this.isModalVisible = true; // Show modal
+                if (this.emailExist) {
+                    alert("This email is already registered. Please use another email.");
+                } else {
+                    console.log("Show Modal ");
+
+                    this.isModalVisible = true; // Show modal
+                }
+
 
             }
 
